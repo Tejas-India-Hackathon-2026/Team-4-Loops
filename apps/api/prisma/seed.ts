@@ -474,101 +474,96 @@ async function main() {
     }
   });
 
-  // 8. Create Events
-  await prisma.event.create({
-    data: {
-      title: 'Chhath Puja Mahaparv',
-      slug: 'chhath-puja',
-      category: 'Festival',
-      description: 'The premier spiritual eco-festival of Bihar dedicated to the Sun God Surya and Chhathi Maiya, celebrated with grand rituals on the ghats of the Ganges.',
-      startDate: new Date('2026-11-14T00:00:00.000Z'),
-      endDate: new Date('2026-11-17T23:59:59.000Z'),
-      location: 'Patna Ganga Ghats, Bodh Gaya & state-wide',
-      district: 'Patna',
-      latitude: 25.6100,
-      longitude: 85.1410,
-      heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',
-      gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
-      ])
-    }
-  });
+  // 8. Create Events (Complete 2026 Verified Calendar from bihar-events-2026.md)
+  console.log('🌱 Seeding 40+ verified 2026 Bihar Tourism events and festivals...');
 
-  await prisma.event.create({
-    data: {
-      title: 'Pitru Paksha Mela',
-      slug: 'pitru-paksha-mela',
-      category: 'Religious',
-      description: 'Ancient fortnight gathering along the holy Phalgu River in Gaya Ji, where millions perform sacred Pind Daan rituals for ancestral peace.',
-      startDate: new Date('2026-09-25T00:00:00.000Z'),
-      endDate: new Date('2026-10-10T23:59:59.000Z'),
-      location: 'Vishnupad Temple Complex & Phalgu Ghats',
-      district: 'Gaya',
-      latitude: 24.7914,
-      longitude: 85.0002,
-      heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1600&q=80',
-      gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80'
-      ])
-    }
-  });
+  const events2026Data = [
+    // --- JANUARY 2026 ---
+    { title: 'Tapovan Festival', slug: 'tapovan-festival-2026', category: 'Religious', description: 'Sacred hot water springs gathering and spiritual rituals at Tapovan near Gaya.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-14T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Tapovan, Gaya', district: 'Gaya', latitude: 24.7914, longitude: 85.0002, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Vishnudham Mahotsav', slug: 'vishnudham-mahotsav-2026', category: 'Religious', description: 'Annual temple festival celebrating Lord Vishnu heritage at Vishnudham.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Bhawanipur, Aurangabad', district: 'Aurangabad', latitude: 24.7500, longitude: 84.3700, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Mandar Mahotsav', slug: 'mandar-mahotsav-2026', category: 'Heritage', description: 'Cultural festival around historic Mandar Hill associated with Samudra Manthan.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-18T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Mandar Hill, Banka', district: 'Banka', latitude: 24.8800, longitude: 86.9200, heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Makar Mela Rajgir', slug: 'makar-mela-rajgir-2026', category: 'Fair/Mela', description: 'Famous winter fair at Rajgir hot sulfur springs with devotional baths and local crafts.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-21T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Hot Springs, Rajgir', district: 'Nalanda', latitude: 25.0300, longitude: 85.4200, heroImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Buddha Mahotsav', slug: 'buddha-mahotsav-2026', category: 'Music/Arts', description: 'Grand International Buddhist cultural festival featuring chanting and international troupes.', startDate: new Date('2026-01-31T00:00:00.000Z'), endDate: new Date('2026-02-02T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kalachakra Ground, Bodh Gaya', district: 'Gaya', latitude: 24.6961, longitude: 84.9914, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Makar Sankranti', slug: 'makar-sankranti-2026', category: 'Religious', description: 'Traditional kite festival and holy river baths with Til-Gur and Dahi-Chura feasts across Bihar.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-14T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'State-wide (Patna Ghats, Rajgir, Gaya)', district: 'Patna', latitude: 25.6100, longitude: 85.1410, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Prakash Parv (Guru Gobind Singh Jayanti)', slug: 'prakash-parv-jan-2026', category: 'Religious', description: 'Sacred birth anniversary of tenth Sikh Guru at Takht Sri Patna Sahib with Nagar Kirtan and Langar.', startDate: new Date('2026-01-15T00:00:00.000Z'), endDate: new Date('2026-01-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'Takht Sri Patna Sahib, Patna', district: 'Patna', latitude: 25.6022, longitude: 85.2281, heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80' },
 
-  await prisma.event.create({
-    data: {
-      title: 'Sonepur Cattle Fair (Sonepur Mela)',
-      slug: 'sonepur-mela',
-      category: 'Fair',
-      description: 'Asia’s largest traditional cattle and cultural fair held at the confluence of the Ganges and Gandak rivers, featuring folk arts and handicrafts.',
-      startDate: new Date('2026-11-23T00:00:00.000Z'),
-      endDate: new Date('2026-12-20T23:59:59.000Z'),
-      location: 'Sonepur Mela Ground, Saran/Vaishali border',
-      district: 'Vaishali',
-      latitude: 25.7000,
-      longitude: 85.1800,
-      heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1600&q=80',
-      gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80'
-      ])
-    }
-  });
+    // --- FEBRUARY 2026 ---
+    { title: 'Martand Mahotsav', slug: 'martand-mahotsav-2026', category: 'Cultural', description: 'Cultural celebration honoring ancient Sun Temple heritage in Madhubani district.', startDate: new Date('2026-02-11T00:00:00.000Z'), endDate: new Date('2026-02-11T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Martand Temple, Madhubani', district: 'Madhubani', latitude: 26.3533, longitude: 86.0719, heroImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Rohtas Garh Kila Mahotsav', slug: 'rohtas-garh-kila-mahotsav-2026', category: 'Heritage', description: 'Historic festival held inside the majestic hill fort of Rohtasgarh celebrating tribal and regional heritage.', startDate: new Date('2026-02-11T00:00:00.000Z'), endDate: new Date('2026-02-11T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Rohtasgarh Fort, Rohtas', district: 'Rohtas', latitude: 24.6300, longitude: 83.9000, heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Umgeshwari Mahotsav', slug: 'umgeshwari-mahotsav-2026', category: 'Religious', description: 'Traditional temple fair and cultural programmes at Umga Sun and Shiva temple complex.', startDate: new Date('2026-02-15T00:00:00.000Z'), endDate: new Date('2026-02-16T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Madanpur, Aurangabad', district: 'Aurangabad', latitude: 24.6500, longitude: 84.5000, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Baba Koteshwar Mahadev Mahotsav', slug: 'baba-koteshwar-mahadev-mahotsav-2026', category: 'Religious', description: 'Devotional gathering and cultural performances at ancient Shiva shrine in Gaya district.', startDate: new Date('2026-02-15T00:00:00.000Z'), endDate: new Date('2026-02-16T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Moratalab, Gaya', district: 'Gaya', latitude: 24.8000, longitude: 85.0200, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Mehendar Mahotsav', slug: 'mehendar-mahotsav-2026', category: 'Cultural', description: 'Folk music, dance, and fair celebrating historic Mahendranath Temple in Siwan.', startDate: new Date('2026-02-15T00:00:00.000Z'), endDate: new Date('2026-02-16T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Mehndar, Siwan', district: 'Siwan', latitude: 26.2200, longitude: 84.3600, heroImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Singheshwar Mahotsav', slug: 'singheshwar-mahotsav-2026', category: 'Religious', description: 'Major Shivaratri temple mela and cultural extravaganza at Singheshwar Dham in Madhepura.', startDate: new Date('2026-02-15T00:00:00.000Z'), endDate: new Date('2026-02-16T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Singheshwar, Madhepura', district: 'Madhepura', latitude: 25.9800, longitude: 86.8200, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Vikramshila Mahotsav', slug: 'vikramshila-mahotsav-2026', category: 'Heritage', description: 'Grand heritage celebration highlighting the ruins of ancient Vikramshila Monastic University.', startDate: new Date('2026-02-17T00:00:00.000Z'), endDate: new Date('2026-02-18T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kahalgaon, Bhagalpur', district: 'Bhagalpur', latitude: 25.2600, longitude: 87.2100, heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Maa Vishahara Mahotsav', slug: 'maa-vishahara-mahotsav-2026', category: 'Local/Regional', description: 'Regional folk festival dedicated to Goddess Vishahara in Kosi region.', startDate: new Date('2026-02-25T00:00:00.000Z'), endDate: new Date('2026-02-26T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Saharsa town', district: 'Saharsa', latitude: 25.8800, longitude: 86.6000, heroImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Basant Panchami / Saraswati Puja', slug: 'basant-panchami-2026', category: 'Religious', description: 'Spring arrival and worship of Goddess Saraswati across schools, colleges, and art hubs.', startDate: new Date('2026-02-23T00:00:00.000Z'), endDate: new Date('2026-02-23T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'State-wide', district: 'Patna', latitude: 25.5941, longitude: 85.1376, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Maha Shivaratri', slug: 'maha-shivaratri-2026', category: 'Religious', description: 'Night-long vigil, jalabhishekam, and Shiv Baraat processions across Shiva temples in Bihar.', startDate: new Date('2026-02-15T00:00:00.000Z'), endDate: new Date('2026-02-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'State-wide (Singheshwar, Ajgaibinath, Gupteshwar)', district: 'Bhojpur', latitude: 25.5500, longitude: 84.6700, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
 
-  await prisma.event.create({
-    data: {
-      title: 'Rajgir Mahotsav',
-      slug: 'rajgir-mahotsav',
-      category: 'Cultural',
-      description: 'Annual 3-day extravaganza of classical music, dance recitals, theater performance, and culinary celebrations set against Rajgir hills.',
-      startDate: new Date('2026-11-27T00:00:00.000Z'),
-      endDate: new Date('2026-11-29T23:59:59.000Z'),
-      location: 'Kala Gram, Rajgir',
-      district: 'Nalanda',
-      latitude: 25.0300,
-      longitude: 85.4200,
-      heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1600&q=80',
-      gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80'
-      ])
-    }
-  });
+    // --- MARCH 2026 ---
+    { title: 'Guptadham Mahotsav', slug: 'guptadham-mahotsav-2026', category: 'Heritage', description: 'Pilgrimage and cultural mela at the natural cave temple of Gupteshwar Mahadev in Kaimur hills.', startDate: new Date('2026-03-10T00:00:00.000Z'), endDate: new Date('2026-03-11T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Guptadham Caves, Rohtas', district: 'Rohtas', latitude: 24.9000, longitude: 83.8500, heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Mithila Mahotsav', slug: 'mithila-mahotsav-2026', category: 'Cultural', description: 'Vibrant celebration of Mithila culture, Maithili music recitals, Madhubani painting exhibitions, and culinary arts.', startDate: new Date('2026-03-19T00:00:00.000Z'), endDate: new Date('2026-03-20T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Madhubani Town', district: 'Madhubani', latitude: 26.3533, longitude: 86.0719, heroImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Koshi Mahotsav', slug: 'koshi-mahotsav-2026', category: 'Local/Regional', description: 'Regional festival celebrating the spirit, folklore, and heritage of Kosi river belt.', startDate: new Date('2026-03-19T00:00:00.000Z'), endDate: new Date('2026-03-20T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Saharsa', district: 'Saharsa', latitude: 25.8800, longitude: 86.6000, heroImage: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Bihar Diwas', slug: 'bihar-diwas-2026', category: 'Cultural', description: 'Statehood day celebrations at Gandhi Maidan Patna with 3-day drone shows, concerts, and Bihar cuisine pavilion.', startDate: new Date('2026-03-22T00:00:00.000Z'), endDate: new Date('2026-03-24T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Gandhi Maidan, Patna', district: 'Patna', latitude: 25.6150, longitude: 85.1420, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Sitakund Mahotsav', slug: 'sitakund-mahotsav-2026', category: 'Heritage', description: 'Cultural mela at Sitakund spring complex associated with Ramayana tradition.', startDate: new Date('2026-03-27T00:00:00.000Z'), endDate: new Date('2026-03-27T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Sitakund, East Champaran', district: 'East Champaran', latitude: 26.6500, longitude: 84.9000, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Vaishali Mahotsav', slug: 'vaishali-mahotsav-2026', category: 'Cultural', description: 'Commemorating birthplace of Lord Mahavira and Republic of Vaishali on Mahavir Jayanti.', startDate: new Date('2026-03-31T00:00:00.000Z'), endDate: new Date('2026-03-31T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Abhishek Pushkarini, Vaishali', district: 'Vaishali', latitude: 25.9923, longitude: 85.1264, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Lachuar & Kundalpur Mahotsav', slug: 'lachuar-kundalpur-mahotsav-2026', category: 'Religious', description: 'Sacred Jain pilgrimage gathering at birthplaces of Lord Mahavira in Jamui and Nalanda.', startDate: new Date('2026-03-31T00:00:00.000Z'), endDate: new Date('2026-03-31T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Lachuar (Jamui) & Kundalpur (Nalanda)', district: 'Jamui', latitude: 24.9200, longitude: 86.2200, heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Holi Festival of Colors', slug: 'holi-bihar-2026', category: 'Cultural', description: 'Joyous spring festival of colors, traditional Jogira songs, and Malpua delicacies across Bihar.', startDate: new Date('2026-03-03T00:00:00.000Z'), endDate: new Date('2026-03-04T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'State-wide', district: 'Patna', latitude: 25.5941, longitude: 85.1376, heroImage: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=1200&q=80' },
 
-  await prisma.event.create({
-    data: {
-      title: '559th Prakash Parv',
-      slug: 'prakash-parv',
-      category: 'Religious',
-      description: 'Grand anniversary celebrations commemorating Guru Gobind Singh Ji with Prabhat Pheris, Nagar Kirtan, and illumined Gurdwaras.',
-      startDate: new Date('2026-12-28T00:00:00.000Z'),
-      endDate: new Date('2027-01-02T23:59:59.000Z'),
-      location: 'Takht Sri Harmandir Sahib, Patna',
-      district: 'Patna',
-      latitude: 25.6022,
-      longitude: 85.2281,
-      heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1600&q=80',
-      gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80'
-      ])
-    }
-  });
+    // --- APRIL 2026 ---
+    { title: 'Thave Mahotsav', slug: 'thave-mahotsav-2026', category: 'Religious', description: 'Grand music festival and pilgrimage at Thave Durga Temple in Gopalganj.', startDate: new Date('2026-04-07T00:00:00.000Z'), endDate: new Date('2026-04-08T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Thave Temple, Gopalganj', district: 'Gopalganj', latitude: 26.4600, longitude: 84.4400, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Patna Sahib Mahotsav', slug: 'patna-sahib-mahotsav-2026', category: 'Religious', description: 'Heritage and devotional festival around Takht Sri Harmandir Sahib.', startDate: new Date('2026-04-14T00:00:00.000Z'), endDate: new Date('2026-04-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Patna Sahib', district: 'Patna', latitude: 25.6022, longitude: 85.2281, heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Parshuram Utsav Mela', slug: 'parshuram-utsav-mela-2026', category: 'Fair/Mela', description: 'Annual religious mela and cultural assembly in Patna.', startDate: new Date('2026-04-20T00:00:00.000Z'), endDate: new Date('2026-04-20T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Patna City', district: 'Patna', latitude: 25.6000, longitude: 85.1500, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Sitamarhi Mahotsav', slug: 'sitamarhi-mahotsav-2026', category: 'Heritage', description: 'Celebration of Janaki (Ma Sita) birthplace at Punaura Dham in Sitamarhi.', startDate: new Date('2026-04-25T00:00:00.000Z'), endDate: new Date('2026-04-27T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Punaura Dham, Sitamarhi', district: 'Sitamarhi', latitude: 26.6000, longitude: 85.4800, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Mundeshwari Mahotsav', slug: 'mundeshwari-mahotsav-2026', category: 'Heritage', description: 'Music and heritage festival at India’s oldest functional octagonal stone temple in Kaimur hills.', startDate: new Date('2026-04-26T00:00:00.000Z'), endDate: new Date('2026-04-27T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Mundeshwari Hill, Kaimur', district: 'Kaimur', latitude: 25.0200, longitude: 83.6000, heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80' },
+
+    // --- MAY 2026 ---
+    { title: 'Malmas Mela Rajgir', slug: 'malmas-mela-rajgir-2026', category: 'Fair/Mela', description: 'Month-long sacred leap-year pilgrimage mela where millions bathe in Rajgir sulfur springs.', startDate: new Date('2026-05-17T00:00:00.000Z'), endDate: new Date('2026-06-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kund Area, Rajgir', district: 'Nalanda', latitude: 25.0300, longitude: 85.4200, heroImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Sher Shah Suri Mahotsav', slug: 'sher-shah-mahotsav-2026', category: 'Heritage', description: 'Heritage celebration honoring Emperor Sher Shah Suri architecture and Grand Trunk Road legacy in Sasaram.', startDate: new Date('2026-05-21T00:00:00.000Z'), endDate: new Date('2026-05-22T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Tomb of Sher Shah Suri, Sasaram', district: 'Rohtas', latitude: 24.9500, longitude: 84.0167, heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Buddha Purnima Mahotsav', slug: 'buddha-purnima-2026', category: 'Religious', description: 'World-renowned commemoration of Buddha’s Birth, Enlightenment, and Parinirvana under the Bodhi Tree.', startDate: new Date('2026-05-31T00:00:00.000Z'), endDate: new Date('2026-05-31T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'Mahabodhi Temple, Bodh Gaya', district: 'Gaya', latitude: 24.6961, longitude: 84.9914, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80' },
+
+    // --- JUNE 2026 ---
+    { title: 'Sufi Mahotsav Maner Sharif', slug: 'sufi-mahotsav-maner-2026', category: 'Music/Arts', description: 'Soulful Sufi Qawwali, devotional music, and Urs festival at historic Maner Sharif Dargah.', startDate: new Date('2026-06-28T00:00:00.000Z'), endDate: new Date('2026-06-28T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Maner Sharif, Patna', district: 'Patna', latitude: 25.6500, longitude: 84.8800, heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80' },
+
+    // --- JULY 2026 ---
+    { title: 'Shravani Mela (Sultanganj to Banka)', slug: 'shravani-mela-2026', category: 'Religious', description: 'Bihar’s iconic month-long Kanwar Yatra pilgrimage where millions carry holy Ganga water from Sultanganj.', startDate: new Date('2026-07-30T00:00:00.000Z'), endDate: new Date('2026-08-28T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Ajgaibinath Ghat Sultanganj → Munger → Banka', district: 'Bhagalpur', latitude: 25.2425, longitude: 87.0124, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80' },
+
+    // --- AUGUST 2026 ---
+    { title: 'Kucheshwar Mahadev Mahotsav', slug: 'kucheshwar-mahadev-mahotsav-2026', category: 'Religious', description: 'Shravan month devotional festival and cultural recitals in Gaya district.', startDate: new Date('2026-08-04T00:00:00.000Z'), endDate: new Date('2026-08-04T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kucheshwar, Gaya', district: 'Gaya', latitude: 24.7800, longitude: 84.9800, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Independence Day Celebrations', slug: 'independence-day-2026', category: 'Cultural', description: 'State parade, flag hoisting by Chief Minister at Gandhi Maidan, and illumination of public monuments.', startDate: new Date('2026-08-15T00:00:00.000Z'), endDate: new Date('2026-08-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Gandhi Maidan, Patna', district: 'Patna', latitude: 25.6150, longitude: 85.1420, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Singh Rameshwar Hanuman Mahotsav', slug: 'singh-rameshwar-hanuman-mahotsav-2026', category: 'Religious', description: 'Week-long religious discourse, Ramcharitmanas recitation, and devotional fair in Muzaffarpur.', startDate: new Date('2026-08-27T00:00:00.000Z'), endDate: new Date('2026-09-04T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Muzaffarpur town', district: 'Muzaffarpur', latitude: 26.1209, longitude: 85.3647, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Raksha Bandhan', slug: 'raksha-bandhan-2026', category: 'Cultural', description: 'Traditional festival of sibling bonds celebrated with Rakhi tying and sweet distributions.', startDate: new Date('2026-08-28T00:00:00.000Z'), endDate: new Date('2026-08-28T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'State-wide', district: 'Patna', latitude: 25.5941, longitude: 85.1376, heroImage: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=1200&q=80' },
+
+    // --- SEPTEMBER 2026 ---
+    { title: 'Sufi Mahotsav Kako', slug: 'sufi-mahotsav-kako-2026', category: 'Music/Arts', description: 'Sufi music performance and cultural congregation at Hazrat Bibi Kamal Dargah in Kako.', startDate: new Date('2026-09-04T00:00:00.000Z'), endDate: new Date('2026-09-05T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kako, Jehanabad', district: 'Jehanabad', latitude: 25.2100, longitude: 84.9800, heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Someshwarnath Mahotsav', slug: 'someshwarnath-mahotsav-2026', category: 'Religious', description: 'Devotional gathering and cultural night at Areraj Someshwarnath Shiva Temple.', startDate: new Date('2026-09-26T00:00:00.000Z'), endDate: new Date('2026-09-27T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Areraj, East Champaran', district: 'East Champaran', latitude: 26.5500, longitude: 84.6800, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Pitrapaksha Mela Gaya', slug: 'pitru-paksha-mela', category: 'Religious', description: 'World-famous fortnight pilgrimage along holy Phalgu river in Gaya for Pind Daan rituals.', startDate: new Date('2026-09-26T00:00:00.000Z'), endDate: new Date('2026-10-10T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Vishnupad Temple & Phalgu Ghats, Gaya', district: 'Gaya', latitude: 24.7914, longitude: 85.0002, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Bapu Dham Mahotsav', slug: 'bapu-dham-mahotsav-2026', category: 'Heritage', description: 'Commemorating Mahatma Gandhi’s historic Champaran Satyagraha with heritage walks and seminars.', startDate: new Date('2026-09-29T00:00:00.000Z'), endDate: new Date('2026-10-02T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Motihari, East Champaran', district: 'East Champaran', latitude: 26.6500, longitude: 84.9100, heroImage: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1200&q=80' },
+
+    // --- OCTOBER 2026 ---
+    { title: 'Maa Tara Devi Siddhi Peeth Mahotsav', slug: 'maa-tara-devi-mahotsav-2026', category: 'Religious', description: '10-day Navratri festival and spiritual mela at Tara Devi Peeth.', startDate: new Date('2026-10-11T00:00:00.000Z'), endDate: new Date('2026-10-20T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Tara Devi, Gaya', district: 'Gaya', latitude: 24.7914, longitude: 85.0002, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Sri Ugratara Sanskritik Mahotsav', slug: 'sri-ugratara-mahotsav-2026', category: 'Cultural', description: 'Mithila devotional music and cultural programmes at Ugratara Temple Mahishi.', startDate: new Date('2026-10-12T00:00:00.000Z'), endDate: new Date('2026-10-14T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Mahishi, Saharsa', district: 'Saharsa', latitude: 25.8500, longitude: 86.4800, heroImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Maa Mansa Devi Mahotsav', slug: 'maa-mansa-devi-mahotsav-2026', category: 'Religious', description: 'Folk mela and religious festival dedicated to Goddess Mansa in Muzaffarpur.', startDate: new Date('2026-10-17T00:00:00.000Z'), endDate: new Date('2026-10-19T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Muzaffarpur', district: 'Muzaffarpur', latitude: 26.1209, longitude: 85.3647, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Durga Puja & Dussehra', slug: 'durga-puja-dussehra-2026', category: 'Religious', description: 'Elaborate Pandal decorations, Ravana Dahan effigies at Gandhi Maidan, and grand festivities.', startDate: new Date('2026-10-18T00:00:00.000Z'), endDate: new Date('2026-10-20T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'State-wide (Patna, Gaya, Bhagalpur)', district: 'Patna', latitude: 25.6100, longitude: 85.1410, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+
+    // --- NOVEMBER 2026 ---
+    { title: 'Fetki Kutti Kalpwas', slug: 'fetki-kutti-kalpwas-2026', category: 'Religious', description: 'Month-long ascetic Kalpwas spiritual retreat along sacred rivers in Madhubani.', startDate: new Date('2026-11-19T00:00:00.000Z'), endDate: new Date('2026-11-24T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Fetki Kutti, Madhubani', district: 'Madhubani', latitude: 26.3533, longitude: 86.0719, heroImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Ahilya Gautam Mahotsav', slug: 'ahilya-gautam-mahotsav-2026', category: 'Heritage', description: 'Heritage festival celebrating Ahilya Asthan associated with Sage Gautama and Lord Rama in Darbhanga.', startDate: new Date('2026-11-19T00:00:00.000Z'), endDate: new Date('2026-11-21T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Ahilya Asthan, Darbhanga', district: 'Darbhanga', latitude: 26.1542, longitude: 85.8918, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Chhath Puja Mahaparv', slug: 'chhath-puja', category: 'Religious', description: 'The premier 4-day spiritual eco-festival of Bihar dedicated to Sun God Surya and Chhathi Maiya at Ganges ghats.', startDate: new Date('2026-11-14T00:00:00.000Z'), endDate: new Date('2026-11-17T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'Patna Ganga Ghats & State-wide', district: 'Patna', latitude: 25.6100, longitude: 85.1410, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Harihar Kshetra Sonpur Mela', slug: 'sonepur-mela', category: 'Fair/Mela', description: 'Asia’s largest traditional fair at Ganges-Gandak confluence featuring handicrafts, theaters, and cattle trading.', startDate: new Date('2026-11-24T00:00:00.000Z'), endDate: new Date('2026-12-23T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Sonepur Mela Ground, Saran', district: 'Saran', latitude: 25.7000, longitude: 85.1800, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Rajgir Mahotsav', slug: 'rajgir-mahotsav', category: 'Cultural', description: 'Annual 3-day extravaganza of classical music, dance recitals, theater, and food festival set against Rajgir hills.', startDate: new Date('2026-11-30T00:00:00.000Z'), endDate: new Date('2026-12-02T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kala Gram, Rajgir', district: 'Nalanda', latitude: 25.0300, longitude: 85.4200, heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80' },
+
+    // --- DECEMBER 2026 ---
+    { title: 'Munger Mahotsav', slug: 'munger-mahotsav-2026', category: 'Local/Regional', description: 'Regional festival celebrating Munger Fort heritage, Yoga school traditions, and Ganges river ghats.', startDate: new Date('2026-12-04T00:00:00.000Z'), endDate: new Date('2026-12-06T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Munger Fort Ground', district: 'Munger', latitude: 25.3748, longitude: 86.4735, heroImage: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Uchchait Mahotsav', slug: 'uchchait-mahotsav-2026', category: 'Religious', description: 'Festival at Uchchait Bhagwati temple associated with great poet Kalidasa in Madhubani.', startDate: new Date('2026-12-07T00:00:00.000Z'), endDate: new Date('2026-12-08T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Uchchait, Madhubani', district: 'Madhubani', latitude: 26.3533, longitude: 86.0719, heroImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Garhi Mahotsav', slug: 'garhi-mahotsav-2026', category: 'Heritage', description: 'Heritage and folk festival celebrating historic Garhi fort in Jamui.', startDate: new Date('2026-12-21T00:00:00.000Z'), endDate: new Date('2026-12-23T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Garhi, Jamui', district: 'Jamui', latitude: 24.9200, longitude: 86.2200, heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Mithila Lok Mahotsav', slug: 'mithila-lok-mahotsav-2026', category: 'Cultural', description: 'Folk music, folk theatre, and traditional handicrafts assembly in Darbhanga.', startDate: new Date('2026-12-23T00:00:00.000Z'), endDate: new Date('2026-12-24T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Raj Maidan, Darbhanga', district: 'Darbhanga', latitude: 26.1542, longitude: 85.8918, heroImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Vanavar Mahotsav', slug: 'vanavar-mahotsav-2026', category: 'Heritage', description: 'Cultural festival at ancient Barabar / Vanavar hill caves in Jehanabad.', startDate: new Date('2026-12-24T00:00:00.000Z'), endDate: new Date('2026-12-24T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Barabar Caves, Jehanabad', district: 'Jehanabad', latitude: 25.0000, longitude: 85.0600, heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Christmas Celebrations', slug: 'christmas-2026', category: 'Religious', description: 'Festive midnight mass and illumination at historic churches including Padri Ki Haveli in Patna.', startDate: new Date('2026-12-25T00:00:00.000Z'), endDate: new Date('2026-12-25T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Padri Ki Haveli & State-wide', district: 'Patna', latitude: 25.6050, longitude: 85.2000, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' }
+  ];
+
+  for (const evData of events2026Data) {
+    await prisma.event.create({ data: evData });
+  }
 
   // 9. Create Vendor Offerings
   const offering1 = await prisma.offering.create({

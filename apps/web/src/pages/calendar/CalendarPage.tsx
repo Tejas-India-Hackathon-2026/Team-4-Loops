@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Filter } from 'lucide-react';
-import { addMonths, subMonths, format, isSameMonth } from 'date-fns';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Filter, Layers } from 'lucide-react';
+import { addMonths, subMonths, format } from 'date-fns';
 import api from '../../api/client';
 import { TourismEvent } from '../../types';
 import { EventCard } from '../../components/tourism/EventCard';
 
 export const CalendarPage: React.FC = () => {
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2026, 9, 1)); // Oct 2026 default seed range
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2026, 0, 1)); // Default to Jan 2026
   const [events, setEvents] = useState<TourismEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
+  const [viewMode, setViewMode] = useState<'MONTH' | 'ALL'>('MONTH');
 
   useEffect(() => {
     async function loadEvents() {
@@ -17,6 +18,13 @@ export const CalendarPage: React.FC = () => {
       try {
         const params: any = {};
         if (selectedCategory !== 'ALL') params.category = selectedCategory;
+
+        if (viewMode === 'MONTH') {
+          params.month = currentMonth.getMonth() + 1;
+          params.year = currentMonth.getFullYear();
+        } else {
+          params.year = 2026;
+        }
 
         const res = await api.get('/events', { params });
         if (res.data.success) {
@@ -29,70 +37,92 @@ export const CalendarPage: React.FC = () => {
       }
     }
     loadEvents();
-  }, [selectedCategory]);
+  }, [currentMonth, selectedCategory, viewMode]);
 
   const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
   const nextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
-  const todayMonth = () => setCurrentMonth(new Date());
 
-  const categories = ['ALL', 'Festival', 'Fair', 'Cultural', 'Religious', 'Arts'];
+  const categories = ['ALL', 'Religious', 'Cultural', 'Fair/Mela', 'Heritage', 'Music/Arts', 'Local/Regional'];
 
   return (
     <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-8">
       {/* Header */}
       <div className="border-b border-brand-brown/15 pb-6 space-y-2">
-        <span className="sub-nav-label text-brand-maroon">CULTURAL CALENDAR</span>
-        <h1 className="text-4xl md:text-6xl font-serif text-brand-black">Festivals & Tourism Events</h1>
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <span className="sub-nav-label text-brand-maroon">BIHAR TOURISM CALENDAR 2026</span>
+          <span className="text-xs font-sans text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full font-bold">
+            ✓ Official 2026 Calendar Verified
+          </span>
+        </div>
+        <h1 className="text-4xl md:text-6xl font-serif text-brand-black">Festivals & Events 2026</h1>
         <p className="text-base font-serif text-brand-black/75 max-w-2xl leading-relaxed">
-          Plan your Bihar journey around historic fairs, sacred festivals, and regional cultural celebrations.
+          Discover year-round cultural fairs, sacred pilgrimage melas, music festivals, and heritage celebrations across all 38 districts of Bihar.
         </p>
       </div>
 
-      {/* Month Navigation & Category Filter Controls */}
-      <div className="bg-cream p-5 rounded border border-brand-brown/15 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Month Navigation */}
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={prevMonth}
-            className="p-2 border border-brand-brown/20 rounded bg-white hover:bg-cream-light text-brand-black"
-            aria-label="Previous Month"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
+      {/* Control Bar: View Modes, Month Switcher & Categories */}
+      <div className="bg-cream p-5 rounded-lg border border-brand-brown/15 shadow-sm space-y-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-brand-brown/10 pb-4">
+          {/* View Mode Toggle */}
+          <div className="flex items-center space-x-2 bg-white p-1 rounded border border-brand-brown/15">
+            <button
+              onClick={() => setViewMode('MONTH')}
+              className={`text-xs sub-nav-label px-3 py-1.5 rounded transition-all ${
+                viewMode === 'MONTH' ? 'bg-brand-black text-brand-gold font-bold' : 'text-brand-black/70 hover:text-brand-black'
+              }`}
+            >
+              MONTHLY VIEW
+            </button>
+            <button
+              onClick={() => setViewMode('ALL')}
+              className={`text-xs sub-nav-label px-3 py-1.5 rounded transition-all ${
+                viewMode === 'ALL' ? 'bg-brand-black text-brand-gold font-bold' : 'text-brand-black/70 hover:text-brand-black'
+              }`}
+            >
+              FULL YEAR 2026 (ALL EVENTS)
+            </button>
+          </div>
 
-          <span className="font-serif text-2xl font-semibold text-brand-black min-w-[200px] text-center">
-            {format(currentMonth, 'MMMM yyyy')}
-          </span>
+          {/* Month Navigator */}
+          {viewMode === 'MONTH' && (
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={prevMonth}
+                className="p-2 border border-brand-brown/20 rounded bg-white hover:bg-cream-light text-brand-black"
+                aria-label="Previous Month"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
 
-          <button
-            onClick={nextMonth}
-            className="p-2 border border-brand-brown/20 rounded bg-white hover:bg-cream-light text-brand-black"
-            aria-label="Next Month"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+              <span className="font-serif text-2xl font-bold text-brand-black min-w-[200px] text-center">
+                {format(currentMonth, 'MMMM yyyy')}
+              </span>
 
-          <button
-            onClick={todayMonth}
-            className="text-xs sub-nav-label px-3 py-2 border border-brand-brown/20 rounded bg-white hover:bg-brand-black hover:text-brand-gold transition-colors"
-          >
-            TODAY
-          </button>
+              <button
+                onClick={nextMonth}
+                className="p-2 border border-brand-brown/20 rounded bg-white hover:bg-cream-light text-brand-black"
+                aria-label="Next Month"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Category Pills */}
         <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-bold sub-nav-label text-brand-brown mr-2">CATEGORY:</span>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`text-xs sub-nav-label px-3 py-2 rounded transition-all ${
+              className={`text-xs sub-nav-label px-3.5 py-2 rounded transition-all ${
                 selectedCategory === cat
-                  ? 'bg-brand-maroon text-white shadow-sm'
+                  ? 'bg-brand-maroon text-white font-bold shadow-sm'
                   : 'bg-white text-brand-black border border-brand-brown/15 hover:border-brand-maroon'
               }`}
             >
-              {cat === 'ALL' ? 'ALL EVENTS' : cat.toUpperCase()}
+              {cat === 'ALL' ? 'ALL CATEGORIES' : cat.toUpperCase()}
             </button>
           ))}
         </div>
@@ -100,17 +130,34 @@ export const CalendarPage: React.FC = () => {
 
       {/* Event Grid */}
       {loading ? (
-        <div className="py-20 text-center text-brand-brown font-serif">Loading cultural calendar...</div>
+        <div className="py-20 text-center text-brand-brown font-serif text-lg">Loading 2026 Bihar tourism events...</div>
       ) : events.length === 0 ? (
-        <div className="py-20 text-center bg-cream rounded border border-brand-brown/15 p-8 space-y-2">
-          <h3 className="font-serif text-2xl text-brand-black">No Events Scheduled</h3>
-          <p className="text-sm font-serif text-brand-brown/80">Try selecting another month or category filter.</p>
+        <div className="py-20 text-center bg-cream rounded-lg border border-brand-brown/15 p-8 space-y-3">
+          <h3 className="font-serif text-2xl text-brand-black font-bold">No Events Found</h3>
+          <p className="text-sm font-serif text-brand-brown/80">
+            No events scheduled for {viewMode === 'MONTH' ? format(currentMonth, 'MMMM yyyy') : '2026'} under "{selectedCategory}".
+          </p>
+          <button
+            onClick={() => {
+              setSelectedCategory('ALL');
+              setViewMode('ALL');
+            }}
+            className="px-4 py-2 bg-brand-black text-brand-gold text-xs sub-nav-label rounded font-bold"
+          >
+            VIEW ALL 2026 EVENTS
+          </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {events.map((ev) => (
-            <EventCard key={ev.id} event={ev} />
-          ))}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between text-xs font-sans text-brand-brown border-b border-brand-brown/10 pb-2">
+            <span>Showing <strong className="text-brand-black">{events.length}</strong> verified event(s) {viewMode === 'MONTH' ? `for ${format(currentMonth, 'MMMM yyyy')}` : 'in 2026'}</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {events.map((ev) => (
+              <EventCard key={ev.id} event={ev} />
+            ))}
+          </div>
         </div>
       )}
     </div>

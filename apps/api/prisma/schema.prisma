@@ -103,21 +103,24 @@ model Destination {
 }
 
 model Event {
-  id          String   @id @default(uuid())
-  title       String
-  slug        String   @unique
-  category    String   // Festival, Fair, Cultural, Seasonal, Religious, Arts
-  description String
-  startDate   DateTime
-  endDate     DateTime
-  location    String
-  district    String
-  latitude    Float
-  longitude   Float
-  heroImage   String
-  gallery     String   @default("[]")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default(uuid())
+  title        String
+  slug         String   @unique
+  category     String   // Religious, Cultural, Fair/Mela, Heritage, Music/Arts, Local/Regional
+  description  String
+  startDate    DateTime
+  endDate      DateTime
+  year         Int      @default(2026)
+  lastVerified String   @default("2026-08-20")
+  isLunar      Boolean  @default(false)
+  location     String
+  district     String
+  latitude     Float
+  longitude    Float
+  heroImage    String
+  gallery      String   @default("[]")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Offering {

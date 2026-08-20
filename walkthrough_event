@@ -1,0 +1,72 @@
+# Walkthrough - 2026 Bihar Events & Festivals Calendar Update
+
+We have updated the SETU Bihar Cultural Events Calendar using the reference specification in `Bihar_Events_Festivals_Fairs_2026_Setu.md`.
+
+## 1. Summary of Accomplishments
+
+1. **Schema Extension**:
+   - Added `year` (Int, default 2026), `lastVerified` (String, default `"2026-08-20"`), and `isLunar` (Boolean, default `false`) to the Prisma `Event` model.
+   - Updated categories to standard classification: `Religious`, `Cultural`, `Fair/Mela`, `Heritage`, `Music/Arts`, `Local/Regional`.
+
+2. **Complete Database Seeding (40+ Events)**:
+   - Seeded all 40+ official Bihar Tourism events and important celebrations across Jan–Dec 2026.
+   - Executed `npm run db:migrate` and `npm run db:seed`.
+
+3. **Backend Date-Overlap Filtering**:
+   - Updated `/api/events` controller in [`tourismController.ts`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/api/src/controllers/tourismController.ts) to filter using `startDate <= endOfMonth` AND `endDate >= startOfMonth`.
+   - Multi-day events spanning months (e.g. Shravani Mela: 30 Jul – 28 Aug) now render correctly when viewing July OR August.
+
+4. **UI & Metadata Badging**:
+   - Added multi-day duration counters (`30 DAYS EVENT`), `Verified 2026` badges, and `🌙 LUNAR` calendar tags on `EventCard.tsx`.
+   - Added view mode toggle between **MONTHLY VIEW** and **FULL YEAR 2026 (ALL EVENTS)** in `CalendarPage.tsx`.
+
+---
+
+## 2. Before / After Comparison Sample
+
+### 1. Shravani Mela
+| Field | Before | After |
+|---|---|---|
+| **Title** | Missing / Single day entry | `Shravani Mela (Sultanganj to Banka)` |
+| **Dates** | N/A | `2026-07-30` $\rightarrow$ `2026-08-28` (30 Days) |
+| **Category** | `Festival` | `Religious` |
+| **Month Overlap** | Omitted in August view | Renders in both **July** and **August** |
+| **Verification**| None | `Verified 2026` (`2026-08-20`) |
+
+### 2. Buddha Mahotsav
+| Field | Before | After |
+|---|---|---|
+| **Title** | Missing | `Buddha Mahotsav` |
+| **Dates** | N/A | `2026-01-31` $\rightarrow$ `2026-02-02` (3 Days) |
+| **Category** | Generic | `Music/Arts` |
+| **Location** | N/A | `Kalachakra Ground, Bodh Gaya` |
+| **Month Overlap** | N/A | Renders in both **January** and **February** |
+
+### 3. Chhath Puja Mahaparv
+| Field | Before | After |
+|---|---|---|
+| **Title** | `Chhath Puja Mahaparv` | `Chhath Puja Mahaparv` |
+| **Dates** | Single hardcoded range | `2026-11-14` $\rightarrow$ `2026-11-17` (4 Days) |
+| **Category** | `Festival` | `Religious` |
+| **Lunar Flag** | None | `isLunar: true` (🌙 Lunar Calendar Tag) |
+| **Verification**| None | `Verified 2026` |
+
+---
+
+## 3. Modified & Created Files
+
+- [`apps/api/prisma/schema.prisma`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/api/prisma/schema.prisma): Added `year`, `lastVerified`, `isLunar` fields.
+- [`apps/api/prisma/seed.ts`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/api/prisma/seed.ts): Seeded 40+ 2026 events.
+- [`apps/api/src/controllers/tourismController.ts`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/api/src/controllers/tourismController.ts): Added month date range overlap filter in `getEvents`.
+- [`apps/web/src/types/index.ts`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/types/index.ts): Updated `TourismEvent` interface with `year`, `lastVerified`, `isLunar`, `EventCategory`.
+- [`apps/web/src/components/tourism/EventCard.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/components/tourism/EventCard.tsx): Added duration counters, category colors, lunar badges, and verification tag.
+- [`apps/web/src/pages/calendar/CalendarPage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/calendar/CalendarPage.tsx): Added monthly/full-year view toggles, category pills, and month range parameter integration.
+
+---
+
+## 4. Verification
+
+- `npm run db:migrate` $\rightarrow$ SQLite schema updated cleanly.
+- `npm run db:seed` $\rightarrow$ 40+ events successfully seeded into SQLite DB.
+- `npm run build` in `apps/web` $\rightarrow$ `✓ built in 5.49s` (0 TypeScript errors).
+- `npm run build` in `apps/api` $\rightarrow$ `tsc` exited with code 0.

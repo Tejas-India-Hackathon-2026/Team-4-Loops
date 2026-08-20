@@ -129,14 +129,19 @@ export interface District {
   destinations?: Destination[];
 }
 
+export type EventCategory = 'Religious' | 'Cultural' | 'Fair/Mela' | 'Heritage' | 'Music/Arts' | 'Local/Regional';
+
 export interface TourismEvent {
   id: string;
   title: string;
   slug: string;
-  category: 'Festival' | 'Fair' | 'Cultural' | 'Seasonal' | 'Religious' | 'Arts';
+  category: EventCategory | string;
   description: string;
   startDate: string;
   endDate: string;
+  year?: number;
+  lastVerified?: string;
+  isLunar?: boolean;
   location: string;
   district: string;
   latitude: number;

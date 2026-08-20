@@ -174,9 +174,9 @@ async function getDistrictBySlug(req, res, next) {
 // 4. Events
 async function getEvents(req, res, next) {
     try {
-        const { category, search } = req.query;
+        const { category, search, month, year } = req.query;
         const where = {};
-        if (category) {
+        if (category && category !== 'ALL') {
             where.category = String(category);
         }
         if (search) {
@@ -185,6 +185,19 @@ async function getEvents(req, res, next) {
                 { description: { contains: String(search) } },
                 { location: { contains: String(search) } }
             ];
+        }
+        if (month && year) {
+            const m = Number(month); // 1 - 12
+            const y = Number(year);
+            const startOfMonth = new Date(Date.UTC(y, m - 1, 1, 0, 0, 0));
+            const endOfMonth = new Date(Date.UTC(y, m, 0, 23, 59, 59));
+            where.AND = [
+                { startDate: { lte: endOfMonth } },
+                { endDate: { gte: startOfMonth } }
+            ];
+        }
+        else if (year) {
+            where.year = Number(year);
         }
         const events = await prisma.event.findMany({
             where,
