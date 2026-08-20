@@ -1,0 +1,46 @@
+# Walkthrough - Interactive Spot Map & Nearby Amenities Route Planner
+
+We have implemented an interactive destination map feature on tourist spot detail pages, rendering nearby hotels, stays, restaurants, transport options, and local craft vendors with interactive route pathing.
+
+## 1. Summary of Accomplishments
+
+1. **Leaflet + OpenStreetMap Integration (`SpotInteractiveMap.tsx`)**:
+   - Zero API key dependency — completely free and open-source OpenStreetMap tiles.
+   - Centered on the selected tourist spot's exact coordinates.
+
+2. **Color-Coded Custom Map Markers**:
+   - 🏛️ **Golden Pin**: Main Tourist Spot / Destination (e.g. Mahabodhi Temple)
+   - 🏨 **Blue Marker**: Hotels & Stays
+   - 🍽️ **Amber Marker**: Restaurants & Dining
+   - 🚗 **Emerald Marker**: Transport Providers
+   - 🎨 **Purple Marker**: Local Product & Handicraft Artisans
+
+3. **Interactive Info Popups & Sidebar Navigation**:
+   - Clicking any map marker or selecting a vendor in the sidebar list opens an info popup displaying business name, category, address, phone number, and status.
+
+4. **Dynamic Route Pathing & Distance Calculation**:
+   - When a user selects a nearby hotel or transport option, an animated dashed polyline route connects the Tourist Spot to the selected vendor.
+   - Calculates and displays Haversine distance in km (e.g., `2.4 km away`).
+   - Automatically adjusts map bounds (`fitBounds`) to bring both the spot and the target vendor into view.
+
+5. **Graceful Fallbacks & Mobile Responsiveness**:
+   - Mobile-friendly touch panning and scrolling.
+   - Omits unverified coordinates gracefully with an alert fallback.
+
+---
+
+## 2. API & Data Flow
+
+- **Backend API**: [`apps/api/src/controllers/tourismController.ts`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/api/src/controllers/tourismController.ts)
+  - `getDestinationBySlug` queries approved vendors in the same district/city and returns them under `nearbyVendors`.
+- **Frontend Component**: [`apps/web/src/components/tourism/SpotInteractiveMap.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/components/tourism/SpotInteractiveMap.tsx)
+- **Detail View**: [`apps/web/src/pages/destinations/DestinationDetailPage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/destinations/DestinationDetailPage.tsx)
+
+---
+
+## 3. What is Required From User?
+
+> [!NOTE]
+> **NO API KEY OR DATA REQUIRED!**
+> - **Leaflet + OpenStreetMap**: Requires **0 API keys** (completely free and open-source).
+> - **Coordinates**: All seeded destinations and vendors already have real-world latitude and longitude coordinates in Bihar.

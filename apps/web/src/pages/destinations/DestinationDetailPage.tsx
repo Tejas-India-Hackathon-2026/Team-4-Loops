@@ -5,7 +5,7 @@ import api from '../../api/client';
 import { Destination } from '../../types';
 import { TabView, TabItem } from '../../components/common/TabView';
 import { Lightbox } from '../../components/common/Lightbox';
-import { InteractiveMap } from '../../components/maps/InteractiveMap';
+import { SpotInteractiveMap } from '../../components/tourism/SpotInteractiveMap';
 
 export const DestinationDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -84,16 +84,13 @@ export const DestinationDetailPage: React.FC = () => {
       )
     },
     {
-      id: 'at-a-glance',
-      label: 'AT A GLANCE MAP',
+      id: 'interactive-map',
+      label: 'SPOT MAP & NEARBY STAYS',
       content: (
         <div className="space-y-4">
-          <h3 className="sub-nav-label text-brand-maroon">INTERACTIVE DESTINATION MAP</h3>
-          <InteractiveMap
-            destinations={[destination]}
-            height="450px"
-            initialCenter={[destination.latitude, destination.longitude]}
-            initialZoom={13}
+          <SpotInteractiveMap
+            destination={destination}
+            vendors={destination.nearbyVendors || []}
           />
         </div>
       )

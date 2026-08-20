@@ -115,6 +115,7 @@ export interface Destination {
   };
   stays: Array<{ name: string; rating: number; price: string }>;
   recommendations: string[];
+  nearbyVendors?: Vendor[];
 }
 
 export interface District {

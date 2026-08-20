@@ -131,12 +131,30 @@ export async function getDestinationBySlug(req: Request, res: Response, next: Ne
       throw new ApiError(404, 'Destination not found');
     }
 
+    // Query nearby vendors for interactive spot map
+    let nearbyVendors = await prisma.vendor.findMany({
+      where: {
+        OR: [
+          { district: { contains: destination.district.name } },
+          { city: { contains: destination.district.name } }
+        ]
+      },
+      take: 12
+    });
+
+    if (nearbyVendors.length === 0) {
+      nearbyVendors = await prisma.vendor.findMany({
+        take: 10
+      });
+    }
+
     const formatted = {
       ...destination,
       gallery: parseJsonField(destination.gallery, []),
       travelInformation: parseJsonField(destination.travelInformation, {}),
       stays: parseJsonField(destination.stays, []),
-      recommendations: parseJsonField(destination.recommendations, [])
+      recommendations: parseJsonField(destination.recommendations, []),
+      nearbyVendors
     };
 
     return res.json({ success: true, data: formatted });
