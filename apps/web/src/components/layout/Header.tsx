@@ -57,11 +57,29 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
           {/* Logo */}
           <Link
             to={homeRoute}
-            className="font-serif text-3xl font-medium tracking-[0.2em] hover:opacity-90 transition-opacity text-brand-gold flex items-center space-x-2.5 group"
+            className="font-serif text-3xl font-medium tracking-[0.2em] hover:opacity-90 transition-opacity text-brand-gold flex items-center space-x-3 group"
           >
-            <span className="relative pb-0.5 border-b-2 border-brand-gold/60 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+            {/* Elegant Golden Arch Bridge Emblem */}
+            <svg
+              className="w-7 h-7 text-brand-gold flex-shrink-0 transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_0_8px_rgba(198,155,69,0.4)]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M3 18C3 11.5 7 6.5 12 6.5C17 6.5 21 11.5 21 18" />
+              <path d="M2 18H22" />
+              <path d="M7 18V12" />
+              <path d="M12 18V9.5" />
+              <path d="M17 18V12" />
+            </svg>
+
+            <span className="relative pb-0.5 border-b-2 border-brand-gold/60 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] font-serif">
               SETU
             </span>
+
             <span className="text-[10px] sub-nav-label tracking-widest border border-brand-gold/40 px-2 py-0.5 rounded text-brand-gold hidden sm:inline-block whitespace-nowrap bg-brand-gold/5">
               {t('nav.logoTag', 'BIHAR TOURISM')}
             </span>
@@ -109,10 +127,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             {(!user || user.role === 'TOURIST') && (
               <button
                 onClick={onOpenAi}
-                className="h-9 px-3.5 rounded-full border border-brand-gold/60 bg-gradient-to-r from-brand-gold/20 via-brand-gold/10 to-brand-gold/5 hover:from-brand-gold/35 hover:to-brand-gold/15 text-brand-gold transition-all duration-300 text-xs sub-nav-label flex items-center space-x-2 shadow-[0_0_12px_rgba(217,119,6,0.15)] hover:shadow-[0_0_18px_rgba(217,119,6,0.3)] hover:border-brand-gold group whitespace-nowrap"
+                className="h-9 px-3.5 rounded-full border border-brand-gold/70 ring-1 ring-brand-gold/20 bg-gradient-to-r from-brand-gold/25 via-brand-gold/15 to-brand-gold/5 hover:from-brand-gold/40 hover:to-brand-gold/20 text-brand-gold transition-all duration-300 text-xs sub-nav-label flex items-center space-x-2 shadow-[0_0_15px_rgba(198,155,69,0.2)] hover:shadow-[0_0_22px_rgba(198,155,69,0.4)] hover:border-brand-gold group whitespace-nowrap"
                 title="Open SETU AI Travel Companion"
               >
-                <Sparkles className="w-3.5 h-3.5 text-brand-gold transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12 drop-shadow-[0_0_6px_rgba(217,119,6,0.8)]" />
+                <Sparkles className="w-3.5 h-3.5 text-brand-gold transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12 drop-shadow-[0_0_8px_rgba(198,155,69,0.8)]" />
                 <span className="hidden sm:inline tracking-wider font-semibold">{t('nav.aiGuide', 'AI CONCIERGE').toUpperCase()}</span>
               </button>
             )}
