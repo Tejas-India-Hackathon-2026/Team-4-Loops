@@ -57,10 +57,9 @@ export const CircuitDetailPage: React.FC = () => {
     );
   }
 
-  const galleryImages = [
-    circuit.heroImage,
-    ...(circuit.destinations?.map(d => d.heroImage) || [])
-  ];
+  const galleryImages = (circuit.gallery && circuit.gallery.length > 0)
+    ? circuit.gallery
+    : [];
 
   // Collect stays across all destinations in circuit
   const allStays = (circuit.destinations || []).flatMap(d =>
@@ -88,12 +87,9 @@ export const CircuitDetailPage: React.FC = () => {
           </div>
 
           {/* Callout Box */}
-          <div className="bg-amber-900 text-cream p-6 md:p-8 rounded-xl border-2 border-brand-gold shadow-lg space-y-3">
-            <div className="flex items-center space-x-3 text-brand-gold font-bold text-xs sub-nav-label tracking-widest">
-              <Sparkles className="w-5 h-5 text-brand-gold animate-pulse" />
-              <span>WHY TRAVEL THIS SACRED TRAIL / सर्किट का महत्व</span>
-            </div>
-            <p className="font-serif text-lg md:text-xl leading-relaxed text-white">
+          <div className="p-6 bg-cream rounded-xl border border-brand-brown/15 shadow-sm space-y-2">
+            <h4 className="sub-nav-label text-brand-maroon text-xs">TRAIL SIGNIFICANCE</h4>
+            <p className="text-sm font-serif text-brand-black">
               "{circuit.description}"
             </p>
           </div>
@@ -189,22 +185,28 @@ export const CircuitDetailPage: React.FC = () => {
     },
     {
       id: 'gallery',
-      label: 'PHOTO GALLERY',
+      label: `PHOTO GALLERY (${galleryImages.length})`,
       content: (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <span className="sub-nav-label text-brand-maroon text-xs">PHOTOGRAPHIC COLLECTION ({galleryImages.length})</span>
-            <span className="text-xs text-brand-brown font-sans">Click image to enlarge</span>
+            {galleryImages.length > 0 && <span className="text-xs text-brand-brown font-sans">Click image to enlarge</span>}
           </div>
 
-          <PhotoMosaic
-            images={galleryImages}
-            altPrefix={circuit.name}
-            onImageClick={(idx) => {
-              setLightboxIndex(idx);
-              setLightboxOpen(true);
-            }}
-          />
+          {galleryImages.length > 0 ? (
+            <PhotoMosaic
+              images={galleryImages}
+              altPrefix={circuit.name}
+              onImageClick={(idx) => {
+                setLightboxIndex(idx);
+                setLightboxOpen(true);
+              }}
+            />
+          ) : (
+            <div className="bg-white p-8 rounded-xl border border-brand-brown/15 text-center text-brand-brown/70 font-serif">
+              No photo gallery images available for this circuit.
+            </div>
+          )}
         </div>
       )
     },

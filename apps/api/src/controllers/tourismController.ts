@@ -27,7 +27,8 @@ export async function getCircuits(req: Request, res: Response, next: NextFunctio
 
     const formatted = circuits.map(c => ({
       ...c,
-      locations: parseJsonField(c.locations, [])
+      locations: parseJsonField(c.locations, []),
+      gallery: parseJsonField(c.gallery, [])
     }));
 
     return res.json({ success: true, count: formatted.length, data: formatted });
@@ -80,6 +81,7 @@ export async function getCircuitBySlug(req: Request, res: Response, next: NextFu
     const formatted = {
       ...circuit,
       locations: parseJsonField(circuit.locations, []),
+      gallery: parseJsonField(circuit.gallery, []),
       destinations: circuit.destinations.map(d => ({
         ...d,
         gallery: parseJsonField(d.gallery, []),
@@ -215,7 +217,12 @@ export async function getDistricts(req: Request, res: Response, next: NextFuncti
       }
     });
 
-    return res.json({ success: true, count: districts.length, data: districts });
+    const formatted = districts.map(d => ({
+      ...d,
+      gallery: parseJsonField(d.gallery, [])
+    }));
+
+    return res.json({ success: true, count: formatted.length, data: formatted });
   } catch (error) {
     next(error);
   }
@@ -235,7 +242,12 @@ export async function getDistrictBySlug(req: Request, res: Response, next: NextF
       throw new ApiError(404, 'District not found');
     }
 
-    return res.json({ success: true, data: district });
+    const formatted = {
+      ...district,
+      gallery: parseJsonField(district.gallery, [])
+    };
+
+    return res.json({ success: true, data: formatted });
   } catch (error) {
     next(error);
   }

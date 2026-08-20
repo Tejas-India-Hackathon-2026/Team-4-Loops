@@ -62,6 +62,7 @@ model Circuit {
   slug        String   @unique
   description String
   heroImage   String
+  gallery     String   @default("[]") // JSON stringified array of image URLs
   overview    String
   locations   String   @default("[]") // JSON stringified array of locations
   createdAt   DateTime @default(now())
@@ -77,6 +78,7 @@ model District {
   region      String
   description String
   heroImage   String
+  gallery     String   @default("[]") // JSON stringified array of image URLs
   latitude    Float
   longitude   Float
   createdAt   DateTime @default(now())

@@ -90,6 +90,7 @@ export interface Circuit {
   slug: string;
   description: string;
   heroImage: string;
+  gallery?: string[];
   overview: string;
   locations: string[];
   destinations?: Destination[];
@@ -102,7 +103,7 @@ export interface Destination {
   slug: string;
   description: string;
   districtId: string;
-  district?: District;
+  district: District;
   circuitId?: string;
   circuit?: Circuit;
   category: string;
@@ -134,6 +135,7 @@ export interface District {
   region: string;
   description: string;
   heroImage: string;
+  gallery?: string[];
   latitude: number;
   longitude: number;
   destinations?: Destination[];

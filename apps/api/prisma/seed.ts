@@ -97,6 +97,12 @@ async function main() {
       slug: 'buddhist-circuit',
       description: 'Trace the sacred steps of Lord Buddha from enlightenment under the Bodhi Tree in Bodh Gaya to Mahaparinirvana.',
       heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1600&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80'
+      ]),
       overview: 'The Buddhist Circuit in Bihar is one of the world\'s most profound pilgrimage trails. Spanning Bodh Gaya, Nalanda, Rajgir, and Vaishali, this circuit highlights ancient stupas, monastic universities, and peaceful meditation centers where Siddhartha Gautama attained Enlightenment and spent decades teaching Dhamma.',
       locations: JSON.stringify(['Bodh Gaya', 'Nalanda', 'Rajgir', 'Vaishali', 'Kesariya'])
     }
@@ -108,6 +114,12 @@ async function main() {
       slug: 'eco-circuit',
       description: 'Discover pristine tiger reserves, lush Himalayan foothills, serene lakes, and natural hot springs across Bihar.',
       heroImage: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1600&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80'
+      ]),
       overview: 'Experience Bihar’s untamed biodiversity from the dense sal forests of Valmiki Tiger Reserve in Champaran to the tranquil waters of Kanwar Lake bird sanctuary and the picturesque waterfalls of Rohtas district.',
       locations: JSON.stringify(['Valmiki Nagar', 'Kanwar Lake', 'Karkat Waterfall', 'Bhimbandh Wildlife Sanctuary'])
     }
@@ -119,6 +131,12 @@ async function main() {
       slug: 'ramayan-circuit',
       description: 'Explore ancient sites associated with Goddess Sita, Sage Valmiki, and the legendary epic of Ramayana.',
       heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1600&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
+      ]),
       overview: 'Journey through Janakpur borderlands, Sitamarhi (the birth place of Ma Sita), Ahilya Asthan in Darbhanga, and Buxar where Maharshi Vishwamitra guided Lord Rama.',
       locations: JSON.stringify(['Sitamarhi', 'Darbhanga', 'Buxar', 'Valmiki Nagar'])
     }
@@ -130,6 +148,12 @@ async function main() {
       slug: 'sikh-circuit',
       description: 'Pay homage at Takht Sri Harmandir Sahib, the birthplace of the tenth Sikh Guru, Guru Gobind Singh Ji.',
       heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1600&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80'
+      ]),
       overview: 'The Sikh Circuit centers on Patna Sahib, one of the five Takhts of Sikhism, alongside sacred Gurdwaras visited by Guru Nanak Dev Ji and Guru Tegh Bahadur Ji across Bihar.',
       locations: JSON.stringify(['Takht Sri Patna Sahib', 'Gurdwara Guru ka Bagh', 'Gurdwara Handi Sahib', 'Rajgir Sheetal Kund'])
     }
@@ -143,6 +167,12 @@ async function main() {
       region: 'South Bihar',
       description: 'Spiritual epicenter famous worldwide for Bodh Gaya and sacred Pind Daan rituals along the Phalgu River.',
       heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80'
+      ]),
       latitude: 24.7914,
       longitude: 85.0002
     }
@@ -155,6 +185,12 @@ async function main() {
       region: 'Central Bihar',
       description: 'Cradle of ancient higher learning housing UNESCO World Heritage Nalanda University ruins and scenic Rajgir hills.',
       heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80'
+      ]),
       latitude: 25.1357,
       longitude: 85.4439
     }
@@ -167,6 +203,12 @@ async function main() {
       region: 'Capital Region',
       description: 'Historic Pataliputra on the banks of the sacred Ganges, blending ancient imperial history with vibrant capital life.',
       heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80'
+      ]),
       latitude: 25.5941,
       longitude: 85.1376
     }
@@ -179,6 +221,12 @@ async function main() {
       region: 'North Bihar',
       description: 'World\'s oldest republic, birth place of Lord Mahavira, and site of Buddha\'s last sermon.',
       heroImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80'
+      ]),
       latitude: 25.9923,
       longitude: 85.1264
     }
@@ -191,6 +239,12 @@ async function main() {
       region: 'Mithila Region',
       description: 'Heartland of Mithila culture renowned worldwide for exquisite Madhubani folk art and rich heritage.',
       heroImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80'
+      ]),
       latitude: 26.3533,
       longitude: 86.0719
     }
@@ -203,6 +257,12 @@ async function main() {
       region: 'South West Bihar',
       description: 'Famous for majestic Sher Shah Suri Tomb in Sasaram and breathtaking Kaimur hill waterfalls.',
       heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80'
+      ]),
       latitude: 24.9500,
       longitude: 84.0167
     }
@@ -215,6 +275,12 @@ async function main() {
       region: 'North West Bihar',
       description: 'Home to Valmiki Tiger Reserve, dense forests, and Mahatma Gandhi’s historic Champaran Satyagraha.',
       heroImage: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1200&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80'
+      ]),
       latitude: 27.1500,
       longitude: 84.5000
     }
@@ -227,6 +293,12 @@ async function main() {
       region: 'East Bihar',
       description: 'The Silk City of India, home to ancient Vikramshila University and Ganges river dolphin sanctuary.',
       heroImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+      gallery: JSON.stringify([
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80'
+      ]),
       latitude: 25.2425,
       longitude: 87.0124
     }
