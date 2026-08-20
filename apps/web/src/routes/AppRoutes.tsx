@@ -1,6 +1,8 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
+import { useAuth } from '../context/AuthContext';
+import { EntryWelcomePage } from '../pages/auth/EntryWelcomePage';
 import { HomePage } from '../pages/home/HomePage';
 import { LoginPage } from '../pages/auth/LoginPage';
 import { RegisterPage } from '../pages/auth/RegisterPage';
@@ -21,9 +23,33 @@ import { AdminDashboardPage } from '../pages/admin/AdminDashboardPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
 export const AppRoutes: React.FC = () => {
+  const { user } = useAuth();
+  const location = useLocation();
+
+  const [entryCompleted, setEntryCompleted] = useState<boolean>(() => {
+    return localStorage.getItem('setu_entry_completed') === 'true';
+  });
+
+  const handleCompleteEntry = () => {
+    setEntryCompleted(true);
+  };
+
+  // Allow fresh root visits to show entry welcome screen if entry isn't completed and user is not logged in
+  const shouldShowWelcome = !user && !entryCompleted;
+
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route
+        path="/"
+        element={
+          shouldShowWelcome ? (
+            <EntryWelcomePage onCompleteEntry={handleCompleteEntry} />
+          ) : (
+            <HomePage />
+          )
+        }
+      />
+      <Route path="/welcome" element={<EntryWelcomePage onCompleteEntry={handleCompleteEntry} />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 

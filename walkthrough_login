@@ -1,0 +1,66 @@
+# Walkthrough - Mandatory Entry Screen & Role/Language Selection
+
+We have implemented a mandatory initial entry screen for SETU, guiding first-time visitors to choose their role (**Tourist** or **Vendor**) and their preferred language (**English**, **Hindi**, or **Bhojpuri**) before entering the platform.
+
+## 1. Summary of Accomplishments
+
+1. **Mandatory Entry Screen (`EntryWelcomePage.tsx`)**:
+   - Created a clean, mobile-friendly landing experience.
+   - **Role Selection**:
+     - 🎒 **Tourist / Traveler** (*Explore circuits, festivals & heritage*)
+     - 🎨 **Local Vendor / Artisan** (*List handicrafts, products & stays*)
+     - *(Admin option is **strictly excluded** from public entry screen)*
+   - **Dynamic Language Selection**:
+     - **Tourist** $\rightarrow$ English & Hindi (हिन्दी)
+     - **Vendor** $\rightarrow$ English, Hindi (हिन्दी), and Bhojpuri (भोजपुरी)
+
+2. **Persistence & Routing Guard (`AppRoutes.tsx`)**:
+   - Stores completion in `localStorage` under `setu_entry_completed = 'true'`.
+   - On fresh visits without completion, root `/` displays `<EntryWelcomePage />`.
+   - Direct/admin login routes (`/login`, `/register`, `/admin/*`) **bypass** the entry screen completely.
+   - Also available at `/welcome` anytime for re-configuration.
+
+3. **Role-Aware Redirection**:
+   - Clicking **ENTER SETU BIHAR**:
+     1. Triggers `setLanguage(selectedLang)` via i18n system.
+     2. Sets `localStorage.setItem('setu_entry_completed', 'true')`.
+     3. Navigates Tourist $\rightarrow$ `/` (Homepage) and Vendor $\rightarrow$ `/vendor/local-dashboard` (or `/login`).
+
+---
+
+## 2. Tested Execution Flow
+
+```text
+First-Time Visitor / Fresh Entry (Unauthenticated)
+                    │
+                    ▼
+          ┌───────────────────┐
+          │ EntryWelcomePage  │  (Root /)
+          └─────────┬─────────┘
+                    │
+        ┌───────────┴───────────┐
+        ▼                       ▼
+    [ TOURIST ]             [ VENDOR ]
+  Pick: EN or HI       Pick: EN, HI, or BHO
+        │                       │
+        ▼                       ▼
+   setLanguage()           setLanguage()
+        │                       │
+        ▼                       ▼
+   Redirect: /             Redirect: /vendor/local-dashboard
+(Homepage in chosen lang)  (Artisan Portal in chosen lang)
+```
+
+---
+
+## 3. Files Created & Modified
+
+- [`apps/web/src/pages/auth/EntryWelcomePage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/auth/EntryWelcomePage.tsx) *(NEW)*: Entry screen page with role/language selection cards.
+- [`apps/web/src/routes/AppRoutes.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/routes/AppRoutes.tsx): Added `shouldShowWelcome` root guard and `/welcome` route.
+
+---
+
+## 4. Verification
+
+- `npm run build` in `apps/web` $\rightarrow$ `✓ built in 5.53s` (0 TypeScript errors).
+- Verified role and language selection flow, persistence in `localStorage`, and role-aware redirection.

@@ -1,0 +1,56 @@
+# Walkthrough - Internationalization (i18n) & Multilingual Support
+
+We have implemented a complete i18n system supporting **English**, **Hindi (हिन्दी)**, and **Bhojpuri (भोजपुरी)** with instant, persistent language switching.
+
+## 1. Summary of Changes
+
+1. **Language Context & Custom Hook (`LanguageContext.tsx`)**:
+   - Built a lightweight, type-safe React context and `useTranslation()` hook.
+   - Automatically initializes from and persists to `localStorage` (`setu_language`).
+   - Updates `document.documentElement.lang` on language change.
+
+2. **Language Switcher UI (`LanguageSwitcher.tsx`)**:
+   - Integrated a sleek language selector dropdown into the main header and mobile drawer.
+   - Displays native script labels (`English`, `हिन्दी`, `भोजपुरी`) with flags.
+
+3. **Translation Dictionaries (`apps/web/src/locales/`)**:
+   - [`en.ts`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/locales/en.ts): Complete master English string dictionary.
+   - [`hi.ts`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/locales/hi.ts): Complete, accurate Hindi translations.
+   - [`bho.ts`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/locales/bho.ts): Complete Bhojpuri translations, annotated with a note flagging `"REQUIRES NATIVE SPEAKER REVIEW BEFORE PRODUCTION DEPLOYMENT"`.
+
+---
+
+## 2. Converted Pages & Components
+
+### Fully Converted High-Traffic Pages & Components:
+- **Header Navigation Bar**: [`Header.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/components/layout/Header.tsx)
+- **Mobile Navigation Drawer**: [`MobileDrawer.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/components/layout/MobileDrawer.tsx)
+- **Global Footer**: [`Footer.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/components/layout/Footer.tsx)
+- **Homepage**: [`HomePage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/home/HomePage.tsx)
+- **Cultural Calendar**: [`CalendarPage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/calendar/CalendarPage.tsx)
+- **Local Vendor Dashboard**: [`LocalVendorDashboardPage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/vendor/LocalVendorDashboardPage.tsx)
+- **Authentication**: [`LoginPage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/auth/LoginPage.tsx)
+
+### Secondary Pages Remaining (Fallback to English):
+- `DestinationsPage.tsx`, `DistrictPage.tsx`, `CircuitPage.tsx`, `AdminDashboardPage.tsx` (Fallback smoothly to default English strings via `t()` or raw text).
+
+---
+
+## 3. Sample Translation Diff (English / Hindi / Bhojpuri)
+
+| Key | English (`en`) | Hindi (`hi`) | Bhojpuri (`bho`) |
+|---|---|---|---|
+| `nav.explore` | `Explore Bihar` | `बिहार देखें` | `बिहार देखल जाव` |
+| `nav.circuits` | `Heritage Circuits` | `विरासत परिपथ` | `धरोहर परिपथ` |
+| `nav.calendar` | `Cultural Calendar` | `सांस्कृतिक कैलेंडर` | `सांस्कृतिक कैलेंडर` |
+| `home.heroTitle` | `Bridges to Bihar's Ancient Soul` | `बिहार की प्राचीन आत्मा से जुड़ें` | `बिहार के प्राचीन आत्मा से जुड़ीं` |
+| `calendar.title` | `Festivals & Events 2026` | `महोत्सव एवं पर्यटन मेले 2026` | `मेला आ परब-त्योहार 2026` |
+| `localVendor.addProduct` | `Add New Product` | `नया उत्पाद जोड़ें` | `नया सामान जोड़ीं` |
+| `localVendor.callHelpline` | `Call SETU Support` | `सेतु सहायता केंद्र पर कॉल करें` | `सेतु हेल्पलाइन पर फोन करीं` |
+
+---
+
+## 4. Verification
+
+- `npm run build` in `apps/web` $\rightarrow$ `✓ built in 5.45s` (0 TypeScript errors).
+- Language persistence in `localStorage` verified.
