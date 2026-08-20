@@ -68,8 +68,8 @@ export const RegisterPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-cream flex flex-col justify-center items-center px-6 py-24">
-      <div className="w-full max-w-lg bg-white border border-brand-brown/15 p-8 md:p-10 rounded shadow-xl">
+    <div className="min-h-screen bg-black/35 backdrop-blur-sm flex flex-col justify-center items-center px-6 py-24">
+      <div className="w-full max-w-lg bg-white/95 backdrop-blur-md border border-brand-brown/25 p-8 md:p-10 rounded-xl shadow-2xl">
         <div className="text-center space-y-2 mb-8">
           <Link to="/" className="font-serif text-4xl text-brand-gold tracking-widest block">
             SETU

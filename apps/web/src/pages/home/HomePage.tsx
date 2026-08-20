@@ -139,7 +139,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 2. EDITORIAL INTRO SECTION */}
-      <section className="py-24 px-6 md:px-12 bg-cream text-brand-black border-b border-brand-brown/15">
+      <section className="py-24 px-6 md:px-12 bg-cream/85 backdrop-blur-sm text-brand-black border-b border-brand-brown/15">
         <div className="max-w-5xl mx-auto text-center space-y-6">
           <span className="sub-nav-label text-brand-maroon">{t('home.homeTitle', 'LAND OF ENLIGHTENMENT')}</span>
           <h2 className="text-3xl md:text-5xl font-serif leading-tight">
@@ -152,7 +152,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 3. FEATURED CIRCUITS */}
-      <section ref={sectionRef} className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <section ref={sectionRef} className="py-24 px-6 md:px-12 max-w-7xl mx-auto my-6 bg-white/85 backdrop-blur-sm rounded-2xl border border-brand-brown/15 shadow-md">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
             <span className="sub-nav-label text-brand-maroon">SACRED TRAILS</span>
@@ -175,7 +175,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 4. FEATURED DESTINATIONS */}
-      <section className="py-24 px-6 md:px-12 bg-cream-light border-y border-brand-brown/15">
+      <section className="py-24 px-6 md:px-12 bg-cream-light/85 backdrop-blur-sm border-y border-brand-brown/15">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
@@ -200,7 +200,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 5. INTERACTIVE MAP TEASER */}
-      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto my-6 bg-white/85 backdrop-blur-sm rounded-2xl border border-brand-brown/15 shadow-md">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
           <span className="sub-nav-label text-brand-maroon">GEOGRAPHIC DISCOVERY</span>
           <h2 className="text-4xl font-serif text-brand-black">Interactive Bihar Tourism Map</h2>
@@ -213,7 +213,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 6. CULTURAL CALENDAR & EVENTS TEASER */}
-      <section className="py-24 px-6 md:px-12 bg-cream border-t border-brand-brown/15">
+      <section className="py-24 px-6 md:px-12 bg-cream/85 backdrop-blur-sm border-t border-brand-brown/15">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
@@ -224,21 +224,21 @@ export const HomePage: React.FC = () => {
               to="/calendar"
               className="mt-4 md:mt-0 sub-nav-label text-xs text-brand-maroon hover:text-brand-black flex items-center space-x-1"
             >
-              <span>OPEN FULL CALENDAR</span>
+              <span>VIEW FULL 2026 CALENDAR</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {events.slice(0, 3).map((event) => (
-              <EventCard key={event.id} event={event} />
+            {events.slice(0, 3).map((ev) => (
+              <EventCard key={ev.id} event={ev} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* 7. AI COMPANION PROMOTIONAL BANNER */}
-      <section className="py-20 px-6 md:px-12 bg-brand-black text-cream">
+      {/* 7. STATS & IMPERIAL FOOTER BANNER */}
+      <section className="py-20 px-6 md:px-12 bg-brand-black/90 backdrop-blur-md text-cream">
         <div className="max-w-5xl mx-auto text-center space-y-6">
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-brand-gold/20 text-brand-gold rounded-full text-xs sub-nav-label">
             <Sparkles className="w-4 h-4 animate-pulse" />

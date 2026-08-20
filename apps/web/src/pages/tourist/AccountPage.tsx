@@ -116,7 +116,7 @@ export const AccountPage: React.FC = () => {
   }
 
   return (
-    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-8">
+    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto my-6 bg-cream/85 backdrop-blur-sm rounded-2xl border border-brand-brown/15 p-6 md:p-10 shadow-lg space-y-8">
       {/* Account Profile Header */}
       <div className="bg-cream p-8 rounded border border-brand-brown/15 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
         <div className="flex items-center space-x-5">

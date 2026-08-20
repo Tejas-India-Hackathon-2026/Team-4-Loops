@@ -55,7 +55,7 @@ export const CalendarPage: React.FC = () => {
   ];
 
   return (
-    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-8">
+    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto my-6 bg-cream/85 backdrop-blur-sm rounded-2xl border border-brand-brown/15 p-6 md:p-10 shadow-lg space-y-8">
       {/* Header */}
       <div className="border-b border-brand-brown/15 pb-6 space-y-2">
         <div className="flex items-center justify-between flex-wrap gap-4">
