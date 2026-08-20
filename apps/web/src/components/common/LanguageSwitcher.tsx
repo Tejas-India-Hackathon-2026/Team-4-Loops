@@ -37,10 +37,10 @@ export const LanguageSwitcher: React.FC<{ compact?: boolean }> = ({ compact = fa
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center space-x-1.5 rounded-full transition-all duration-300 font-sans ${
+        className={`h-9 px-3 flex items-center space-x-1.5 rounded-full transition-all duration-300 font-sans text-xs font-semibold whitespace-nowrap ${
           compact
-            ? 'px-2.5 py-1 text-xs bg-white/10 hover:bg-white/20 text-current border border-white/20'
-            : 'px-3 py-1.5 text-xs font-semibold bg-cream hover:bg-cream-light text-brand-black border border-brand-brown/20 shadow-sm'
+            ? 'bg-white/10 hover:bg-white/20 text-current border border-white/20'
+            : 'bg-cream hover:bg-cream-light text-brand-black border border-brand-brown/20 shadow-sm'
         }`}
         aria-label="Select Language"
       >

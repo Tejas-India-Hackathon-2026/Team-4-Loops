@@ -57,32 +57,34 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
           {/* Logo */}
           <Link
             to={homeRoute}
-            className="font-serif text-3xl font-light tracking-widest hover:opacity-80 transition-opacity text-brand-gold flex items-center space-x-2"
+            className="font-serif text-3xl font-medium tracking-[0.2em] hover:opacity-90 transition-opacity text-brand-gold flex items-center space-x-2.5 group"
           >
-            <span>SETU</span>
-            <span className="text-[10px] sub-nav-label tracking-widest border border-brand-gold/40 px-1.5 py-0.5 rounded text-brand-gold hidden sm:inline-block">
+            <span className="relative pb-0.5 border-b-2 border-brand-gold/60 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+              SETU
+            </span>
+            <span className="text-[10px] sub-nav-label tracking-widest border border-brand-gold/40 px-2 py-0.5 rounded text-brand-gold hidden sm:inline-block whitespace-nowrap bg-brand-gold/5">
               {t('nav.logoTag', 'BIHAR TOURISM')}
             </span>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-9 sub-nav-label">
+          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 sub-nav-label">
             {/* EXPLORE Mega-menu Button */}
             <div className="relative">
               <button
                 onClick={() => setActiveMenu(activeMenu === 'explore' ? null : 'explore')}
-                className="flex items-center space-x-1 hover:text-brand-gold transition-colors py-2 focus:outline-none"
+                className="py-2 flex items-center space-x-1 hover:text-brand-gold transition-colors focus:outline-none whitespace-nowrap"
               >
                 <span>{t('nav.explore', 'EXPLORE').toUpperCase()}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeMenu === 'explore' ? 'rotate-180 text-brand-gold' : ''}`} />
               </button>
             </div>
 
-            <Link to="/maps" className="hover:text-brand-gold transition-colors">
+            <Link to="/maps" className="py-2 flex items-center hover:text-brand-gold transition-colors whitespace-nowrap">
               {t('nav.maps', 'MAPS').toUpperCase()}
             </Link>
 
-            <Link to="/calendar" className="hover:text-brand-gold transition-colors">
+            <Link to="/calendar" className="py-2 flex items-center hover:text-brand-gold transition-colors whitespace-nowrap">
               {t('nav.calendar', 'CALENDAR').toUpperCase()}
             </Link>
 
@@ -90,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             <div className="relative">
               <button
                 onClick={() => setActiveMenu(activeMenu === 'experience' ? null : 'experience')}
-                className="flex items-center space-x-1 hover:text-brand-gold transition-colors py-2 focus:outline-none"
+                className="py-2 flex items-center space-x-1 hover:text-brand-gold transition-colors focus:outline-none whitespace-nowrap"
               >
                 <span>{t('nav.experience', 'EXPERIENCE').toUpperCase()}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeMenu === 'experience' ? 'rotate-180 text-brand-gold' : ''}`} />
@@ -99,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
           </nav>
 
           {/* Actions Right */}
-          <div className="flex items-center space-x-3 md:space-x-4">
+          <div className="flex items-center space-x-2.5 sm:space-x-3">
             {/* Language Switcher Dropdown */}
             <LanguageSwitcher compact={isHome && !isScrolled && activeMenu === null} />
 
@@ -107,24 +109,24 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             {(!user || user.role === 'TOURIST') && (
               <button
                 onClick={onOpenAi}
-                className="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-brand-gold/40 bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold transition-all text-xs sub-nav-label"
+                className="h-9 px-3.5 rounded-full border border-brand-gold/60 bg-gradient-to-r from-brand-gold/20 via-brand-gold/10 to-brand-gold/5 hover:from-brand-gold/35 hover:to-brand-gold/15 text-brand-gold transition-all duration-300 text-xs sub-nav-label flex items-center space-x-2 shadow-[0_0_12px_rgba(217,119,6,0.15)] hover:shadow-[0_0_18px_rgba(217,119,6,0.3)] hover:border-brand-gold group whitespace-nowrap"
                 title="Open SETU AI Travel Companion"
               >
-                <Sparkles className="w-3.5 h-3.5 animate-pulse text-brand-gold" />
-                <span className="hidden sm:inline">{t('nav.aiGuide', 'AI CONCIERGE').toUpperCase()}</span>
+                <Sparkles className="w-3.5 h-3.5 text-brand-gold transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12 drop-shadow-[0_0_6px_rgba(217,119,6,0.8)]" />
+                <span className="hidden sm:inline tracking-wider font-semibold">{t('nav.aiGuide', 'AI CONCIERGE').toUpperCase()}</span>
               </button>
             )}
 
             {/* Role quick links */}
             {user?.role === 'VENDOR' && (
-              <Link to={homeRoute} className="hidden sm:flex items-center space-x-1 text-xs sub-nav-label text-amber-700 hover:text-amber-900 bg-amber-50 px-2.5 py-1 rounded border border-amber-200">
+              <Link to={homeRoute} className="h-9 px-3 hidden sm:flex items-center space-x-1 text-xs sub-nav-label text-amber-700 hover:text-amber-900 bg-amber-50 rounded border border-amber-200 whitespace-nowrap">
                 <Store className="w-3.5 h-3.5" />
                 <span>{t('nav.vendorDashboard', 'VENDOR').toUpperCase()}</span>
               </Link>
             )}
 
             {user?.role === 'ADMIN' && (
-              <Link to="/admin" className="hidden sm:flex items-center space-x-1 text-xs sub-nav-label text-emerald-700 hover:text-emerald-900 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
+              <Link to="/admin" className="h-9 px-3 hidden sm:flex items-center space-x-1 text-xs sub-nav-label text-emerald-700 hover:text-emerald-900 bg-emerald-50 rounded border border-emerald-200 whitespace-nowrap">
                 <Shield className="w-3.5 h-3.5" />
                 <span>{t('nav.adminDashboard', 'ADMIN').toUpperCase()}</span>
               </Link>
@@ -134,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             {user ? (
               <Link
                 to="/account"
-                className="flex items-center space-x-2 text-xs sub-nav-label hover:text-brand-gold transition-colors"
+                className="h-9 px-2.5 flex items-center space-x-2 text-xs sub-nav-label hover:text-brand-gold transition-colors whitespace-nowrap"
               >
                 <div className="w-7 h-7 rounded-full bg-brand-brown text-cream flex items-center justify-center text-xs font-semibold">
                   {user.name.charAt(0)}
@@ -144,7 +146,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             ) : (
               <Link
                 to="/login"
-                className="flex items-center space-x-1 text-xs sub-nav-label px-3.5 py-1.5 border border-brand-gold/60 text-brand-gold hover:bg-brand-gold hover:text-brand-black transition-all rounded-sm font-semibold"
+                className="h-9 px-3.5 flex items-center space-x-1 text-xs sub-nav-label border border-brand-gold/60 text-brand-gold hover:bg-brand-gold hover:text-brand-black transition-all rounded-sm font-semibold whitespace-nowrap"
               >
                 <User className="w-3.5 h-3.5" />
                 <span>{t('nav.signIn', 'SIGN IN').toUpperCase()}</span>
@@ -154,7 +156,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             {/* Mobile Drawer Trigger */}
             <button
               onClick={() => setMobileDrawerOpen(true)}
-              className="lg:hidden p-2 hover:opacity-80 transition-opacity"
+              className="h-9 w-9 lg:hidden flex items-center justify-center rounded hover:bg-white/10 transition-colors"
               aria-label="Open Mobile Menu"
             >
               <Menu className="w-6 h-6" />
