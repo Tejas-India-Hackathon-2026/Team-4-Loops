@@ -128,6 +128,8 @@ model Event {
   gallery      String   @default("[]")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  favorites Favorite[]
 }
 
 model Offering {
@@ -179,12 +181,15 @@ model Order {
 }
 
 model Favorite {
-  id            String      @id @default(uuid())
+  id            String       @id @default(uuid())
   userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  destinationId String
-  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
-  createdAt     DateTime    @default(now())
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destinationId String?
+  destination   Destination? @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  eventId       String?
+  event         Event?       @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt     DateTime     @default(now())
 
   @@unique([userId, destinationId])
+  @@unique([userId, eventId])
 }

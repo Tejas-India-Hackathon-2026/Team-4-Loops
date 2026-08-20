@@ -162,8 +162,10 @@ export interface TourismEvent {
 export interface Favorite {
   id: string;
   userId: string;
-  destinationId: string;
+  destinationId?: string;
   destination?: Destination;
+  eventId?: string;
+  event?: TourismEvent;
   createdAt?: string;
 }
 

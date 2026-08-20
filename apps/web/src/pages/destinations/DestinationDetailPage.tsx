@@ -9,6 +9,7 @@ import { Destination } from '../../types';
 import { TabView, TabItem } from '../../components/common/TabView';
 import { Lightbox } from '../../components/common/Lightbox';
 import { SpotInteractiveMap } from '../../components/tourism/SpotInteractiveMap';
+import { FavoriteButton } from '../../components/common/FavoriteButton';
 
 export const DestinationDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -256,6 +257,7 @@ export const DestinationDetailPage: React.FC = () => {
             <span className="text-xs sub-nav-label bg-brand-gold text-brand-black px-3 py-1 rounded font-bold">
               {destination.category}
             </span>
+            <FavoriteButton targetType="destination" targetId={destination.id} />
 
             {isVerified ? (
               <span className="text-xs sub-nav-label bg-emerald-800 text-white px-3 py-1 rounded-full font-bold flex items-center space-x-1">

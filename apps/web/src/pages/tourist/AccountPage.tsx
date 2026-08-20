@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import api from '../../api/client';
 import { Order, Favorite } from '../../types';
-import { User, Calendar, CreditCard, Heart, LogOut, Ticket, CheckCircle2, Sparkles } from 'lucide-react';
+import { User, Calendar, CreditCard, Heart, LogOut, Ticket, CheckCircle2, Sparkles, ArrowRight } from 'lucide-react';
+import { FavoriteButton } from '../../components/common/FavoriteButton';
 
 declare global {
   interface Window {
@@ -32,21 +34,22 @@ export const AccountPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [subscribing, setSubscribing] = useState(false);
 
-  useEffect(() => {
-    async function loadUserData() {
-      try {
-        const [ordRes, favRes] = await Promise.all([
-          api.get('/orders'),
-          api.get('/favorites')
-        ]);
-        if (ordRes.data.success) setOrders(ordRes.data.data);
-        if (favRes.data.success) setFavorites(favRes.data.data);
-      } catch (err) {
-        console.error('Error loading account data:', err);
-      } finally {
-        setLoading(false);
-      }
+  const loadUserData = async () => {
+    try {
+      const [ordRes, favRes] = await Promise.all([
+        api.get('/orders'),
+        api.get('/favorites')
+      ]);
+      if (ordRes.data.success) setOrders(ordRes.data.data);
+      if (favRes.data.success) setFavorites(favRes.data.data);
+    } catch (err) {
+      console.error('Error loading account data:', err);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
     if (user) loadUserData();
   }, [user]);
 
@@ -223,15 +226,55 @@ export const AccountPage: React.FC = () => {
             {favorites.length === 0 ? (
               <div className="col-span-full bg-white p-12 text-center rounded border border-brand-brown/15 space-y-2">
                 <Heart className="w-8 h-8 text-brand-maroon mx-auto" />
-                <p className="text-sm font-serif text-brand-brown">No saved destinations in your favorites list yet.</p>
+                <p className="text-sm font-serif text-brand-brown">No saved destinations or events in your favorites list yet.</p>
               </div>
             ) : (
-              favorites.map((fav) => (
-                <div key={fav.id} className="bg-white p-5 rounded border border-brand-brown/15 space-y-2">
-                  <h4 className="font-serif text-lg font-semibold text-brand-black">{fav.destination?.name}</h4>
-                  <p className="text-xs font-sans text-brand-brown">{fav.destination?.category}</p>
-                </div>
-              ))
+              favorites.map((fav) => {
+                const isEvent = !!fav.event;
+                const title = fav.destination?.name || fav.event?.title || 'Saved Item';
+                const category = fav.destination?.category || fav.event?.category || 'Heritage';
+                const link = fav.destination
+                  ? `/explore/destinations/${fav.destination.slug}`
+                  : `/experience/${fav.event?.category ? fav.event.category.toLowerCase().replace(/[^a-z0-9]+/g, '-') : 'cultural'}/${fav.event?.slug}`;
+                const targetId = fav.destinationId || fav.eventId || '';
+
+                return (
+                  <div key={fav.id} className="bg-white p-5 rounded-xl border border-brand-brown/15 shadow-sm space-y-3 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span className={`text-[10px] sub-nav-label px-2.5 py-0.5 rounded font-bold uppercase tracking-wider ${
+                          isEvent
+                            ? 'bg-purple-100 text-purple-900 border border-purple-300'
+                            : 'bg-amber-100 text-amber-900 border border-amber-300'
+                        }`}>
+                          {isEvent ? '🎪 EVENT / FESTIVAL' : '🏛️ DESTINATION'}
+                        </span>
+                        <span className="text-[10px] sub-nav-label text-brand-brown/70">{category}</span>
+                      </div>
+                      <h4 className="font-serif text-lg font-bold text-brand-black">{title}</h4>
+                      <p className="text-xs font-sans text-brand-brown/80 line-clamp-2 mt-1">
+                        {fav.destination?.description || fav.event?.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-2 border-t border-brand-brown/10 flex items-center justify-between">
+                      <Link
+                        to={link}
+                        className="text-xs sub-nav-label text-brand-maroon font-semibold hover:underline flex items-center space-x-1"
+                      >
+                        <span>VIEW {isEvent ? 'EVENT' : 'DESTINATION'}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                      <FavoriteButton
+                        targetType={isEvent ? 'event' : 'destination'}
+                        targetId={targetId}
+                        initialIsFavorite={true}
+                        onToggle={() => loadUserData()}
+                      />
+                    </div>
+                  </div>
+                );
+              })
             )}
           </div>
         )}

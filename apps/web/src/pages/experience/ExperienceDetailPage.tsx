@@ -9,6 +9,7 @@ import { TourismEvent } from '../../types';
 import { Lightbox } from '../../components/common/Lightbox';
 import { SpotInteractiveMap } from '../../components/tourism/SpotInteractiveMap';
 import { DestinationCard } from '../../components/tourism/DestinationCard';
+import { FavoriteButton } from '../../components/common/FavoriteButton';
 
 export const ExperienceDetailPage: React.FC = () => {
   const { category, slug } = useParams<{ category?: string; slug?: string }>();
@@ -68,6 +69,7 @@ export const ExperienceDetailPage: React.FC = () => {
             <span className="text-xs sub-nav-label bg-brand-gold/20 text-brand-gold border border-brand-gold/40 px-2.5 py-1 rounded">
               {event?.category ? String(event.category).toUpperCase() : 'CULTURE & FAIR'}
             </span>
+            {event && <FavoriteButton targetType="event" targetId={event.id} />}
             {event?.isLunar && (
               <span className="text-[10px] sub-nav-label bg-amber-900/60 text-amber-200 border border-amber-500/40 px-2 py-0.5 rounded">
                 🌕 LUNAR CALENDAR FESTIVAL
