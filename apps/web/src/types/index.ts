@@ -14,6 +14,7 @@ export interface User {
   vendor?: {
     id: string;
     businessName: string;
+    businessType?: string;
     status: VendorStatus;
   } | null;
 }
@@ -92,6 +93,7 @@ export interface Circuit {
   overview: string;
   locations: string[];
   destinations?: Destination[];
+  nearbyVendors?: Vendor[];
 }
 
 export interface Destination {
@@ -114,9 +116,15 @@ export interface Destination {
     howToReach?: string;
     suggestedDuration?: string;
     entryFee?: string;
+    timings?: string;
+    didYouKnow?: string;
+    funFacts?: string[];
+    contentStatus?: string;
   };
   stays: Array<{ name: string; rating: number; price: string }>;
   recommendations: string[];
+  nearbyVendors?: Vendor[];
+  nearbyDestinations?: Destination[];
 }
 
 export interface District {
@@ -145,6 +153,8 @@ export interface TourismEvent {
   longitude: number;
   heroImage: string;
   gallery: string[];
+  isLunar?: boolean;
+  lastVerified?: string;
   nearbyVendors?: Vendor[];
   nearbyAttractions?: Destination[];
 }

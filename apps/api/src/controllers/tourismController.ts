@@ -52,6 +52,31 @@ export async function getCircuitBySlug(req: Request, res: Response, next: NextFu
       throw new ApiError(404, 'Circuit not found');
     }
 
+    const districtNames = Array.from(
+      new Set(
+        circuit.destinations
+          .map(d => d.district?.name)
+          .filter((name): name is string => Boolean(name))
+      )
+    );
+
+    let nearbyVendors: any[] = [];
+    if (districtNames.length > 0) {
+      nearbyVendors = await prisma.vendor.findMany({
+        where: {
+          OR: districtNames.flatMap(name => [
+            { district: { contains: name } },
+            { city: { contains: name } }
+          ])
+        },
+        take: 20
+      });
+    }
+
+    if (nearbyVendors.length === 0) {
+      nearbyVendors = await prisma.vendor.findMany({ take: 15 });
+    }
+
     const formatted = {
       ...circuit,
       locations: parseJsonField(circuit.locations, []),
@@ -61,7 +86,8 @@ export async function getCircuitBySlug(req: Request, res: Response, next: NextFu
         travelInformation: parseJsonField(d.travelInformation, {}),
         stays: parseJsonField(d.stays, []),
         recommendations: parseJsonField(d.recommendations, [])
-      }))
+      })),
+      nearbyVendors
     };
 
     return res.json({ success: true, data: formatted });

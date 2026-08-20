@@ -3,7 +3,9 @@ import path from 'path';
 
 // Load .env from root directory if available
 dotenv.config({ path: path.resolve(__dirname, '../../../../.env') });
-dotenv.config();
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL = 'file:./dev.db';
+}
 
 export const env = {
   NODE_ENV: process.env.NODE_ENV || 'development',
