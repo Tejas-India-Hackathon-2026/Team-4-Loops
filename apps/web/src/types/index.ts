@@ -13,6 +13,7 @@ export interface User {
   vendor?: {
     id: string;
     businessName: string;
+    businessType?: string;
     status: VendorStatus;
   } | null;
 }

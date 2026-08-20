@@ -16,6 +16,7 @@ import { ExperienceListingPage } from '../pages/experience/ExperienceListingPage
 import { ExperienceDetailPage } from '../pages/experience/ExperienceDetailPage';
 import { AccountPage } from '../pages/tourist/AccountPage';
 import { VendorDashboardPage } from '../pages/vendor/VendorDashboardPage';
+import { LocalVendorDashboardPage } from '../pages/vendor/LocalVendorDashboardPage';
 import { AdminDashboardPage } from '../pages/admin/AdminDashboardPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
@@ -50,7 +51,9 @@ export const AppRoutes: React.FC = () => {
       {/* Tourist Account */}
       <Route path="/account/*" element={<AccountPage />} />
 
-      {/* Vendor Dashboard */}
+      {/* Vendor Dashboards */}
+      <Route path="/vendor/local-dashboard" element={<LocalVendorDashboardPage />} />
+      <Route path="/vendor/dashboard" element={<VendorDashboardPage />} />
       <Route path="/vendor/*" element={<VendorDashboardPage />} />
 
       {/* Admin Management */}

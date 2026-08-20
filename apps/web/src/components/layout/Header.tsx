@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sparkles, Menu, ChevronDown, User, Store, Shield } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { getHomeRouteForRole } from '../../utils/navigation';
 import { MegaMenuExplore } from './MegaMenuExplore';
 import { MegaMenuExperience } from './MegaMenuExperience';
 import { MobileDrawer } from './MobileDrawer';
@@ -38,6 +39,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
   }, [location.pathname]);
 
   const isHome = location.pathname === '/';
+  const homeRoute = getHomeRouteForRole(user);
 
   return (
     <>
@@ -51,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
         <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link
-            to="/"
+            to={homeRoute}
             className="font-serif text-3xl font-light tracking-widest hover:opacity-80 transition-opacity text-brand-gold flex items-center space-x-2"
           >
             <span>SETU</span>
@@ -107,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
 
             {/* Role quick links */}
             {user?.role === 'VENDOR' && (
-              <Link to="/vendor/dashboard" className="hidden sm:flex items-center space-x-1 text-xs sub-nav-label text-amber-700 hover:text-amber-900 bg-amber-50 px-2.5 py-1 rounded border border-amber-200">
+              <Link to={homeRoute} className="hidden sm:flex items-center space-x-1 text-xs sub-nav-label text-amber-700 hover:text-amber-900 bg-amber-50 px-2.5 py-1 rounded border border-amber-200">
                 <Store className="w-3.5 h-3.5" />
                 <span>VENDOR</span>
               </Link>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { X, Sparkles, MapPin, Calendar, Compass, User, Store, Shield } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { getHomeRouteForRole } from '../../utils/navigation';
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface MobileDrawerProps {
 
 export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, onOpenAi }) => {
   const { user, logout } = useAuth();
+  const homeRoute = getHomeRouteForRole(user);
 
   if (!isOpen) return null;
 
@@ -18,7 +20,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, onO
     <div className="fixed inset-0 z-50 bg-brand-black/95 text-cream flex flex-col justify-between p-6 transition-all duration-300">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-cream/15 pb-4">
-        <Link to="/" onClick={onClose} className="font-serif text-3xl font-light text-brand-gold tracking-widest">
+        <Link to={homeRoute} onClick={onClose} className="font-serif text-3xl font-light text-brand-gold tracking-widest">
           SETU
         </Link>
         <button onClick={onClose} className="p-2 text-cream/70 hover:text-white" aria-label="Close menu">
@@ -57,7 +59,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, onO
         </button>
 
         {user?.role === 'VENDOR' && (
-          <Link to="/vendor/dashboard" onClick={onClose} className="flex items-center space-x-4 text-amber-300 hover:text-amber-200">
+          <Link to={homeRoute} onClick={onClose} className="flex items-center space-x-4 text-amber-300 hover:text-amber-200">
             <Store className="w-6 h-6" />
             <span>VENDOR DASHBOARD</span>
           </Link>

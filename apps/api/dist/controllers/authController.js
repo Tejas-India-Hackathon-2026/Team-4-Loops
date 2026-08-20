@@ -132,6 +132,7 @@ async function login(req, res, next) {
                 vendor: user.vendor ? {
                     id: user.vendor.id,
                     businessName: user.vendor.businessName,
+                    businessType: user.vendor.businessType,
                     status: user.vendor.status
                 } : null
             }
@@ -172,6 +173,7 @@ async function getMe(req, res, next) {
                 vendor: user.vendor ? {
                     id: user.vendor.id,
                     businessName: user.vendor.businessName,
+                    businessType: user.vendor.businessType,
                     status: user.vendor.status
                 } : null
             }
