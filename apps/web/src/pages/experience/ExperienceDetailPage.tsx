@@ -159,7 +159,7 @@ export const ExperienceDetailPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-10 space-y-12">
         {/* Quick-Facts Card Bar */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-cream p-5 rounded-xl border border-brand-brown/15 shadow-sm space-y-1">
+          <div className="bg-white/80 backdrop-blur-md p-5 rounded-xl border border-white/40 shadow-sm space-y-1">
             <div className="flex items-center space-x-2 text-brand-maroon">
               <Calendar className="w-4 h-4 text-brand-gold" />
               <span className="sub-nav-label text-[10px]">{isTaste ? 'SPECIALTY TYPE' : 'FESTIVAL DATES'}</span>
@@ -169,7 +169,7 @@ export const ExperienceDetailPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="bg-cream p-5 rounded-xl border border-brand-brown/15 shadow-sm space-y-1">
+          <div className="bg-white/80 backdrop-blur-md p-5 rounded-xl border border-white/40 shadow-sm space-y-1">
             <div className="flex items-center space-x-2 text-brand-maroon">
               <Clock className="w-4 h-4 text-brand-gold" />
               <span className="sub-nav-label text-[10px]">{isTaste ? 'ORIGIN REGION' : 'DURATION'}</span>
@@ -179,7 +179,7 @@ export const ExperienceDetailPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="bg-cream p-5 rounded-xl border border-brand-brown/15 shadow-sm space-y-1">
+          <div className="bg-white/80 backdrop-blur-md p-5 rounded-xl border border-white/40 shadow-sm space-y-1">
             <div className="flex items-center space-x-2 text-brand-maroon">
               <Ticket className="w-4 h-4 text-brand-gold" />
               <span className="sub-nav-label text-[10px]">{isTaste ? 'AVAILABILITY' : 'ENTRY & ADMISSION'}</span>
@@ -189,7 +189,7 @@ export const ExperienceDetailPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="bg-cream p-5 rounded-xl border border-brand-brown/15 shadow-sm space-y-1">
+          <div className="bg-white/80 backdrop-blur-md p-5 rounded-xl border border-white/40 shadow-sm space-y-1">
             <div className="flex items-center space-x-2 text-brand-maroon">
               <Navigation className="w-4 h-4 text-brand-gold" />
               <span className="sub-nav-label text-[10px]">LOCATION / REACH</span>
@@ -227,7 +227,7 @@ export const ExperienceDetailPage: React.FC = () => {
             {activeTab === 'overview' && (
               <div className="space-y-8">
                 {/* About Section */}
-                <div className="bg-cream p-8 rounded-xl border border-brand-brown/15 space-y-4 shadow-sm">
+                <div className="bg-white/80 backdrop-blur-md p-8 rounded-xl border border-white/40 space-y-4 shadow-sm">
                   <span className="sub-nav-label text-brand-maroon">
                     {isTaste ? 'CULINARY HERITAGE' : 'HERITAGE & TRADITIONS'}
                   </span>
@@ -241,7 +241,7 @@ export const ExperienceDetailPage: React.FC = () => {
 
                 {/* Requirement 3: Safety & Nearby Facilities Card for Fairs */}
                 {isFair && event && (event.nearestPolice || event.nearestHospital || (event.nearbyRestaurants && event.nearbyRestaurants.length > 0)) && (
-                  <div className="bg-white p-6 rounded-xl border border-brand-brown/15 space-y-4 shadow-sm">
+                  <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-white/40 space-y-4 shadow-sm">
                     <div className="flex items-center space-x-2">
                       <ShieldCheck className="w-5 h-5 text-brand-maroon" />
                       <h4 className="sub-nav-label text-brand-maroon text-xs">SAFETY & NEARBY FACILITIES</h4>
@@ -277,7 +277,7 @@ export const ExperienceDetailPage: React.FC = () => {
 
                 {/* Cuisine Restaurants / Dhabas Section for Taste Items */}
                 {isTaste && cuisineItem && (
-                  <div className="bg-white p-6 rounded-xl border border-brand-brown/15 space-y-4 shadow-sm">
+                  <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-white/40 space-y-4 shadow-sm">
                     <div className="flex items-center space-x-2">
                       <Utensils className="w-5 h-5 text-brand-maroon" />
                       <h4 className="sub-nav-label text-brand-maroon text-xs">MOST POPULAR & AUTHENTIC RESTAURANTS / DHABAS</h4>
@@ -304,17 +304,17 @@ export const ExperienceDetailPage: React.FC = () => {
 
                 {/* What to Expect for Events */}
                 {!isTaste && (
-                  <div className="bg-white p-6 rounded-xl border border-brand-brown/15 space-y-4">
+                  <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-white/40 space-y-4 shadow-sm">
                     <h4 className="sub-nav-label text-brand-maroon text-xs">WHAT TO EXPECT & HIGHLIGHTS</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
-                      <div className="flex items-start space-x-3 p-3 bg-cream/50 rounded-lg border border-brand-brown/10">
+                      <div className="flex items-start space-x-3 p-3.5 bg-white/60 backdrop-blur-sm rounded-lg border border-white/60">
                         <Sparkles className="w-5 h-5 text-brand-gold flex-shrink-0 mt-0.5" />
                         <div>
                           <strong className="block font-bold text-brand-black">Ritual Processions & Prayers</strong>
                           <span className="text-brand-brown/80">Traditional chanting, sacred lamps, and ceremonial offerings at dawn and dusk.</span>
                         </div>
                       </div>
-                      <div className="flex items-start space-x-3 p-3 bg-cream/50 rounded-lg border border-brand-brown/10">
+                      <div className="flex items-start space-x-3 p-3.5 bg-white/60 backdrop-blur-sm rounded-lg border border-white/60">
                         <Compass className="w-5 h-5 text-brand-gold flex-shrink-0 mt-0.5" />
                         <div>
                           <strong className="block font-bold text-brand-black">Artisan Fairs & Mithila Crafts</strong>
@@ -327,7 +327,7 @@ export const ExperienceDetailPage: React.FC = () => {
 
                 {/* Event Specifications */}
                 {!isTaste && (
-                  <div className="bg-white p-6 rounded-xl border border-brand-brown/15 space-y-4">
+                  <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-white/40 space-y-4 shadow-sm">
                     <h4 className="sub-nav-label text-brand-maroon text-xs">EVENT SPECIFICATIONS</h4>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-sans">
                       <div>
@@ -389,7 +389,7 @@ export const ExperienceDetailPage: React.FC = () => {
           {/* Sidebar CTA Column */}
           <div className="lg:col-span-4 space-y-6">
             {isTaste ? (
-              <div className="bg-white p-6 rounded-xl border border-brand-brown/15 shadow-sm space-y-4">
+              <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-white/40 shadow-sm space-y-4">
                 <div className="flex items-center space-x-2">
                   <Store className="w-5 h-5 text-brand-maroon" />
                   <h4 className="sub-nav-label text-brand-maroon">RECOMMENDED EATERIES</h4>
@@ -399,7 +399,7 @@ export const ExperienceDetailPage: React.FC = () => {
                 </p>
                 <div className="space-y-3">
                   {cuisineItem?.restaurants?.map((rest: any, idx: number) => (
-                    <div key={idx} className="p-3.5 bg-cream/60 rounded-lg border border-brand-brown/15 space-y-1">
+                    <div key={idx} className="p-3.5 bg-white/70 backdrop-blur-sm rounded-lg border border-white/60 space-y-1">
                       <span className="font-serif text-sm font-bold text-brand-black block">{rest.name}</span>
                       <span className="text-[11px] font-sans text-brand-brown block">{rest.address}</span>
                       <span className="text-[10px] sub-nav-label text-brand-maroon font-semibold block">{rest.type}</span>
@@ -414,7 +414,7 @@ export const ExperienceDetailPage: React.FC = () => {
                 </Link>
               </div>
             ) : (
-              <div className="bg-white p-6 rounded-xl border border-brand-brown/15 shadow-sm space-y-6">
+              <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-white/40 shadow-sm space-y-6">
                 <h4 className="sub-nav-label text-brand-maroon">PLAN YOUR VISIT</h4>
                 <p className="text-xs font-serif text-brand-black/80">
                   Experience this event with curated guide services, authentic local cuisine tastings, and private transport.

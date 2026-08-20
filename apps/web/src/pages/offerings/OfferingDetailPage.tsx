@@ -159,10 +159,28 @@ export const OfferingDetailPage: React.FC = () => {
           </div>
           <p className="text-sm font-serif text-brand-black/80 leading-relaxed pt-2">{offering.description}</p>
         </div>
+        {offering.gallery && offering.gallery.length > 0 && (
+          <div className="space-y-3 pt-2">
+            <span className="text-[10px] sub-nav-label text-brand-maroon uppercase font-bold">EXPERIENCE PHOTO GALLERY</span>
+            <div className="grid grid-cols-3 gap-3">
+              {offering.gallery.map((img, idx) => (
+                <div key={idx} className="relative aspect-[4/3] rounded-lg overflow-hidden border border-brand-brown/15 shadow-sm group">
+                  <img
+                    src={img}
+                    alt={`${offering.title} photo ${idx + 1}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {offering.vendor && (
-          <div className="bg-cream p-5 rounded border border-brand-brown/15">
-            <span className="text-[10px] sub-nav-label text-brand-brown/70">HOSTED BY</span>
-            <p className="font-serif text-lg text-brand-black">{offering.vendor.businessName}</p>
+          <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-white/40 shadow-sm space-y-2">
+            <span className="text-[10px] sub-nav-label text-brand-brown/70 font-bold block">VERIFIED LOCAL HOST</span>
+            <p className="font-serif text-xl font-bold text-brand-black">{offering.vendor.businessName}</p>
+            <p className="text-xs font-serif text-brand-black/75 leading-relaxed">{offering.vendor.description}</p>
           </div>
         )}
       </div>
