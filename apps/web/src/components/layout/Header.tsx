@@ -53,40 +53,38 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             : 'bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
-          {/* Logo */}
-          <Link
-            to={homeRoute}
-            className="font-serif text-3xl font-medium tracking-[0.2em] hover:opacity-90 transition-opacity text-brand-gold flex items-center space-x-3 group"
-          >
-            {/* Elegant Golden Arch Bridge Emblem */}
-            <svg
-              className="w-7 h-7 text-brand-gold flex-shrink-0 transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_0_8px_rgba(198,155,69,0.4)]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 h-20 flex items-center justify-between">
+          {/* Logo (Far Left) */}
+          <div className="flex-1 flex items-center justify-start">
+            <Link
+              to={homeRoute}
+              className="font-serif text-3xl font-medium tracking-[0.2em] hover:opacity-90 transition-opacity text-brand-gold flex items-center space-x-2.5 group whitespace-nowrap"
             >
-              <path d="M3 18C3 11.5 7 6.5 12 6.5C17 6.5 21 11.5 21 18" />
-              <path d="M2 18H22" />
-              <path d="M7 18V12" />
-              <path d="M12 18V9.5" />
-              <path d="M17 18V12" />
-            </svg>
+              {/* Elegant Golden Arch Bridge Emblem */}
+              <svg
+                className="w-7 h-7 text-brand-gold flex-shrink-0 transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_0_8px_rgba(198,155,69,0.4)]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 18C3 11.5 7 6.5 12 6.5C17 6.5 21 11.5 21 18" />
+                <path d="M2 18H22" />
+                <path d="M7 18V12" />
+                <path d="M12 18V9.5" />
+                <path d="M17 18V12" />
+              </svg>
 
-            <span className="relative pb-0.5 border-b-2 border-brand-gold/60 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] font-serif">
-              SETU
-            </span>
+              <span className="relative pb-0.5 border-b-2 border-brand-gold/60 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] font-serif">
+                SETU
+              </span>
+            </Link>
+          </div>
 
-            <span className="text-[10px] sub-nav-label tracking-widest border border-brand-gold/40 px-2 py-0.5 rounded text-brand-gold hidden sm:inline-block whitespace-nowrap bg-brand-gold/5">
-              {t('nav.logoTag', 'BIHAR TOURISM')}
-            </span>
-          </Link>
-
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 sub-nav-label">
+          {/* Desktop Navigation Links (Centered) */}
+          <nav className="hidden lg:flex flex-initial items-center justify-center space-x-8 xl:space-x-12 sub-nav-label">
             {/* EXPLORE Mega-menu Button */}
             <div className="relative">
               <button
@@ -118,8 +116,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             </div>
           </nav>
 
-          {/* Actions Right */}
-          <div className="flex items-center space-x-2.5 sm:space-x-3">
+          {/* Actions Right (Far Right) */}
+          <div className="flex-1 flex items-center justify-end space-x-2.5 sm:space-x-3">
             {/* Language Switcher Dropdown */}
             <LanguageSwitcher compact={isHome && !isScrolled && activeMenu === null} />
 
