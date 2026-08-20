@@ -26,7 +26,7 @@ export const MegaMenuExplore: React.FC<MegaMenuExploreProps> = ({ onClose }) => 
           </div>
           <div className="group overflow-hidden rounded relative aspect-[16/9] mb-3">
             <img
-              src="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=600&q=80"
+              src="https://www.agoda.com/wp-content/uploads/2023/10/4-Great-Buddha-Bodhgaya-Buddhist-Circuit-India.jpg"
               alt="Buddhist Circuit"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -73,7 +73,7 @@ export const MegaMenuExplore: React.FC<MegaMenuExploreProps> = ({ onClose }) => 
           </div>
           <div className="group overflow-hidden rounded relative aspect-[16/9] mb-3">
             <img
-              src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80"
+              src="https://metro.yoinfra.com/uploads/nalanda_mahavihara_b029c5cc57.jpg"
               alt="Nalanda Ruins"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -106,7 +106,7 @@ export const MegaMenuExplore: React.FC<MegaMenuExploreProps> = ({ onClose }) => 
           </div>
           <div className="group overflow-hidden rounded relative aspect-[16/9] mb-3">
             <img
-              src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_IrusE4BumL8YBXD-JEGfRInt8_lvw8UN8Dz0FhX_-g&s=10"
               alt="Madhubani District"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
