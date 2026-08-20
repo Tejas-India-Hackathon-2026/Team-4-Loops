@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import api from '../../api/client';
 import { useTranslation } from '../../context/LanguageContext';
-import { Circuit, Destination, TourismEvent } from '../../types';
+import { Circuit, Destination, TourismEvent, Vendor } from '../../types';
 import { CircuitCard } from '../../components/tourism/CircuitCard';
 import { DestinationCard } from '../../components/tourism/DestinationCard';
 import { EventCard } from '../../components/tourism/EventCard';
@@ -26,6 +26,7 @@ export const HomePage: React.FC = () => {
   const [circuits, setCircuits] = useState<Circuit[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [events, setEvents] = useState<TourismEvent[]>([]);
+  const [vendors, setVendors] = useState<Vendor[]>([]);
 
   const heroHeadingRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -42,14 +43,16 @@ export const HomePage: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const [circRes, destRes, eventRes] = await Promise.all([
+        const [circRes, destRes, eventRes, vendorRes] = await Promise.all([
           api.get('/circuits'),
           api.get('/destinations'),
-          api.get('/events')
+          api.get('/events'),
+          api.get('/vendors')
         ]);
         if (circRes.data.success) setCircuits(circRes.data.data.slice(0, 3));
-        if (destRes.data.success) setDestinations(destRes.data.data.slice(0, 4));
-        if (eventRes.data.success) setEvents(eventRes.data.data.slice(0, 3));
+        if (destRes.data.success) setDestinations(destRes.data.data);
+        if (eventRes.data.success) setEvents(eventRes.data.data);
+        if (vendorRes.data.success) setVendors(vendorRes.data.data);
       } catch (err) {
         console.error('Failed to load home page content:', err);
       }
@@ -189,7 +192,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {destinations.map((dest) => (
+            {destinations.slice(0, 4).map((dest) => (
               <DestinationCard key={dest.id} destination={dest} />
             ))}
           </div>
@@ -206,7 +209,7 @@ export const HomePage: React.FC = () => {
           </p>
         </div>
 
-        <InteractiveMap destinations={destinations} height="520px" />
+        <InteractiveMap destinations={destinations} events={events} vendors={vendors} height="520px" />
       </section>
 
       {/* 6. CULTURAL CALENDAR & EVENTS TEASER */}
@@ -227,7 +230,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {events.map((event) => (
+            {events.slice(0, 3).map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
           </div>
