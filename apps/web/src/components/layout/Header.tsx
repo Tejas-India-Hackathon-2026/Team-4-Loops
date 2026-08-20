@@ -53,10 +53,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             : 'bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white'
         }`}
       >
-        <div className="w-full px-6 sm:px-8 lg:px-12 xl:px-16 2xl:px-20 h-20 flex items-center justify-between">
+        <div className="w-full px-6 sm:px-8 lg:px-12 xl:px-16 2xl:px-20 h-20 flex lg:grid lg:grid-cols-[1fr_auto_1fr] items-center justify-between">
 
           {/* Logo */}
-          <div className="flex-1 flex items-center justify-start">
+          <div className="flex items-center justify-start justify-self-start">
             <Link
               to="/"
               className="font-serif text-3xl font-medium tracking-[0.2em] hover:opacity-90 transition-opacity text-brand-gold flex items-center space-x-2.5 group whitespace-nowrap"
@@ -84,7 +84,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex flex-initial items-center justify-center space-x-8 lg:space-x-10 xl:space-x-14 2xl:space-x-18 sub-nav-label">
+          <nav className="hidden lg:flex items-center justify-center justify-self-center space-x-8 lg:space-x-10 xl:space-x-14 2xl:space-x-18 sub-nav-label">
 
             {/* EXPLORE */}
             <div className="relative">
@@ -151,7 +151,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
           </nav>
 
           {/* Actions */}
-          <div className="flex-1 flex items-center justify-end space-x-3 sm:space-x-4 lg:space-x-5">
+          <div className="flex items-center justify-end justify-self-end space-x-3 sm:space-x-4 lg:space-x-5">
 
             {/* AI Companion */}
             {(!user || user.role === 'TOURIST') && (

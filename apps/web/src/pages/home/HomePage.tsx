@@ -103,7 +103,7 @@ export const HomePage: React.FC = () => {
 
           <h1
             ref={heroHeadingRef}
-            className="hero-heading text-cream font-serif tracking-tight max-w-5xl"
+            className="hero-heading text-cream font-serif max-w-5xl"
           >
             {t('home.heroTitle', "Bridges to Bihar's Ancient Soul")}
           </h1>
