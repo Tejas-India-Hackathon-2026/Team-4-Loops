@@ -53,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             : 'bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 h-20 flex items-center justify-between">
+        <div className="w-full px-6 sm:px-8 lg:px-12 xl:px-16 2xl:px-20 h-20 flex items-center justify-between">
           {/* Logo (Far Left) */}
           <div className="flex-1 flex items-center justify-start">
             <Link
@@ -83,8 +83,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             </Link>
           </div>
 
-          {/* Desktop Navigation Links (Centered) */}
-          <nav className="hidden lg:flex flex-initial items-center justify-center space-x-8 xl:space-x-12 sub-nav-label">
+          {/* Desktop Navigation Links (Centered with Breathable Spacing) */}
+          <nav className="hidden lg:flex flex-initial items-center justify-center space-x-8 lg:space-x-10 xl:space-x-14 2xl:space-x-18 sub-nav-label">
             {/* EXPLORE Mega-menu Button */}
             <div className="relative">
               <button
@@ -116,8 +116,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             </div>
           </nav>
 
-          {/* Actions Right (Far Right) */}
-          <div className="flex-1 flex items-center justify-end space-x-2.5 sm:space-x-3">
+          {/* Actions Right (Far Right with Breathable Spacing) */}
+          <div className="flex-1 flex items-center justify-end space-x-3 sm:space-x-4 lg:space-x-5">
             {/* Language Switcher Dropdown */}
             <LanguageSwitcher compact={isHome && !isScrolled && activeMenu === null} />
 
