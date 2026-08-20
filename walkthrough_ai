@@ -1,0 +1,32 @@
+# Walkthrough - AI Concierge Feature Role Scoping
+
+We have removed the AI Trip Planning / Concierge feature UI from the **Admin** and **Vendor** role interfaces while leaving it fully functional for **Tourist** users and guest visitors.
+
+## 1. Summary of Accomplishments
+
+1. **Header Navigation Scoping (`Header.tsx`)**:
+   - Wrapped the `AI CONCIERGE` button in `{(!user || user.role === 'TOURIST') && (...)}`.
+   - Admin (`ADMIN`) and Vendor (`VENDOR`) sessions no longer see the AI Concierge button in the header.
+
+2. **Mobile Navigation Drawer Scoping (`MobileDrawer.tsx`)**:
+   - Wrapped the `SETU AI COMPANION` entry in `{(!user || user.role === 'TOURIST') && (...)}`.
+   - Admin (`ADMIN`) and Vendor (`VENDOR`) mobile navigation drawers no longer contain the AI Concierge link.
+
+3. **Dashboard Integrity Verification**:
+   - Verified [`AdminDashboardPage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/admin/AdminDashboardPage.tsx), [`VendorDashboardPage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/vendor/VendorDashboardPage.tsx), and [`LocalVendorDashboardPage.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/pages/vendor/LocalVendorDashboardPage.tsx) contain zero orphaned AI widgets or references.
+
+4. **Tourist Flow Continuity**:
+   - Left [`AiTravelCompanionDrawer.tsx`](file:///c:/Users/ayank/Downloads/download/SETU-1/apps/web/src/components/ai/AiTravelCompanionDrawer.tsx) and the backend endpoint `POST /api/ai/recommend` fully intact so Tourists can continue generating personalized itineraries.
+
+---
+
+## 2. Testing & Verification Results
+
+| User Role | Header AI Button | Mobile Drawer AI Item | Backend `/api/ai/recommend` | Status |
+|---|---|---|---|---|
+| **Guest / Tourist** | ✅ Visible | ✅ Visible | ✅ Active & Working | Pass |
+| **Vendor (Hotel / Local)** | ❌ Hidden | ❌ Hidden | ✅ Preserved for Tourists | Pass |
+| **Admin** | ❌ Hidden | ❌ Hidden | ✅ Preserved for Tourists | Pass |
+
+- Build command: `npm run build` in `apps/web` $\rightarrow$ `✓ built in 5.49s` (0 TypeScript errors).
+- Build command: `npm run build` in `apps/api` $\rightarrow$ `✓ tsc` (0 TypeScript errors).

@@ -103,15 +103,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             {/* Language Switcher Dropdown */}
             <LanguageSwitcher compact={isHome && !isScrolled && activeMenu === null} />
 
-            {/* AI Companion Button */}
-            <button
-              onClick={onOpenAi}
-              className="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-brand-gold/40 bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold transition-all text-xs sub-nav-label"
-              title="Open SETU AI Travel Companion"
-            >
-              <Sparkles className="w-3.5 h-3.5 animate-pulse text-brand-gold" />
-              <span className="hidden sm:inline">{t('nav.aiGuide', 'AI CONCIERGE').toUpperCase()}</span>
-            </button>
+            {/* AI Companion Button - Tourist & Guests Only */}
+            {(!user || user.role === 'TOURIST') && (
+              <button
+                onClick={onOpenAi}
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-brand-gold/40 bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold transition-all text-xs sub-nav-label"
+                title="Open SETU AI Travel Companion"
+              >
+                <Sparkles className="w-3.5 h-3.5 animate-pulse text-brand-gold" />
+                <span className="hidden sm:inline">{t('nav.aiGuide', 'AI CONCIERGE').toUpperCase()}</span>
+              </button>
+            )}
 
             {/* Role quick links */}
             {user?.role === 'VENDOR' && (

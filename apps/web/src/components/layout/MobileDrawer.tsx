@@ -56,16 +56,18 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, onO
           <span>{t('nav.calendar', 'CULTURAL CALENDAR').toUpperCase()}</span>
         </Link>
 
-        <button
-          onClick={() => {
-            onClose();
-            onOpenAi();
-          }}
-          className="flex items-center space-x-4 text-brand-gold hover:text-white text-left font-serif"
-        >
-          <Sparkles className="w-6 h-6 animate-pulse" />
-          <span>{t('nav.aiGuide', 'SETU AI COMPANION').toUpperCase()}</span>
-        </button>
+        {(!user || user.role === 'TOURIST') && (
+          <button
+            onClick={() => {
+              onClose();
+              onOpenAi();
+            }}
+            className="flex items-center space-x-4 text-brand-gold hover:text-white text-left font-serif"
+          >
+            <Sparkles className="w-6 h-6 animate-pulse" />
+            <span>{t('nav.aiGuide', 'SETU AI COMPANION').toUpperCase()}</span>
+          </button>
+        )}
 
         {user?.role === 'VENDOR' && (
           <Link to={homeRoute} onClick={onClose} className="flex items-center space-x-4 text-amber-300 hover:text-amber-200">
