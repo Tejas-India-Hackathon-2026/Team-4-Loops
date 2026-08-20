@@ -43,13 +43,12 @@ export const LoginPage: React.FC = () => {
       <LoadingScreen
         brandText="AUTHENTICATING SESSION & PREPARING DASHBOARD..."
         onComplete={() => {
-          navigate(redirectUrl);
           if (loggedInUser?.role === 'ADMIN') {
             navigate('/admin/dashboard');
           } else if (loggedInUser?.role === 'VENDOR') {
             navigate('/vendor/dashboard');
           } else {
-            navigate('/account');
+            navigate(redirectUrl !== '/' ? redirectUrl : '/');
           }
         }}
       />
