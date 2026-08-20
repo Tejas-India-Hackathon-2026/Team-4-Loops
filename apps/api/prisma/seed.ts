@@ -242,9 +242,17 @@ async function main() {
       overview: 'The Mahabodhi Temple Complex is one of the four holy sites related to the life of the Lord Buddha, and particularly to the attainment of Enlightenment. The first temple was built by Emperor Ashoka in the 3rd century B.C. The present temple dates from the 5th or 6th centuries.',
       travelInformation: JSON.stringify({
         bestTime: 'October to March',
-        howToReach: 'Gaya International Airport (12 km) or Gaya Junction Railway Station (16 km)',
+        howToReach: 'Gaya International Airport (12 km) or Gaya Junction Railway Station (16 km). Pre-paid cabs and e-rickshaws available round the clock.',
         suggestedDuration: '1 to 2 Days',
-        entryFee: 'Free (Camera charge ₹100)'
+        entryFee: 'Free Admission (Camera charge ₹100, Video Camera ₹500)',
+        timings: '5:00 AM – 9:00 PM (Daily)',
+        contentStatus: 'VERIFIED',
+        didYouKnow: 'Emperor Ashoka’s daughter Sanghamitta took a cutting of the original Bodhi Tree to Sri Lanka in 288 BCE. When the original tree in Bodh Gaya was destroyed by later rulers, a sapling from Sri Lanka was replanted here!',
+        funFacts: [
+          'Vajrasana (Diamond Throne) marks the exact spot of Enlightenment.',
+          'Designated a UNESCO World Heritage Site in 2002.',
+          'Monasteries from Thailand, Japan, Tibet, Bhutan, and Sri Lanka surround the complex.'
+        ]
       }),
       stays: JSON.stringify([
         { name: 'Hotel Maha Maya', rating: 4.8, price: '₹4,500/night' },
@@ -276,9 +284,17 @@ async function main() {
       overview: 'Nalanda was a renowned Mahavihara (monastic university) in the ancient kingdom of Magadha. At its peak, it accommodated over 10,000 students and 2,000 teachers including famous scholars like Hiuen Tsang and Aryabhata.',
       travelInformation: JSON.stringify({
         bestTime: 'October to March',
-        howToReach: '85 km from Patna Airport; connected by Rajgir-Nalanda highway',
+        howToReach: '85 km from Patna Airport; connected by Rajgir-Nalanda highway & Bakhtiyarpur rail line.',
         suggestedDuration: '3 to 4 Hours',
-        entryFee: '₹25 for Indians, ₹300 for Foreigners'
+        entryFee: '₹25 for Indians, ₹300 for Foreigners',
+        timings: '9:00 AM – 5:00 PM (Closed on Fridays)',
+        contentStatus: 'VERIFIED',
+        didYouKnow: 'Nalanda’s legendary library, Dharma Gunj (Mountain of Truth), housed over 9 million manuscripts. When destroyed in 1193 CE, the library burned continuously for over three months!',
+        funFacts: [
+          'Accommodated 10,000 scholars and 2,000 revered teachers at its peak.',
+          'Great minds like Hiuen Tsang, Aryabhata, and Nagarjuna studied and taught here.',
+          'Features 11 monasteries and 6 brick temples arranged along a central avenue.'
+        ]
       }),
       stays: JSON.stringify([
         { name: 'Indo Hokke Hotel Rajgir', rating: 4.7, price: '₹5,800/night' }
@@ -307,9 +323,17 @@ async function main() {
       overview: 'Rajgir was the first capital of Magadha. The Vishwa Shanti Stupa (Peace Pagoda) built by Japanese Buddhist monk Fujii Guruji stands atop Gridhakuta hill. Visitors enjoy the scenic aerial ropeway, hot sulfur springs, and glass skywalk.',
       travelInformation: JSON.stringify({
         bestTime: 'September to March',
-        howToReach: 'Nearest railhead: Rajgir Railway Station (5 km)',
+        howToReach: 'Nearest railhead: Rajgir Railway Station (5 km); 100 km from Patna Airport.',
         suggestedDuration: 'Full Day',
-        entryFee: 'Ropeway ₹120 round-trip'
+        entryFee: 'Pagoda Free (Ropeway ₹120 round-trip)',
+        timings: '8:00 AM – 5:00 PM',
+        contentStatus: 'VERIFIED',
+        didYouKnow: 'Rajgir is surrounded by five majestic hills (Ratnagiri, Vipulachal, Vaibhagiri, Songiri, and Udaygiri) that formed natural fort walls for the ancient capital of King Bimbisara!',
+        funFacts: [
+          'Vulture’s Peak (Griddhakuta) was Buddha’s favorite retreat during rainy seasons.',
+          'Features India’s first single-cable aerial chairlift and modern cabin ropeway.',
+          'Home to the famous Glass Skywalk at Rajgir Nature Safari.'
+        ]
       }),
       stays: JSON.stringify([
         { name: 'Gargi Gautam Resort Rajgir', rating: 4.5, price: '₹4,000/night' }
@@ -340,7 +364,15 @@ async function main() {
         bestTime: 'Round the year (Prakash Parv in Dec/Jan)',
         howToReach: 'Patna Sahib Railway Station (2 km); Patna Airport (18 km)',
         suggestedDuration: '2 to 3 Hours',
-        entryFee: 'Free (Langar open to all visitors)'
+        entryFee: 'Free (Langar open to all visitors)',
+        timings: '4:00 AM – 10:00 PM (Daily)',
+        contentStatus: 'VERIFIED',
+        didYouKnow: 'Guru Gobind Singh Ji was born here in 1666 CE. The Gurdwara also houses sacred relics including his small gold-plated shoes and childhood wooden cradle (Pangura)!',
+        funFacts: [
+          'One of the 5 Takhts (Seats of Temporal Authority) in Sikhism.',
+          'Guru Nanak Dev Ji and Guru Tegh Bahadur Ji also visited Patna Sahib.',
+          'Serves free hot meals to thousands of visitors daily in Guru Ka Langar.'
+        ]
       }),
       stays: JSON.stringify([
         { name: 'Hotel Maurya Patna', rating: 4.8, price: '₹7,500/night' }

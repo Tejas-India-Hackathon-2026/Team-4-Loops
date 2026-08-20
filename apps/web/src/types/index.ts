@@ -112,10 +112,15 @@ export interface Destination {
     howToReach?: string;
     suggestedDuration?: string;
     entryFee?: string;
+    timings?: string;
+    funFacts?: string[];
+    didYouKnow?: string;
+    contentStatus?: 'VERIFIED' | 'NEEDS_REVIEW';
   };
   stays: Array<{ name: string; rating: number; price: string }>;
   recommendations: string[];
   nearbyVendors?: Vendor[];
+  nearbyDestinations?: Destination[];
 }
 
 export interface District {

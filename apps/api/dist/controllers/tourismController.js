@@ -141,13 +141,29 @@ async function getDestinationBySlug(req, res, next) {
                 take: 10
             });
         }
+        // Query nearby attractions in same district/circuit
+        const nearbyDestinations = await prisma.destination.findMany({
+            where: {
+                id: { not: destination.id },
+                OR: [
+                    { districtId: destination.districtId },
+                    { circuitId: destination.circuitId || undefined }
+                ]
+            },
+            take: 4,
+            include: {
+                district: true,
+                circuit: true
+            }
+        });
         const formatted = {
             ...destination,
             gallery: parseJsonField(destination.gallery, []),
             travelInformation: parseJsonField(destination.travelInformation, {}),
             stays: parseJsonField(destination.stays, []),
             recommendations: parseJsonField(destination.recommendations, []),
-            nearbyVendors
+            nearbyVendors,
+            nearbyDestinations
         };
         return res.json({ success: true, data: formatted });
     }

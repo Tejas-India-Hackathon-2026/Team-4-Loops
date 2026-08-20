@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, ArrowLeft, Eye, Star, Info, Compass, CheckCircle2, Ticket } from 'lucide-react';
+import {
+  MapPin, ArrowLeft, Eye, Star, Info, Compass, CheckCircle2, Ticket,
+  Clock, Calendar, Navigation, Sparkles, HelpCircle, ShieldCheck, AlertTriangle
+} from 'lucide-react';
 import api from '../../api/client';
 import { Destination } from '../../types';
 import { TabView, TabItem } from '../../components/common/TabView';
@@ -18,6 +21,7 @@ export const DestinationDetailPage: React.FC = () => {
 
   useEffect(() => {
     async function loadDestination() {
+      setLoading(true);
       try {
         const res = await api.get(`/destinations/${slug}`);
         if (res.data.success) {
@@ -30,17 +34,23 @@ export const DestinationDetailPage: React.FC = () => {
       }
     }
     loadDestination();
+    window.scrollTo(0, 0);
   }, [slug]);
 
   if (loading) {
-    return <div className="pt-32 pb-24 text-center text-brand-brown font-serif">Loading destination...</div>;
+    return (
+      <div className="pt-32 pb-24 text-center font-serif space-y-3">
+        <div className="w-10 h-10 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-brand-brown text-sm">Loading rich travel guide...</p>
+      </div>
+    );
   }
 
   if (!destination) {
     return (
       <div className="pt-32 pb-24 text-center space-y-4">
-        <h2 className="text-3xl font-serif text-brand-black">Destination Not Found</h2>
-        <Link to="/explore/destinations" className="text-brand-maroon underline sub-nav-label">Return to Destinations</Link>
+        <h2 className="text-3xl font-serif text-brand-black">Destination Guide Not Found</h2>
+        <Link to="/explore/destinations" className="text-brand-maroon underline sub-nav-label">Return to All Destinations</Link>
       </div>
     );
   }
@@ -51,32 +61,74 @@ export const DestinationDetailPage: React.FC = () => {
   ];
 
   const travelInfo = destination.travelInformation || {};
+  const isVerified = travelInfo.contentStatus === 'VERIFIED';
+  const nearbyAttractions = destination.nearbyDestinations || [];
 
   const tabs: TabItem[] = [
     {
       id: 'overview',
-      label: 'OVERVIEW',
+      label: 'OVERVIEW & HISTORY',
       content: (
-        <div className="space-y-6 font-serif text-brand-black/85 leading-relaxed text-base">
-          <p>{destination.overview}</p>
-          <div className="bg-cream p-6 rounded border border-brand-brown/15 space-y-4">
-            <h4 className="sub-nav-label text-brand-maroon">LOCATION DETAILS</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <div className="space-y-8 font-serif leading-relaxed text-brand-black/90">
+          {/* Main Story Text */}
+          <div className="space-y-4 text-base md:text-lg">
+            <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-brand-maroon first-letter:float-left first-letter:mr-3 leading-relaxed">
+              {destination.overview}
+            </p>
+            <p className="text-sm md:text-base text-brand-brown/90 leading-relaxed">
+              {destination.description}
+            </p>
+          </div>
+
+          {/* Did You Know Callout Box */}
+          {travelInfo.didYouKnow && (
+            <div className="bg-amber-900 text-cream p-6 md:p-8 rounded-xl border-2 border-brand-gold shadow-lg space-y-3">
+              <div className="flex items-center space-x-3 text-brand-gold font-bold text-xs sub-nav-label tracking-widest">
+                <Sparkles className="w-5 h-5 text-brand-gold animate-pulse" />
+                <span>DID YOU KNOW? / रोचक तथ्य</span>
+              </div>
+              <p className="font-serif text-lg md:text-xl leading-relaxed text-white">
+                "{travelInfo.didYouKnow}"
+              </p>
+            </div>
+          )}
+
+          {/* Key Facts & Fun Highlights */}
+          {travelInfo.funFacts && travelInfo.funFacts.length > 0 && (
+            <div className="bg-cream p-6 rounded-xl border border-brand-brown/15 space-y-4">
+              <h4 className="sub-nav-label text-brand-maroon text-xs tracking-wider">HERITAGE HIGHLIGHTS & TRIVIA</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-sans text-xs">
+                {travelInfo.funFacts.map((fact, idx) => (
+                  <div key={idx} className="bg-white p-4 rounded-lg border border-brand-brown/10 shadow-sm space-y-1.5">
+                    <span className="w-6 h-6 rounded-full bg-brand-maroon text-white flex items-center justify-center font-bold text-[10px]">
+                      {idx + 1}
+                    </span>
+                    <p className="text-brand-black font-medium leading-normal">{fact}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Location Technical Specs */}
+          <div className="bg-white p-6 rounded-xl border border-brand-brown/15 space-y-4">
+            <h4 className="sub-nav-label text-brand-maroon text-xs">SITE SPECIFICATIONS</h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-sans">
               <div>
-                <span className="text-xs text-brand-brown/70 block">DISTRICT</span>
-                <span className="font-semibold">{destination.district?.name || 'N/A'}</span>
+                <span className="text-brand-brown/70 block text-[10px] sub-nav-label">DISTRICT</span>
+                <span className="font-bold text-brand-black text-sm">{destination.district?.name || 'N/A'}</span>
               </div>
               <div>
-                <span className="text-xs text-brand-brown/70 block">CIRCUIT</span>
-                <span className="font-semibold">{destination.circuit?.name || 'Heritage Circuit'}</span>
+                <span className="text-brand-brown/70 block text-[10px] sub-nav-label">CIRCUIT</span>
+                <span className="font-bold text-brand-black text-sm">{destination.circuit?.name || 'Heritage Circuit'}</span>
               </div>
               <div>
-                <span className="text-xs text-brand-brown/70 block">CATEGORY</span>
-                <span className="font-semibold">{destination.category}</span>
+                <span className="text-brand-brown/70 block text-[10px] sub-nav-label">CATEGORY</span>
+                <span className="font-bold text-brand-black text-sm">{destination.category}</span>
               </div>
               <div>
-                <span className="text-xs text-brand-brown/70 block">COORDINATES</span>
-                <span className="font-semibold">{destination.latitude.toFixed(4)}° N, {destination.longitude.toFixed(4)}° E</span>
+                <span className="text-brand-brown/70 block text-[10px] sub-nav-label">GPS COORDINATES</span>
+                <span className="font-mono text-brand-black">{destination.latitude.toFixed(4)}° N, {destination.longitude.toFixed(4)}° E</span>
               </div>
             </div>
           </div>
@@ -85,7 +137,7 @@ export const DestinationDetailPage: React.FC = () => {
     },
     {
       id: 'interactive-map',
-      label: 'SPOT MAP & NEARBY STAYS',
+      label: 'INTERACTIVE MAP & NEARBY STAYS',
       content: (
         <div className="space-y-4">
           <SpotInteractiveMap
@@ -99,149 +151,239 @@ export const DestinationDetailPage: React.FC = () => {
       id: 'gallery',
       label: 'PHOTO GALLERY',
       content: (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {galleryImages.map((imgUrl, idx) => (
-            <div
-              key={idx}
-              onClick={() => {
-                setLightboxIndex(idx);
-                setLightboxOpen(true);
-              }}
-              className="group relative aspect-[4/3] rounded overflow-hidden cursor-pointer border border-brand-brown/15 shadow-sm hover:shadow-md transition-all"
-            >
-              <img src={imgUrl} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                <Eye className="w-6 h-6" />
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="sub-nav-label text-brand-maroon text-xs">PHOTOGRAPHIC COLLECTION ({galleryImages.length})</span>
+            <span className="text-xs text-brand-brown font-sans">Click image to enlarge</span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {galleryImages.map((imgUrl, idx) => (
+              <div
+                key={idx}
+                onClick={() => {
+                  setLightboxIndex(idx);
+                  setLightboxOpen(true);
+                }}
+                className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer border border-brand-brown/15 shadow-sm hover:shadow-md transition-all"
+              >
+                <img src={imgUrl} alt={`${destination.name} ${idx + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                  <Eye className="w-6 h-6 text-brand-gold" />
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )
-    },
-    {
-      id: 'travel-info',
-      label: 'TRAVEL INFORMATION',
-      content: (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded border border-brand-brown/15 space-y-2">
-            <span className="text-xs sub-nav-label text-brand-gold">BEST TIME TO VISIT</span>
-            <p className="font-serif text-lg font-semibold text-brand-black">{travelInfo.bestTime || 'October to March'}</p>
-          </div>
-          <div className="bg-white p-6 rounded border border-brand-brown/15 space-y-2">
-            <span className="text-xs sub-nav-label text-brand-gold">HOW TO REACH</span>
-            <p className="font-serif text-sm text-brand-black/80">{travelInfo.howToReach || 'Connected via Patna Airport & major railway head.'}</p>
-          </div>
-          <div className="bg-white p-6 rounded border border-brand-brown/15 space-y-2">
-            <span className="text-xs sub-nav-label text-brand-gold">SUGGESTED DURATION</span>
-            <p className="font-serif text-lg font-semibold text-brand-black">{travelInfo.suggestedDuration || '1 to 2 Days'}</p>
-          </div>
-          <div className="bg-white p-6 rounded border border-brand-brown/15 space-y-2">
-            <span className="text-xs sub-nav-label text-brand-gold">ENTRY FEE & TIMINGS</span>
-            <p className="font-serif text-sm text-brand-black/80">{travelInfo.entryFee || 'Free entrance'}</p>
+            ))}
           </div>
         </div>
       )
     },
     {
-      id: 'stays',
-      label: 'NEARBY STAYS',
+      id: 'insider-tips',
+      label: 'INSIDER TIPS & ACCOMMODATION',
       content: (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {destination.stays && destination.stays.length > 0 ? (
-            destination.stays.map((stay: any, idx: number) => (
-              <div key={idx} className="bg-white p-6 rounded border border-brand-brown/15 flex items-center justify-between">
-                <div>
-                  <h4 className="font-serif text-lg text-brand-black font-semibold">{stay.name}</h4>
-                  <div className="flex items-center space-x-1 text-xs text-brand-gold mt-1">
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <span>{stay.rating} Rating</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Stays Column */}
+          <div className="space-y-4">
+            <h4 className="sub-nav-label text-brand-maroon text-xs">RECOMMENDED STAYS NEAR SITE</h4>
+            <div className="space-y-3">
+              {destination.stays && destination.stays.length > 0 ? (
+                destination.stays.map((stay: any, idx: number) => (
+                  <div key={idx} className="bg-white p-5 rounded-xl border border-brand-brown/15 flex items-center justify-between shadow-sm">
+                    <div>
+                      <h5 className="font-serif text-base text-brand-black font-bold">{stay.name}</h5>
+                      <div className="flex items-center space-x-1 text-xs text-amber-500 mt-1 font-sans">
+                        <Star className="w-3.5 h-3.5 fill-current" />
+                        <span className="font-bold">{stay.rating} / 5</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-serif text-lg font-bold text-brand-maroon">{stay.price}</span>
+                      <span className="block text-[10px] sub-nav-label text-brand-brown/60">PER NIGHT</span>
+                    </div>
                   </div>
-                </div>
-                <div className="text-right">
-                  <span className="font-serif text-base font-bold text-brand-maroon">{stay.price}</span>
-                  <span className="block text-[10px] sub-nav-label text-brand-brown/60">PER NIGHT</span>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-sm font-serif text-brand-brown/70">No specific hotels listed yet.</p>
-          )}
-        </div>
-      )
-    },
-    {
-      id: 'recommendations',
-      label: 'INSIDER RECOMMENDATIONS',
-      content: (
-        <div className="bg-cream p-6 rounded border border-brand-brown/15 space-y-4">
-          <h4 className="sub-nav-label text-brand-maroon">LOCAL INSIDER TIPS</h4>
-          <ul className="space-y-3 font-serif text-sm text-brand-black/85">
-            {destination.recommendations && destination.recommendations.length > 0 ? (
-              destination.recommendations.map((tip: string, idx: number) => (
-                <li key={idx} className="flex items-start space-x-3">
-                  <CheckCircle2 className="w-4 h-4 text-brand-gold flex-shrink-0 mt-0.5" />
-                  <span>{tip}</span>
-                </li>
-              ))
-            ) : (
-              <li>No specific recommendations listed.</li>
-            )}
-          </ul>
+                ))
+              ) : (
+                <p className="text-xs font-serif text-brand-brown/70">Check interactive map tab for certified nearby hotel listings.</p>
+              )}
+            </div>
+          </div>
+
+          {/* Recommendations Column */}
+          <div className="space-y-4">
+            <h4 className="sub-nav-label text-brand-maroon text-xs">LOCAL INSIDER ADVICE</h4>
+            <div className="bg-cream p-6 rounded-xl border border-brand-brown/15 space-y-3">
+              <ul className="space-y-3 font-serif text-sm text-brand-black/85">
+                {destination.recommendations && destination.recommendations.length > 0 ? (
+                  destination.recommendations.map((tip: string, idx: number) => (
+                    <li key={idx} className="flex items-start space-x-3">
+                      <CheckCircle2 className="w-5 h-5 text-brand-gold flex-shrink-0 mt-0.5" />
+                      <span>{tip}</span>
+                    </li>
+                  ))
+                ) : (
+                  <li>No specific recommendations listed.</li>
+                )}
+              </ul>
+            </div>
+          </div>
         </div>
       )
     }
   ];
 
   return (
-    <div className="pt-24 pb-24">
-      {/* Hero Banner */}
-      <div className="relative h-[65vh] min-h-[400px] w-full bg-brand-black text-white overflow-hidden">
+    <div className="pt-24 pb-24 bg-cream-light">
+      {/* 1. HERO BANNER */}
+      <div className="relative h-[65vh] min-h-[440px] w-full bg-brand-black text-white overflow-hidden">
         <img
           src={destination.heroImage}
           alt={destination.name}
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover opacity-50 scale-105"
+          style={{ transition: 'transform 10s ease-out' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-black/40 to-transparent" />
 
-        <div className="absolute bottom-10 left-0 right-0 max-w-7xl mx-auto px-6 md:px-12 space-y-3">
+        <div className="absolute bottom-10 left-0 right-0 max-w-7xl mx-auto px-6 md:px-12 space-y-4">
           <Link
             to="/explore/destinations"
-            className="inline-flex items-center space-x-2 text-xs sub-nav-label text-brand-gold hover:text-white mb-2 transition-colors"
+            className="inline-flex items-center space-x-2 text-xs sub-nav-label text-brand-gold hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>ALL DESTINATIONS</span>
           </Link>
-          <span className="text-xs sub-nav-label text-brand-gold block">{destination.category}</span>
-          <h1 className="text-4xl md:text-6xl font-serif text-cream">{destination.name}</h1>
-          <div className="flex items-center space-x-2 text-xs font-serif text-cream/80 pt-1">
-            <MapPin className="w-4 h-4 text-brand-gold" />
-            <span>{destination.district?.name || 'Bihar'}</span>
-            {destination.circuit && <span>• {destination.circuit.name}</span>}
+
+          <div className="flex items-center space-x-3 flex-wrap gap-y-2">
+            <span className="text-xs sub-nav-label bg-brand-gold text-brand-black px-3 py-1 rounded font-bold">
+              {destination.category}
+            </span>
+
+            {isVerified ? (
+              <span className="text-xs sub-nav-label bg-emerald-800 text-white px-3 py-1 rounded-full font-bold flex items-center space-x-1">
+                <ShieldCheck className="w-3.5 h-3.5 inline" />
+                <span>✓ VERIFIED HERITAGE GUIDE</span>
+              </span>
+            ) : (
+              <span className="text-xs sub-nav-label bg-amber-400 text-amber-950 px-3 py-1 rounded-full font-bold flex items-center space-x-1">
+                <AlertTriangle className="w-3.5 h-3.5 inline" />
+                <span>[NEEDS CONTENT REVIEW]</span>
+              </span>
+            )}
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-serif text-cream font-light tracking-wide">{destination.name}</h1>
+
+          <div className="flex items-center space-x-4 text-xs font-sans text-cream/90 pt-1 flex-wrap gap-y-1">
+            <div className="flex items-center space-x-1">
+              <MapPin className="w-4 h-4 text-brand-gold" />
+              <span className="font-bold">{destination.district?.name || 'Bihar'} District</span>
+            </div>
+            {destination.circuit && (
+              <span>&bull; {destination.circuit.name}</span>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Main Content Area */}
+      {/* 2. QUICK FACTS CARD GRID BAR */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 -mt-10 relative z-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Fact 1: Best Time */}
+          <div className="bg-white p-5 rounded-xl border border-brand-brown/15 shadow-lg flex items-start space-x-4">
+            <div className="p-3 bg-amber-100 text-amber-900 rounded-lg flex-shrink-0">
+              <Calendar className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="text-[10px] sub-nav-label text-brand-brown/70 block">BEST TIME TO VISIT</span>
+              <p className="font-serif text-sm font-bold text-brand-black">{travelInfo.bestTime || 'October to March'}</p>
+            </div>
+          </div>
+
+          {/* Fact 2: Duration */}
+          <div className="bg-white p-5 rounded-xl border border-brand-brown/15 shadow-lg flex items-start space-x-4">
+            <div className="p-3 bg-blue-100 text-blue-900 rounded-lg flex-shrink-0">
+              <Clock className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="text-[10px] sub-nav-label text-brand-brown/70 block">RECOMMENDED DURATION</span>
+              <p className="font-serif text-sm font-bold text-brand-black">{travelInfo.suggestedDuration || '1 to 2 Days'}</p>
+            </div>
+          </div>
+
+          {/* Fact 3: Timings & Entry */}
+          <div className="bg-white p-5 rounded-xl border border-brand-brown/15 shadow-lg flex items-start space-x-4">
+            <div className="p-3 bg-emerald-100 text-emerald-900 rounded-lg flex-shrink-0">
+              <Ticket className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="text-[10px] sub-nav-label text-brand-brown/70 block">ENTRY & TIMINGS</span>
+              <p className="font-serif text-sm font-bold text-brand-black">{travelInfo.entryFee || 'Free Admission'}</p>
+              <span className="text-[11px] text-brand-brown/80 font-sans block">{travelInfo.timings || 'Sunrise to Sunset'}</span>
+            </div>
+          </div>
+
+          {/* Fact 4: How to Reach */}
+          <div className="bg-white p-5 rounded-xl border border-brand-brown/15 shadow-lg flex items-start space-x-4">
+            <div className="p-3 bg-purple-100 text-purple-900 rounded-lg flex-shrink-0">
+              <Navigation className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="text-[10px] sub-nav-label text-brand-brown/70 block">HOW TO REACH</span>
+              <p className="font-serif text-xs font-semibold text-brand-black line-clamp-2">{travelInfo.howToReach || 'Connected via nearest major airport & railway station.'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. MAIN TABBED CONTENT AREA */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-12 space-y-12">
         <TabView tabs={tabs} defaultTabId="overview" />
 
-        {/* Vendor Booking Banner */}
-        <div className="bg-brand-black text-cream p-8 rounded border border-brand-gold/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-2">
-            <span className="text-[10px] sub-nav-label text-brand-gold">MARKETPLACE EXPERIENCES</span>
-            <h3 className="text-2xl font-serif text-cream">Book Guided Tours & Experiences Near {destination.name}</h3>
-            <p className="text-xs font-serif text-cream/70 max-w-xl">
-              Verified local vendors offer heritage walking tours, private transport, and craft workshops.
-            </p>
+        {/* 4. NEARBY CROSS-LINKED ATTRACTIONS SECTION */}
+        {nearbyAttractions.length > 0 && (
+          <div className="border-t border-brand-brown/15 pt-12 space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="sub-nav-label text-brand-maroon text-xs">CROSS-LINKED HERITAGE SPOTS</span>
+                <h3 className="text-2xl font-serif text-brand-black font-bold">
+                  Explore Nearby Attractions in {destination.district?.name || 'Region'}
+                </h3>
+              </div>
+              <Link to="/explore/destinations" className="text-xs sub-nav-label text-brand-maroon hover:underline">
+                VIEW ALL SPOTS &rarr;
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              {nearbyAttractions.map((spot) => (
+                <Link
+                  key={spot.id}
+                  to={`/explore/destinations/${spot.slug}`}
+                  className="group bg-white rounded-xl overflow-hidden border border-brand-brown/15 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img src={spot.heroImage} alt={spot.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <span className="absolute top-3 left-3 text-[10px] font-bold bg-brand-black/80 text-brand-gold px-2 py-0.5 rounded sub-nav-label">
+                      {spot.category}
+                    </span>
+                  </div>
+                  <div className="p-4 space-y-2 flex-grow flex flex-col justify-between">
+                    <div>
+                      <h4 className="font-serif text-base font-bold text-brand-black group-hover:text-brand-maroon transition-colors line-clamp-1">
+                        {spot.name}
+                      </h4>
+                      <p className="text-xs text-brand-brown/80 font-serif line-clamp-2 mt-1">
+                        {spot.description}
+                      </p>
+                    </div>
+                    <span className="text-[11px] sub-nav-label text-brand-maroon font-bold pt-2 block border-t border-brand-brown/10">
+                      EXPLORE GUIDE &rarr;
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-          <Link
-            to="/explore/circuits"
-            className="px-6 py-3.5 bg-brand-gold text-brand-black sub-nav-label text-xs tracking-widest font-semibold rounded hover:bg-amber-400 transition-all flex items-center space-x-2 whitespace-nowrap shadow-lg"
-          >
-            <Ticket className="w-4 h-4" />
-            <span>BROWSE OFFERINGS</span>
-          </Link>
-        </div>
+        )}
       </div>
 
       {/* Lightbox Modal */}
