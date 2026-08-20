@@ -10,6 +10,7 @@ import { Lightbox } from '../../components/common/Lightbox';
 import { SpotInteractiveMap } from '../../components/tourism/SpotInteractiveMap';
 import { DestinationCard } from '../../components/tourism/DestinationCard';
 import { FavoriteButton } from '../../components/common/FavoriteButton';
+import { PhotoMosaic } from '../../components/common/PhotoMosaic';
 
 export const ExperienceDetailPage: React.FC = () => {
   const { category, slug } = useParams<{ category?: string; slug?: string }>();
@@ -236,23 +237,14 @@ export const ExperienceDetailPage: React.FC = () => {
                   <span className="text-xs text-brand-brown font-sans">Click image to enlarge</span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  {galleryImages.map((imgUrl, idx) => (
-                    <div
-                      key={idx}
-                      onClick={() => {
-                        setLightboxIndex(idx);
-                        setLightboxOpen(true);
-                      }}
-                      className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer border border-brand-brown/15 shadow-sm hover:shadow-md transition-all"
-                    >
-                      <img src={imgUrl} alt={`${displayTitle} ${idx + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                        <Eye className="w-6 h-6 text-brand-gold" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <PhotoMosaic
+                  images={galleryImages}
+                  altPrefix={displayTitle}
+                  onImageClick={(idx) => {
+                    setLightboxIndex(idx);
+                    setLightboxOpen(true);
+                  }}
+                />
               </div>
             )}
           </div>

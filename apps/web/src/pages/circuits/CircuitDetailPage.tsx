@@ -10,6 +10,7 @@ import { TabView, TabItem } from '../../components/common/TabView';
 import { Lightbox } from '../../components/common/Lightbox';
 import { DestinationCard } from '../../components/tourism/DestinationCard';
 import { SpotInteractiveMap } from '../../components/tourism/SpotInteractiveMap';
+import { PhotoMosaic } from '../../components/common/PhotoMosaic';
 
 export const CircuitDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -196,23 +197,14 @@ export const CircuitDetailPage: React.FC = () => {
             <span className="text-xs text-brand-brown font-sans">Click image to enlarge</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {galleryImages.map((imgUrl, idx) => (
-              <div
-                key={idx}
-                onClick={() => {
-                  setLightboxIndex(idx);
-                  setLightboxOpen(true);
-                }}
-                className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer border border-brand-brown/15 shadow-sm hover:shadow-md transition-all"
-              >
-                <img src={imgUrl} alt={`${circuit.name} ${idx + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                  <Eye className="w-6 h-6 text-brand-gold" />
-                </div>
-              </div>
-            ))}
-          </div>
+          <PhotoMosaic
+            images={galleryImages}
+            altPrefix={circuit.name}
+            onImageClick={(idx) => {
+              setLightboxIndex(idx);
+              setLightboxOpen(true);
+            }}
+          />
         </div>
       )
     },
