@@ -1,0 +1,47 @@
+import React, { useEffect, useState } from 'react';
+import api from '../../api/client';
+import { District } from '../../types';
+import { DistrictCard } from '../../components/tourism/DistrictCard';
+
+export const DistrictsListingPage: React.FC = () => {
+  const [districts, setDistricts] = useState<District[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadDistricts() {
+      try {
+        const res = await api.get('/districts');
+        if (res.data.success) {
+          setDistricts(res.data.data);
+        }
+      } catch (err) {
+        console.error('Failed to load districts:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadDistricts();
+  }, []);
+
+  return (
+    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-8">
+      <div className="border-b border-brand-brown/15 pb-6 space-y-2">
+        <span className="sub-nav-label text-brand-maroon">REGIONAL DISCOVERY</span>
+        <h1 className="text-4xl md:text-6xl font-serif text-brand-black">Districts of Bihar</h1>
+        <p className="text-base font-serif text-brand-black/75 max-w-2xl leading-relaxed">
+          Explore the rich cultural identity, monuments, and geography of key Bihar districts.
+        </p>
+      </div>
+
+      {loading ? (
+        <div className="py-20 text-center text-brand-brown font-serif">Loading districts...</div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {districts.map((district) => (
+            <DistrictCard key={district.id} district={district} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};

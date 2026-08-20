@@ -1,0 +1,47 @@
+import React, { useEffect, useState } from 'react';
+import api from '../../api/client';
+import { Circuit } from '../../types';
+import { CircuitCard } from '../../components/tourism/CircuitCard';
+
+export const CircuitsListingPage: React.FC = () => {
+  const [circuits, setCircuits] = useState<Circuit[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadCircuits() {
+      try {
+        const res = await api.get('/circuits');
+        if (res.data.success) {
+          setCircuits(res.data.data);
+        }
+      } catch (err) {
+        console.error('Failed to load circuits:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadCircuits();
+  }, []);
+
+  return (
+    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <div className="border-b border-brand-brown/15 pb-8 mb-12 space-y-3">
+        <span className="sub-nav-label text-brand-maroon">SACRED TRAILS & CIRCUITS</span>
+        <h1 className="text-4xl md:text-6xl font-serif text-brand-black">Explore Bihar Tourism Circuits</h1>
+        <p className="text-base font-serif text-brand-black/75 max-w-2xl leading-relaxed">
+          Embark on historical and spiritual pilgrimage trails that connect iconic destinations across Bihar.
+        </p>
+      </div>
+
+      {loading ? (
+        <div className="py-20 text-center text-brand-brown font-serif">Loading circuits...</div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {circuits.map((circuit) => (
+            <CircuitCard key={circuit.id} circuit={circuit} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};

@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background-color: #FAF8F3;
+    color: #111111;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Custom Editorial Utilities */
+.hero-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 11vw, 177px);
+  line-height: clamp(52px, 10.5vw, 142px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.sub-nav-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.thin-border {
+  border-color: rgba(59, 33, 24, 0.12);
+}
+
+.glass-header {
+  background: rgba(250, 248, 243, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Leaflet Map Custom Styling */
+.leaflet-container {
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 0.75rem;
+  z-index: 10;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #FAF8F3 !important;
+  color: #111111 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  width: 260px !important;
+}
+
+.custom-map-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #5A1F24;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(90, 31, 36, 0.4);
+  border: 2px solid #FAF8F3;
+}

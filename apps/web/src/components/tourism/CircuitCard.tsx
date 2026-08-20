@@ -1,0 +1,51 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, MapPin } from 'lucide-react';
+import { Circuit } from '../../types';
+
+interface CircuitCardProps {
+  circuit: Circuit;
+}
+
+export const CircuitCard: React.FC<CircuitCardProps> = ({ circuit }) => {
+  return (
+    <div className="group bg-cream border border-brand-brown/15 rounded overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col justify-between">
+      <div>
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <img
+            src={circuit.heroImage}
+            alt={circuit.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent p-5 flex flex-col justify-end">
+            <span className="text-xs sub-nav-label text-brand-gold">SACRED TRAIL</span>
+            <h3 className="text-2xl font-serif text-white tracking-wide mt-1">{circuit.name}</h3>
+          </div>
+        </div>
+
+        <div className="p-6 space-y-4">
+          <p className="text-sm font-serif text-brand-black/80 line-clamp-3 leading-relaxed">
+            {circuit.description}
+          </p>
+
+          {circuit.locations && circuit.locations.length > 0 && (
+            <div className="pt-2 border-t border-brand-brown/10 flex items-center space-x-2 text-xs font-serif text-brand-maroon">
+              <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+              <span className="truncate">Key locations: {circuit.locations.join(' • ')}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="px-6 pb-6 pt-2">
+        <Link
+          to={`/explore/circuits/${circuit.slug}`}
+          className="inline-flex items-center justify-between w-full text-xs sub-nav-label text-brand-maroon group-hover:text-brand-black font-semibold border-t border-brand-brown/10 pt-4 transition-colors"
+        >
+          <span>EXPLORE CIRCUIT</span>
+          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" />
+        </Link>
+      </div>
+    </div>
+  );
+};

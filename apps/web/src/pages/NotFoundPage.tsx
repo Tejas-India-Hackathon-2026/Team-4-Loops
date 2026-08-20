@@ -1,0 +1,33 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Compass, ArrowRight } from 'lucide-react';
+
+export const NotFoundPage: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-cream flex flex-col items-center justify-center p-6 text-center">
+      <div className="max-w-md space-y-6">
+        <span className="font-serif text-8xl font-light text-brand-maroon tracking-widest block">404</span>
+        <h1 className="text-3xl font-serif text-brand-black">The path seems to have wandered.</h1>
+        <p className="text-sm font-serif text-brand-black/75 leading-relaxed">
+          The sacred destination or trail you are looking for cannot be found along our current routes.
+        </p>
+
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            to="/"
+            className="w-full sm:w-auto px-6 py-3.5 bg-brand-black text-brand-gold text-xs sub-nav-label tracking-widest rounded hover:bg-brand-maroon hover:text-white transition-all shadow-md"
+          >
+            RETURN HOME
+          </Link>
+          <Link
+            to="/explore/circuits"
+            className="w-full sm:w-auto px-6 py-3.5 border border-brand-brown/30 text-brand-black text-xs sub-nav-label tracking-widest rounded hover:bg-white transition-all flex items-center justify-center space-x-2"
+          >
+            <Compass className="w-4 h-4 text-brand-gold" />
+            <span>EXPLORE CIRCUITS</span>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};

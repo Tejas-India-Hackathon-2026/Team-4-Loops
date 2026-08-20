@@ -1,0 +1,267 @@
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
+import api from '../../api/client';
+import { Vendor, User, Order } from '../../types';
+import { Shield, CheckCircle, XCircle, Ban, Users, Store, DollarSign, Package } from 'lucide-react';
+
+export const AdminDashboardPage: React.FC = () => {
+  const { user } = useAuth();
+  const { showToast } = useToast();
+
+  const [stats, setStats] = useState<any>(null);
+  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [usersList, setUsersList] = useState<User[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  const [activeTab, setActiveTab] = useState<'vendors' | 'users' | 'orders'>('vendors');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadAdminData() {
+      try {
+        const [statRes, vendRes, usrRes, ordRes] = await Promise.all([
+          api.get('/admin/stats'),
+          api.get('/admin/vendors'),
+          api.get('/admin/users'),
+          api.get('/admin/orders')
+        ]);
+
+        if (statRes.data.success) setStats(statRes.data.data);
+        if (vendRes.data.success) setVendors(vendRes.data.data);
+        if (usrRes.data.success) setUsersList(usrRes.data.data);
+        if (ordRes.data.success) setOrders(ordRes.data.data);
+      } catch (err) {
+        console.error('Error loading admin data:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    if (user && user.role === 'ADMIN') loadAdminData();
+  }, [user]);
+
+  const handleUpdateVendorStatus = async (vendorId: string, newStatus: string) => {
+    try {
+      const res = await api.patch(`/admin/vendors/${vendorId}/status`, { status: newStatus });
+      if (res.data.success) {
+        showToast(`Vendor status updated to ${newStatus}`, 'success');
+        setVendors(vendors.map(v => v.id === vendorId ? { ...v, status: newStatus as any } : v));
+      }
+    } catch (err: any) {
+      showToast('Failed to update vendor status', 'error');
+    }
+  };
+
+  if (!user || user.role !== 'ADMIN') {
+    return (
+      <div className="pt-32 pb-24 text-center space-y-4">
+        <h2 className="text-3xl font-serif text-brand-black">Admin Privileges Required</h2>
+        <p className="text-sm font-serif text-brand-brown">You must be logged in as an Administrator to view this page.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-8">
+      {/* Admin Title Banner */}
+      <div className="bg-brand-black text-cream p-8 rounded border border-brand-gold/30 flex items-center justify-between shadow-xl">
+        <div className="flex items-center space-x-4">
+          <div className="p-3 bg-brand-gold text-brand-black rounded-full">
+            <Shield className="w-8 h-8" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-serif text-cream">SETU Platform Admin Console</h1>
+            <p className="text-xs font-sans text-cream/70">Vendor Approvals, User Directory & Order Monitoring</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Platform Stats Grid */}
+      {stats && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white p-5 rounded border border-brand-brown/15 shadow-sm space-y-1">
+            <span className="text-[10px] sub-nav-label text-brand-brown/70">TOTAL USERS</span>
+            <p className="font-serif text-2xl font-bold text-brand-black">{stats.totalUsers}</p>
+          </div>
+
+          <div className="bg-white p-5 rounded border border-brand-brown/15 shadow-sm space-y-1">
+            <span className="text-[10px] sub-nav-label text-brand-brown/70">PENDING VENDORS</span>
+            <p className="font-serif text-2xl font-bold text-brand-maroon">{stats.pendingVendors}</p>
+          </div>
+
+          <div className="bg-white p-5 rounded border border-brand-brown/15 shadow-sm space-y-1">
+            <span className="text-[10px] sub-nav-label text-brand-brown/70">APPROVED VENDORS</span>
+            <p className="font-serif text-2xl font-bold text-emerald-700">{stats.approvedVendors}</p>
+          </div>
+
+          <div className="bg-white p-5 rounded border border-brand-brown/15 shadow-sm space-y-1">
+            <span className="text-[10px] sub-nav-label text-brand-brown/70">PLATFORM REVENUE</span>
+            <p className="font-serif text-2xl font-bold text-brand-gold">₹{stats.totalRevenue.toLocaleString('en-IN')}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Admin Tabs */}
+      <div className="flex border-b border-brand-brown/15 space-x-8">
+        <button
+          onClick={() => setActiveTab('vendors')}
+          className={`py-3 sub-nav-label text-xs tracking-widest border-b-2 transition-all ${
+            activeTab === 'vendors' ? 'border-brand-maroon text-brand-black font-bold' : 'border-transparent text-brand-black/60'
+          }`}
+        >
+          VENDOR APPROVALS ({vendors.length})
+        </button>
+        <button
+          onClick={() => setActiveTab('users')}
+          className={`py-3 sub-nav-label text-xs tracking-widest border-b-2 transition-all ${
+            activeTab === 'users' ? 'border-brand-maroon text-brand-black font-bold' : 'border-transparent text-brand-black/60'
+          }`}
+        >
+          USER DIRECTORY ({usersList.length})
+        </button>
+        <button
+          onClick={() => setActiveTab('orders')}
+          className={`py-3 sub-nav-label text-xs tracking-widest border-b-2 transition-all ${
+            activeTab === 'orders' ? 'border-brand-maroon text-brand-black font-bold' : 'border-transparent text-brand-black/60'
+          }`}
+        >
+          ALL ORDERS ({orders.length})
+        </button>
+      </div>
+
+      {/* Vendors Panel */}
+      {activeTab === 'vendors' && (
+        <div className="bg-white p-6 rounded border border-brand-brown/15 space-y-6">
+          <h3 className="sub-nav-label text-brand-maroon">REGISTERED VENDORS LIST</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left font-sans text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-brand-brown/15 text-[11px] sub-nav-label text-brand-brown">
+                  <th className="py-3 px-2">BUSINESS NAME</th>
+                  <th className="py-3 px-2">OWNER NAME</th>
+                  <th className="py-3 px-2">TYPE</th>
+                  <th className="py-3 px-2">CITY</th>
+                  <th className="py-3 px-2">STATUS</th>
+                  <th className="py-3 px-2 text-right">ACTION</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-brand-brown/10">
+                {vendors.map((vend) => (
+                  <tr key={vend.id} className="hover:bg-cream-light">
+                    <td className="py-4 px-2 font-serif font-bold text-brand-black">{vend.businessName}</td>
+                    <td className="py-4 px-2 text-xs">{vend.user?.name || 'N/A'}</td>
+                    <td className="py-4 px-2 text-xs">{vend.businessType}</td>
+                    <td className="py-4 px-2 text-xs">{vend.city}</td>
+                    <td className="py-4 px-2">
+                      <span className={`text-[10px] sub-nav-label px-2.5 py-0.5 rounded ${
+                        vend.status === 'APPROVED'
+                          ? 'bg-emerald-100 text-emerald-800'
+                          : vend.status === 'PENDING'
+                          ? 'bg-amber-100 text-amber-800'
+                          : 'bg-red-100 text-red-800'
+                      }`}>
+                        {vend.status}
+                      </span>
+                    </td>
+                    <td className="py-4 px-2 text-right space-x-2">
+                      {vend.status !== 'APPROVED' && (
+                        <button
+                          onClick={() => handleUpdateVendorStatus(vend.id, 'APPROVED')}
+                          className="px-3 py-1 bg-emerald-700 text-white text-xs sub-nav-label rounded hover:bg-emerald-800"
+                        >
+                          APPROVE
+                        </button>
+                      )}
+                      {vend.status !== 'REJECTED' && (
+                        <button
+                          onClick={() => handleUpdateVendorStatus(vend.id, 'REJECTED')}
+                          className="px-3 py-1 bg-red-600 text-white text-xs sub-nav-label rounded hover:bg-red-700"
+                        >
+                          REJECT
+                        </button>
+                      )}
+                      {vend.status !== 'SUSPENDED' && (
+                        <button
+                          onClick={() => handleUpdateVendorStatus(vend.id, 'SUSPENDED')}
+                          className="px-3 py-1 bg-amber-600 text-white text-xs sub-nav-label rounded hover:bg-amber-700"
+                        >
+                          SUSPEND
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Users Panel */}
+      {activeTab === 'users' && (
+        <div className="bg-white p-6 rounded border border-brand-brown/15 space-y-6">
+          <h3 className="sub-nav-label text-brand-maroon">USER DIRECTORY</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left font-sans text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-brand-brown/15 text-[11px] sub-nav-label text-brand-brown">
+                  <th className="py-3 px-2">NAME</th>
+                  <th className="py-3 px-2">EMAIL</th>
+                  <th className="py-3 px-2">ROLE</th>
+                  <th className="py-3 px-2">PHONE</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-brand-brown/10">
+                {usersList.map((usr) => (
+                  <tr key={usr.id}>
+                    <td className="py-3.5 px-2 font-semibold text-brand-black">{usr.name}</td>
+                    <td className="py-3.5 px-2 text-xs font-mono">{usr.email}</td>
+                    <td className="py-3.5 px-2 text-xs">
+                      <span className="px-2 py-0.5 bg-cream rounded border border-brand-brown/15 sub-nav-label text-[10px]">
+                        {usr.role}
+                      </span>
+                    </td>
+                    <td className="py-3.5 px-2 text-xs">{usr.phone || 'N/A'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Orders Panel */}
+      {activeTab === 'orders' && (
+        <div className="bg-white p-6 rounded border border-brand-brown/15 space-y-6">
+          <h3 className="sub-nav-label text-brand-maroon">ALL PLATFORM ORDERS</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left font-sans text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-brand-brown/15 text-[11px] sub-nav-label text-brand-brown">
+                  <th className="py-3 px-2">ORDER #</th>
+                  <th className="py-3 px-2">TOURIST</th>
+                  <th className="py-3 px-2">VENDOR</th>
+                  <th className="py-3 px-2">AMOUNT</th>
+                  <th className="py-3 px-2">PAYMENT</th>
+                  <th className="py-3 px-2">ORDER STATUS</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-brand-brown/10">
+                {orders.map((ord) => (
+                  <tr key={ord.id}>
+                    <td className="py-3.5 px-2 font-mono text-xs font-bold text-brand-maroon">{ord.orderNumber}</td>
+                    <td className="py-3.5 px-2 text-xs font-semibold">{ord.user?.name}</td>
+                    <td className="py-3.5 px-2 text-xs">{ord.vendor?.businessName}</td>
+                    <td className="py-3.5 px-2 font-semibold">₹{ord.amount}</td>
+                    <td className="py-3.5 px-2 text-xs">{ord.paymentStatus}</td>
+                    <td className="py-3.5 px-2 text-xs">{ord.orderStatus}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

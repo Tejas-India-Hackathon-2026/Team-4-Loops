@@ -1,0 +1,36 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Compass } from 'lucide-react';
+import { District } from '../../types';
+
+interface DistrictCardProps {
+  district: District;
+}
+
+export const DistrictCard: React.FC<DistrictCardProps> = ({ district }) => {
+  return (
+    <Link
+      to={`/explore/districts/${district.slug}`}
+      className="group relative rounded overflow-hidden aspect-[4/3] shadow-md hover:shadow-2xl transition-all duration-500 block"
+    >
+      <img
+        src={district.heroImage}
+        alt={district.name}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent p-6 flex flex-col justify-end">
+        <span className="text-[10px] sub-nav-label text-brand-gold">{district.region}</span>
+        <h3 className="text-2xl font-serif text-white font-normal mt-1">{district.name} District</h3>
+        <p className="text-xs font-serif text-cream/80 line-clamp-2 mt-2 leading-relaxed">
+          {district.description}
+        </p>
+
+        <div className="mt-4 flex items-center space-x-2 text-xs sub-nav-label text-brand-gold group-hover:text-white transition-colors">
+          <Compass className="w-4 h-4" />
+          <span>EXPLORE DISTRICT</span>
+          <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+        </div>
+      </div>
+    </Link>
+  );
+};
