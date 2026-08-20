@@ -223,7 +223,7 @@ async function main() {
   });
 
   // 7. Create Destinations
-  await prisma.destination.create({
+  const mahabodhiDest = await prisma.destination.create({
     data: {
       name: 'Mahabodhi Temple Complex',
       slug: 'mahabodhi-temple',
@@ -258,7 +258,7 @@ async function main() {
     }
   });
 
-  await prisma.destination.create({
+  const nalandaDest = await prisma.destination.create({
     data: {
       name: 'Nalanda Mahavihara Ruins',
       slug: 'nalanda-university-ruins',
@@ -290,7 +290,7 @@ async function main() {
     }
   });
 
-  await prisma.destination.create({
+  const rajgirDest = await prisma.destination.create({
     data: {
       name: 'Rajgir Griddhakuta & Vishwa Shanti Stupa',
       slug: 'rajgir-vishwa-shanti-stupa',
@@ -321,7 +321,7 @@ async function main() {
     }
   });
 
-  await prisma.destination.create({
+  const patnaSahibDest = await prisma.destination.create({
     data: {
       name: 'Takht Sri Patna Sahib',
       slug: 'takht-sri-patna-sahib',
@@ -352,7 +352,7 @@ async function main() {
     }
   });
 
-  await prisma.destination.create({
+  const vaishaliDest = await prisma.destination.create({
     data: {
       name: 'Vaishali Ashoka Pillar & Relic Stupa',
       slug: 'vaishali-ashoka-pillar',
@@ -383,7 +383,7 @@ async function main() {
     }
   });
 
-  await prisma.destination.create({
+  const valmikiDest = await prisma.destination.create({
     data: {
       name: 'Valmiki National Park & Tiger Reserve',
       slug: 'valmiki-tiger-reserve',
@@ -414,7 +414,7 @@ async function main() {
     }
   });
 
-  await prisma.destination.create({
+  const sherShahDest = await prisma.destination.create({
     data: {
       name: 'Tomb of Sher Shah Suri, Sasaram',
       slug: 'sher-shah-suri-tomb',
@@ -444,7 +444,7 @@ async function main() {
     }
   });
 
-  await prisma.destination.create({
+  const madhubaniDest = await prisma.destination.create({
     data: {
       name: 'Mithila Cultural Village, Madhubani',
       slug: 'madhubani-cultural-village',
@@ -647,6 +647,276 @@ async function main() {
       notes: 'Please arrange an English-speaking guide.'
     }
   });
+
+  // 11. Additional Vendors & Offerings across Bihar Districts
+  console.log('🌱 Seeding 18 additional realistic vendors across Bihar districts...');
+
+  // Vendor 1: Patna Junction Grand Stays & Suites (Patna)
+  const vUser1 = await prisma.user.create({
+    data: { name: 'Patna Junction Grand Stays', email: 'patnagrand@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919835012345', emailVerified: true }
+  });
+  const v1 = await prisma.vendor.create({
+    data: { userId: vUser1.id, businessName: 'Patna Junction Grand Stays & Suites', description: 'Modern luxury hotel with authentic Bihari hospitality located near Patna Junction.', businessType: 'Hotels & Homestays', phone: '+919835012345', email: 'contact@patnagrandstays.in', address: 'Station Road, Fraser Road Corner', city: 'Patna', district: 'Patna', latitude: 25.6085, longitude: 85.1325, status: 'APPROVED' }
+  });
+  const v1Offering = await prisma.offering.create({
+    data: { vendorId: v1.id, title: 'Luxury Executive Suite Package', slug: 'patna-grand-luxury-suite', description: 'Includes complimentary Bihari buffet breakfast, airport pick-up, and heritage city tour guide.', category: 'Accommodation', price: 4200, duration: '1 Night', maxGuests: 2, location: 'Patna, Bihar', latitude: 25.6085, longitude: 85.1325, coverImage: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 2: Maurya Rasoi & Traditional Litti Hub (Patna)
+  const vUser2 = await prisma.user.create({
+    data: { name: 'Maurya Rasoi Patna', email: 'mauryarasoi@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919431023456', emailVerified: true }
+  });
+  const v2 = await prisma.vendor.create({
+    data: { userId: vUser2.id, businessName: 'Maurya Rasoi & Traditional Litti Hub', description: 'Famous wood-charcoal Litti Chokha, Champaran Mutton, and authentic Magahi thalis.', businessType: 'Restaurants & Culinary', phone: '+919431023456', email: 'info@mauryarasoi.in', address: 'Boring Road Crossing', city: 'Patna', district: 'Patna', latitude: 25.6120, longitude: 85.1210, status: 'APPROVED' }
+  });
+  const v2Offering = await prisma.offering.create({
+    data: { vendorId: v2.id, title: 'Authentic Royal Bihari Litti Chokha & Sattu Thali', slug: 'maurya-rasoi-litti-thali', description: 'Traditional Ghee Litti served with Baingan-Tamatar Chokha, Sattu Sharbat, and Gulab Jamun.', category: 'Culinary Experience', price: 450, duration: '2 Hours', maxGuests: 6, location: 'Boring Road, Patna', latitude: 25.6120, longitude: 85.1210, coverImage: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 3: Mithila Chhap Silk & Crafts Emporium (Bhagalpur)
+  const vUser3 = await prisma.user.create({
+    data: { name: 'Mithila Chhap Silk Emporium', email: 'mithilachhap@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919771034567', emailVerified: true }
+  });
+  const v3 = await prisma.vendor.create({
+    data: { userId: vUser3.id, businessName: 'Mithila Chhap Silk & Crafts Emporium', description: 'Heritage weavers offering pure Bhagalpuri Tussar Silk sarees, dupattas, and handloom crafts.', businessType: 'Local Crafts & Products', phone: '+919771034567', email: 'crafts@mithilachhap.in', address: 'Champanagar Silk Market', city: 'Bhagalpur', district: 'Bhagalpur', latitude: 25.2425, longitude: 87.0124, status: 'APPROVED' }
+  });
+  const v3Offering = await prisma.offering.create({
+    data: { vendorId: v3.id, title: 'Handwoven Tussar Silk Saree & Scarf Set', slug: 'bhagalpuri-tussar-silk-set', description: '100% natural organic Tussar silk woven by master weavers of Champanagar.', category: 'Handicrafts', price: 3800, duration: 'N/A', maxGuests: 1, location: 'Bhagalpur, Bihar', latitude: 25.2425, longitude: 87.0124, coverImage: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 4: Bhagalpur Silk Handloom Traders (Bhagalpur)
+  const vUser4 = await prisma.user.create({
+    data: { name: 'Bhagalpur Handloom Traders', email: 'bhagalpursilk@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919102045678', emailVerified: true }
+  });
+  const v4 = await prisma.vendor.create({
+    data: { userId: vUser4.id, businessName: 'Bhagalpur Silk Handloom Traders', description: 'Wholesale & retail pure Katia and Eri silk apparel direct from weaver cooperatives.', businessType: 'Local Crafts & Products', phone: '+919102045678', email: 'sales@bhagalpursilk.co.in', address: 'Station Road Silk Bazaar', city: 'Bhagalpur', district: 'Bhagalpur', latitude: 25.2480, longitude: 87.0190, status: 'APPROVED' }
+  });
+  const v4Offering = await prisma.offering.create({
+    data: { vendorId: v4.id, title: 'Pure Bhagalpuri Katia Silk Dupatta & Shawl', slug: 'bhagalpur-katia-silk-shawl', description: 'Soft textured handcrafted Katia silk wrap suitable for all festive occasions.', category: 'Handicrafts', price: 2100, duration: 'N/A', maxGuests: 1, location: 'Bhagalpur, Bihar', latitude: 25.2480, longitude: 87.0190, coverImage: 'https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 5: Gaya Heritage Cab & Safari Services (Gaya)
+  const vUser5 = await prisma.user.create({
+    data: { name: 'Gaya Heritage Cabs', email: 'gayacabs@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919934056789', emailVerified: true }
+  });
+  const v5 = await prisma.vendor.create({
+    data: { userId: vUser5.id, businessName: 'Gaya Heritage Cab & Safari Services', description: 'Reliable AC taxi service for Bodh Gaya, Vishnupad Temple, Dungeshwari Caves, and Nalanda tours.', businessType: 'Transport & Eco Tours', phone: '+919934056789', email: 'booking@gayacabs.in', address: 'Railway Station Taxi Stand', city: 'Gaya', district: 'Gaya', latitude: 24.7914, longitude: 85.0002, status: 'APPROVED' }
+  });
+  const v5Offering = await prisma.offering.create({
+    data: { vendorId: v5.id, title: 'Bodh Gaya & Pind Daan Full-Day Cab Rental', slug: 'gaya-full-day-cab', description: 'Chauffeur-driven sedan for full day sightseeing across Gaya and Bodh Gaya pilgrimage sites.', category: 'Transportation', price: 2500, duration: '10 Hours', maxGuests: 4, location: 'Gaya & Bodh Gaya', latitude: 24.7914, longitude: 85.0002, coverImage: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 6: Bodhgaya Serenity Eco-Resort (Gaya)
+  const vUser6 = await prisma.user.create({
+    data: { name: 'Bodhgaya Serenity Eco Resort', email: 'bodhgayaresort@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919572067890', emailVerified: true }
+  });
+  const v6 = await prisma.vendor.create({
+    data: { userId: vUser6.id, businessName: 'Bodhgaya Serenity Eco-Resort', description: 'Peaceful luxury eco-resort surrounded by lush greenery, minutes away from Mahabodhi Temple.', businessType: 'Hotels & Homestays', phone: '+919572067890', email: 'stay@bodhgayaserenity.com', address: 'Node 1, Sujata Bypass Road', city: 'Bodh Gaya', district: 'Gaya', latitude: 24.6920, longitude: 84.9980, status: 'APPROVED' }
+  });
+  const v6Offering = await prisma.offering.create({
+    data: { vendorId: v6.id, title: 'Meditation Cottage Stay & Organic Meal Package', slug: 'bodhgaya-resort-cottage-stay', description: 'Includes serene garden cottage, morning meditation session, and organic vegetarian meals.', category: 'Accommodation', price: 3900, duration: '1 Night', maxGuests: 2, location: 'Bodh Gaya, Bihar', latitude: 24.6920, longitude: 84.9980, coverImage: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 7: Rajgir Nature Safari Eco Transport (Nalanda)
+  const vUser7 = await prisma.user.create({
+    data: { name: 'Rajgir Eco Transport', email: 'rajgirecotransport@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919304078901', emailVerified: true }
+  });
+  const v7 = await prisma.vendor.create({
+    data: { userId: vUser7.id, businessName: 'Rajgir Nature Safari Eco Transport', description: 'Electric vehicle shuttle and guided safari tours for Rajgir Glass Skywalk, Ghora Katora Lake, and Vishwa Shanti Stupa.', businessType: 'Transport & Eco Tours', phone: '+919304078901', email: 'tours@rajgirecotransport.in', address: 'Near Ropeway Complex', city: 'Rajgir', district: 'Nalanda', latitude: 25.0300, longitude: 85.4200, status: 'APPROVED' }
+  });
+  const v7Offering = await prisma.offering.create({
+    data: { vendorId: v7.id, title: 'Rajgir Glass Skywalk & Zoo Safari Shuttle', slug: 'rajgir-skywalk-safari-shuttle', description: 'Priority EV shuttle transfer with ticket assistance for Nature Safari and Glass Skywalk.', category: 'Guided Tour', price: 1200, duration: '5 Hours', maxGuests: 6, location: 'Rajgir, Bihar', latitude: 25.0300, longitude: 85.4200, coverImage: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 8: Nalanda Heritage Craft Workshop (Nalanda)
+  const vUser8 = await prisma.user.create({
+    data: { name: 'Nalanda Heritage Crafts', email: 'nalandacrafts@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919835189012', emailVerified: true }
+  });
+  const v8 = await prisma.vendor.create({
+    data: { userId: vUser8.id, businessName: 'Nalanda Heritage Craft Workshop', description: 'Artisanal stone, terracotta, and bronze miniature sculpture souvenirs inspired by ancient Nalanda seals and stupas.', businessType: 'Local Crafts & Products', phone: '+919835189012', email: 'heritage@nalandacrafts.org', address: 'Nalanda Ruins Main Gate Plaza', city: 'Nalanda', district: 'Nalanda', latitude: 25.1357, longitude: 85.4439, status: 'APPROVED' }
+  });
+  const v8Offering = await prisma.offering.create({
+    data: { vendorId: v8.id, title: 'Terracotta & Stone Carving Replica Souvenir', slug: 'nalanda-terracotta-replica', description: 'Handcrafted replica of 5th century Nalanda University monastic seals and Buddha motifs.', category: 'Handicrafts', price: 850, duration: 'N/A', maxGuests: 1, location: 'Nalanda, Bihar', latitude: 25.1357, longitude: 85.4439, coverImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 9: Madhubani Folk Artists Collective (Madhubani)
+  const vUser9 = await prisma.user.create({
+    data: { name: 'Madhubani Artists Collective', email: 'madhubanifiolkart@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919431290123', emailVerified: true }
+  });
+  const v9 = await prisma.vendor.create({
+    data: { userId: vUser9.id, businessName: 'Madhubani Folk Artists Collective', description: 'State and National award-winning Madhubani artisans selling authentic handmade canvas, silk wall hangings, and paper art.', businessType: 'Local Crafts & Products', phone: '+919431290123', email: 'contact@madhubaniartisans.org', address: 'Jitwarpur Craft Village', city: 'Madhubani', district: 'Madhubani', latitude: 26.3533, longitude: 86.0719, status: 'APPROVED' }
+  });
+  const v9Offering = await prisma.offering.create({
+    data: { vendorId: v9.id, title: 'Authentic Handmade Madhubani Painting Canvas', slug: 'original-madhubani-canvas-art', description: 'Handmade canvas painted with natural mineral pigments depicting Mithila folklore and Kohbar art.', category: 'Art & Collectibles', price: 2900, duration: 'N/A', maxGuests: 1, location: 'Madhubani, Bihar', latitude: 26.3533, longitude: 86.0719, coverImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 10: Mithila Makhana & Gourmet Hub (Madhubani)
+  const vUser10 = await prisma.user.create({
+    data: { name: 'Mithila Makhana Hub', email: 'mithilamakhana@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919771301234', emailVerified: true }
+  });
+  const v10 = await prisma.vendor.create({
+    data: { userId: vUser10.id, businessName: 'Mithila Makhana & Gourmet Hub', description: 'GI-tagged Mithila Makhana processor selling organic pop makhana, flavored snacks, and raw lotus seeds.', businessType: 'Local Crafts & Products', phone: '+919771301234', email: 'orders@mithilamakhana.in', address: 'Station Road Market', city: 'Madhubani', district: 'Madhubani', latitude: 26.3600, longitude: 86.0800, status: 'APPROVED' }
+  });
+  const v10Offering = await prisma.offering.create({
+    data: { vendorId: v10.id, title: 'Premium Roasted Mithila Makhana Variety Gift Box', slug: 'mithila-makhana-gift-box', description: 'Assorted flavors (Peri Peri, Himalayan Pink Salt, Pudina) of GI-tagged Mithila Makhana.', category: 'Gourmet Food', price: 750, duration: 'N/A', maxGuests: 1, location: 'Madhubani, Bihar', latitude: 26.3600, longitude: 86.0800, coverImage: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 11: Muzaffarpur Shahi Litchi Express & Agro Tours (Muzaffarpur)
+  const vUser11 = await prisma.user.create({
+    data: { name: 'Muzaffarpur Shahi Litchi Tours', email: 'muzaffarpurlitchi@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919102412345', emailVerified: true }
+  });
+  const v11 = await prisma.vendor.create({
+    data: { userId: vUser11.id, businessName: 'Muzaffarpur Shahi Litchi Express & Agro Tours', description: 'Agro-tourism farm tours during litchi harvest season, fresh litchi fruit boxes, and litchi honey.', businessType: 'Transport & Eco Tours', phone: '+919102412345', email: 'agro@muzaffarpurlitchi.com', address: 'Orchard Road, Mushahari', city: 'Muzaffarpur', district: 'Muzaffarpur', latitude: 26.1209, longitude: 85.3647, status: 'APPROVED' }
+  });
+  const v11Offering = await prisma.offering.create({
+    data: { vendorId: v11.id, title: 'Seasonal Shahi Litchi Orchard Tour & Tasting', slug: 'shahi-litchi-orchard-tour', description: 'Guided orchard walk, fresh litchi plucking experience, and complimentary 2kg Shahi Litchi basket.', category: 'Agro Tourism', price: 990, duration: '3 Hours', maxGuests: 6, location: 'Muzaffarpur, Bihar', latitude: 26.1209, longitude: 85.3647, coverImage: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 12: Litchi City Travelers & Taxi Rental (Muzaffarpur)
+  const vUser12 = await prisma.user.create({
+    data: { name: 'Litchi City Travelers', email: 'litchicitycabs@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919934523456', emailVerified: true }
+  });
+  const v12 = await prisma.vendor.create({
+    data: { userId: vUser12.id, businessName: 'Litchi City Travelers & Taxi Rental', description: 'Intercity and regional cab booking serving Muzaffarpur, Sitamarhi, Vaishali, and Darbhanga.', businessType: 'Transport & Eco Tours', phone: '+919934523456', email: 'ride@litchicitycabs.in', address: 'Junction Roundabout', city: 'Muzaffarpur', district: 'Muzaffarpur', latitude: 26.1220, longitude: 85.3700, status: 'APPROVED' }
+  });
+  const v12Offering = await prisma.offering.create({
+    data: { vendorId: v12.id, title: 'Muzaffarpur to Vaishali Historical Taxi Circuit', slug: 'muzaffarpur-vaishali-taxi-circuit', description: 'Comfortable AC Sedan service covering Ashokan Pillar, Relic Stupa, and World Peace Pagoda.', category: 'Transportation', price: 2200, duration: '6 Hours', maxGuests: 4, location: 'Muzaffarpur & Vaishali', latitude: 26.1220, longitude: 85.3700, coverImage: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 13: Munger Fort View Retreat (Munger)
+  const vUser13 = await prisma.user.create({
+    data: { name: 'Munger Fort View Retreat', email: 'mungerfortview@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919572634567', emailVerified: true }
+  });
+  const v13 = await prisma.vendor.create({
+    data: { userId: vUser13.id, businessName: 'Munger Fort View Retreat', description: 'Heritage hotel inside historic Munger Fort overlooking the Ganges and Bihar School of Yoga.', businessType: 'Hotels & Homestays', phone: '+919572634567', email: 'booking@mungerfortview.com', address: 'Fort Campus, Near Ganga Ghat', city: 'Munger', district: 'Munger', latitude: 25.3748, longitude: 86.4735, status: 'APPROVED' }
+  });
+  const v13Offering = await prisma.offering.create({
+    data: { vendorId: v13.id, title: 'Ganges Riverview Suite & Heritage Walk', slug: 'munger-fort-ganges-suite', description: 'Includes river-facing room, heritage fort walk, and evening sunset Ganges boat ride.', category: 'Accommodation', price: 3200, duration: '1 Night', maxGuests: 2, location: 'Munger, Bihar', latitude: 25.3748, longitude: 86.4735, coverImage: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 14: Yoga Nagari Wellness & Dining (Munger)
+  const vUser14 = await prisma.user.create({
+    data: { name: 'Yoga Nagari Wellness', email: 'yoganagari@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919304745678', emailVerified: true }
+  });
+  const v14 = await prisma.vendor.create({
+    data: { userId: vUser14.id, businessName: 'Yoga Nagari Wellness & Dining', description: 'Ayurvedic wellness center and pure vegetarian organic restaurant near Munger Yoga Ashram.', businessType: 'Restaurants & Culinary', phone: '+919304745678', email: 'wellness@yoganagari.in', address: 'Bihar School of Yoga Road', city: 'Munger', district: 'Munger', latitude: 25.3800, longitude: 86.4700, status: 'APPROVED' }
+  });
+  const v14Offering = await prisma.offering.create({
+    data: { vendorId: v14.id, title: 'Sattvic Ayurvedic Meal & Yoga Session Package', slug: 'munger-ayurvedic-yoga-package', description: '1-hour yoga session followed by freshly prepared Sattvic organic lunch.', category: 'Wellness & Food', price: 1100, duration: '3 Hours', maxGuests: 10, location: 'Munger, Bihar', latitude: 25.3800, longitude: 86.4700, coverImage: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 15: Saran River Cruise & Boating Services (Saran)
+  const vUser15 = await prisma.user.create({
+    data: { name: 'Saran River Cruise', email: 'saranrivercruise@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919835856789', emailVerified: true }
+  });
+  const v15 = await prisma.vendor.create({
+    data: { userId: vUser15.id, businessName: 'Saran River Cruise & Boating Services', description: 'Scenic river cruises along Ganges-Gandak confluence at Sonepur and Chhapra ghats.', businessType: 'Transport & Eco Tours', phone: '+919835856789', email: 'info@sarancruise.in', address: 'Sonepur Sangam Ghat', city: 'Chhapra / Sonepur', district: 'Saran', latitude: 25.7848, longitude: 84.7274, status: 'APPROVED' }
+  });
+  const v15Offering = await prisma.offering.create({
+    data: { vendorId: v15.id, title: 'Sonepur Sangam Ganges River Boat Cruise', slug: 'sonepur-sangam-river-cruise', description: '2-hour motorboat cruise with tea, snacks, and sunset views over the river confluence.', category: 'River Tourism', price: 1500, duration: '2 Hours', maxGuests: 8, location: 'Sonepur / Chhapra, Saran', latitude: 25.7848, longitude: 84.7274, coverImage: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 16: Chhapra Heritage Pottery & Crafts (Saran)
+  const vUser16 = await prisma.user.create({
+    data: { name: 'Chhapra Heritage Crafts', email: 'chhapracrafts@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919431967890', emailVerified: true }
+  });
+  const v16 = await prisma.vendor.create({
+    data: { userId: vUser16.id, businessName: 'Chhapra Heritage Pottery & Crafts', description: 'Traditional clay potters crafting eco-friendly terracotta lamps, earthen cookware, and decorative artifacts.', businessType: 'Local Crafts & Products', phone: '+919431967890', email: 'pottery@chhapracrafts.org', address: 'Municipal Bazaar', city: 'Chhapra', district: 'Saran', latitude: 25.7800, longitude: 84.7300, status: 'APPROVED' }
+  });
+  const v16Offering = await prisma.offering.create({
+    data: { vendorId: v16.id, title: 'Traditional Clay Terracotta Diyas & Sculptures', slug: 'chhapra-terracotta-handicrafts', description: 'Eco-friendly handmade terracotta lamps and traditional clay artifacts.', category: 'Handicrafts', price: 550, duration: 'N/A', maxGuests: 1, location: 'Chhapra, Saran', latitude: 25.7800, longitude: 84.7300, coverImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 17: Kaimur Eco Wildlife Safaris (Rohtas)
+  const vUser17 = await prisma.user.create({
+    data: { name: 'Kaimur Eco Safaris', email: 'kaimursafari@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919771078901', emailVerified: true }
+  });
+  const v17 = await prisma.vendor.create({
+    data: { userId: vUser17.id, businessName: 'Kaimur Eco Wildlife Safaris', description: 'Guided trekking and jeep safaris to Tutla Bhawani Waterfall, Rohtasgarh Fort, and Kaimur Wildlife Sanctuary.', businessType: 'Transport & Eco Tours', phone: '+919771078901', email: 'safari@kaimureco.in', address: 'Kaimur Hills Base Camp', city: 'Sasaram', district: 'Rohtas', latitude: 24.9500, longitude: 84.0167, status: 'APPROVED' }
+  });
+  const v17Offering = await prisma.offering.create({
+    data: { vendorId: v17.id, title: 'Tutla Bhawani Waterfalls & Kaimur Trekking Safari', slug: 'tutla-bhawani-kaimur-safari', description: 'Full-day eco excursion with jungle trekking, waterfall dip, and Sher Shah Tomb visit.', category: 'Eco & Adventure', price: 1750, duration: '8 Hours', maxGuests: 6, location: 'Rohtas, Bihar', latitude: 24.9500, longitude: 84.0167, coverImage: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // Vendor 18: Darbhanga Raj Culinary & Mithila Thali (Darbhanga)
+  const vUser18 = await prisma.user.create({
+    data: { name: 'Darbhanga Raj Culinary', email: 'darbhangarajrasoi@setu.local', passwordHash: vendorPasswordHash, role: 'VENDOR', phone: '+919102189012', emailVerified: true }
+  });
+  const v18 = await prisma.vendor.create({
+    data: { userId: vUser18.id, businessName: 'Darbhanga Raj Culinary & Mithila Thali', description: 'Authentic Maithil royal recipes featuring Rohu fish curry, Makhana Kheer, and traditional sweets.', businessType: 'Restaurants & Culinary', phone: '+919102189012', email: 'thali@darbhangaraj.in', address: 'Tower Chowk', city: 'Darbhanga', district: 'Darbhanga', latitude: 26.1542, longitude: 85.8918, status: 'APPROVED' }
+  });
+  const v18Offering = await prisma.offering.create({
+    data: { vendorId: v18.id, title: 'Grand Mithila Fish Curry & Makhana Kheer Thali', slug: 'darbhanga-mithila-royal-thali', description: 'Royal thali platter with traditional spices, mustard fish, lotus seed kheer, and sattu drink.', category: 'Culinary Experience', price: 650, duration: '2 Hours', maxGuests: 4, location: 'Darbhanga, Bihar', latitude: 26.1542, longitude: 85.8918, coverImage: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80']), isActive: true }
+  });
+
+  // 12. Additional Customer/Tourist Entries with Favorites & Booking History
+  console.log('🌱 Seeding 18 additional tourist/customer entries with interest & booking history...');
+
+  const tData = [
+    { name: 'Rahul Verma', email: 'rahul.verma@setu.local', phone: '+919811223344', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', offering: offering1, vendor: demoVendor, fav: mahabodhiDest, amt: 3700, status: 'CONFIRMED' },
+    { name: 'Priya Mukherjee', email: 'priya.m@setu.local', phone: '+919830112233', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', offering: v3Offering, vendor: v3, fav: madhubaniDest, amt: 3800, status: 'CONFIRMED' },
+    { name: 'Aarav Patel', email: 'aarav.patel@setu.local', phone: '+919825099887', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', offering: v17Offering, vendor: v17, fav: valmikiDest, amt: 1750, status: 'COMPLETED' },
+    { name: 'Siddharth Rao', email: 'siddharth.rao@setu.local', phone: '+919845011223', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', offering: offering2, vendor: demoVendor, fav: nalandaDest, amt: 3499, status: 'CONFIRMED' },
+    { name: 'Kavya Nair', email: 'kavya.nair@setu.local', phone: '+919847022334', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80', offering: offering3, vendor: demoVendor, fav: madhubaniDest, amt: 2200, status: 'CONFIRMED' },
+    { name: 'Rohan Deshmukh', email: 'rohan.d@setu.local', phone: '+919820033445', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80', offering: v7Offering, vendor: v7, fav: rajgirDest, amt: 1200, status: 'CONFIRMED' },
+    { name: 'Meera Iyer', email: 'meera.iyer@setu.local', phone: '+919840044556', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80', offering: offering1, vendor: demoVendor, fav: mahabodhiDest, amt: 1850, status: 'COMPLETED' },
+    { name: 'Sneha Gupta', email: 'sneha.gupta@setu.local', phone: '+919415055667', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', offering: v2Offering, vendor: v2, fav: patnaSahibDest, amt: 900, status: 'COMPLETED' },
+    { name: 'Vikram Singh', email: 'vikram.singh@setu.local', phone: '+919414066778', avatar: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80', offering: v13Offering, vendor: v13, fav: sherShahDest, amt: 3200, status: 'CONFIRMED' },
+    { name: 'Tenzin Norbu', email: 'tenzin.norbu@setu.local', phone: '+919816077889', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', offering: offering1, vendor: demoVendor, fav: mahabodhiDest, amt: 1850, status: 'CONFIRMED' },
+    { name: 'John Doe Miller', email: 'john.miller@setu.local', phone: '+14155550123', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', offering: offering2, vendor: demoVendor, fav: nalandaDest, amt: 6998, status: 'CONFIRMED' },
+    { name: 'Elena Rostova', email: 'elena.rostova@setu.local', phone: '+79165550144', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80', offering: v9Offering, vendor: v9, fav: madhubaniDest, amt: 2900, status: 'CONFIRMED' },
+    { name: 'Kenji Sato', email: 'kenji.sato@setu.local', phone: '+81905550155', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', offering: offering1, vendor: demoVendor, fav: mahabodhiDest, amt: 1850, status: 'COMPLETED' },
+    { name: 'Amrita Roy', email: 'amrita.roy@setu.local', phone: '+919435088990', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80', offering: v17Offering, vendor: v17, fav: valmikiDest, amt: 1750, status: 'CONFIRMED' },
+    { name: 'Sunil Kumar Thakur', email: 'sunil.thakur@setu.local', phone: '+919431099001', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', offering: v5Offering, vendor: v5, fav: mahabodhiDest, amt: 2500, status: 'COMPLETED' },
+    { name: 'Pooja Saxena', email: 'pooja.saxena@setu.local', phone: '+919814010112', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', offering: v9Offering, vendor: v9, fav: madhubaniDest, amt: 2900, status: 'CONFIRMED' },
+    { name: 'Rajesh Kumar Sinha', email: 'rajesh.sinha@setu.local', phone: '+919431011223', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', offering: v18Offering, vendor: v18, fav: patnaSahibDest, amt: 1300, status: 'COMPLETED' },
+    { name: 'Sophie Dubois', email: 'sophie.dubois@setu.local', phone: '+33612345678', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80', offering: v4Offering, vendor: v4, fav: madhubaniDest, amt: 2100, status: 'CONFIRMED' }
+  ];
+
+  for (let idx = 0; idx < tData.length; idx++) {
+    const item = tData[idx];
+    const tUser = await prisma.user.create({
+      data: {
+        name: item.name,
+        email: item.email,
+        passwordHash: touristPasswordHash,
+        role: 'TOURIST',
+        avatar: item.avatar,
+        phone: item.phone,
+        emailVerified: true
+      }
+    });
+
+    if (item.fav) {
+      await prisma.favorite.create({
+        data: {
+          userId: tUser.id,
+          destinationId: item.fav.id
+        }
+      });
+    }
+
+    if (item.offering && item.vendor) {
+      await prisma.order.create({
+        data: {
+          orderNumber: `SETU-2026-${9000 + idx}`,
+          userId: tUser.id,
+          vendorId: item.vendor.id,
+          offeringId: item.offering.id,
+          quantity: 1,
+          bookingDate: new Date(`2026-10-${10 + (idx % 15)}T10:00:00.000Z`),
+          amount: item.amt,
+          currency: 'INR',
+          paymentStatus: 'PAID',
+          orderStatus: item.status,
+          razorpayOrderId: `order_test_${idx + 100}`,
+          razorpayPaymentId: `pay_test_${idx + 100}`,
+          razorpaySignature: `sig_valid_test_${idx + 100}`,
+          notes: 'Seeded sample tourist booking.'
+        }
+      });
+    }
+  }
 
   console.log('✅ SETU Database Seeding Complete!');
 }
