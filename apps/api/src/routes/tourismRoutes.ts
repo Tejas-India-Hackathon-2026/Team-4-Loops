@@ -5,6 +5,7 @@ import {
   getDistricts, getDistrictBySlug,
   getEvents, getEventBySlug
 } from '../controllers/tourismController.js';
+import { getPublicVendors } from '../controllers/vendorController.js';
 
 const router = Router();
 
@@ -19,5 +20,7 @@ router.get('/districts/:slug', getDistrictBySlug);
 
 router.get('/events', getEvents);
 router.get('/events/:slug', getEventBySlug);
+
+router.get('/vendors', getPublicVendors);
 
 export default router;

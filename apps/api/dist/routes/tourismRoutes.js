@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const tourismController_js_1 = require("../controllers/tourismController.js");
+const vendorController_js_1 = require("../controllers/vendorController.js");
 const router = (0, express_1.Router)();
 router.get('/circuits', tourismController_js_1.getCircuits);
 router.get('/circuits/:slug', tourismController_js_1.getCircuitBySlug);
@@ -11,4 +12,5 @@ router.get('/districts', tourismController_js_1.getDistricts);
 router.get('/districts/:slug', tourismController_js_1.getDistrictBySlug);
 router.get('/events', tourismController_js_1.getEvents);
 router.get('/events/:slug', tourismController_js_1.getEventBySlug);
+router.get('/vendors', vendorController_js_1.getPublicVendors);
 exports.default = router;

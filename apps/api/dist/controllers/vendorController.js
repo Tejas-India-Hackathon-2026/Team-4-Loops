@@ -8,6 +8,7 @@ exports.updateOffering = updateOffering;
 exports.deleteOffering = deleteOffering;
 exports.getVendorOrders = getVendorOrders;
 exports.updateOrderStatus = updateOrderStatus;
+exports.getPublicVendors = getPublicVendors;
 const client_1 = require("@prisma/client");
 const zod_1 = require("zod");
 const apiError_js_1 = require("../utils/apiError.js");
@@ -255,6 +256,52 @@ async function updateOrderStatus(req, res, next) {
             data: { orderStatus }
         });
         return res.json({ success: true, data: updated });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+// Public Vendor Directory
+async function getPublicVendors(req, res, next) {
+    try {
+        const { district, city, businessType, search } = req.query;
+        const where = {
+            status: 'APPROVED'
+        };
+        if (district && typeof district === 'string' && district !== 'ALL') {
+            where.district = { equals: district, mode: 'insensitive' };
+        }
+        if (city && typeof city === 'string' && city !== 'ALL') {
+            where.city = { equals: city, mode: 'insensitive' };
+        }
+        if (businessType && typeof businessType === 'string' && businessType !== 'ALL') {
+            where.businessType = { equals: businessType, mode: 'insensitive' };
+        }
+        if (search && typeof search === 'string' && search.trim() !== '') {
+            const q = search.trim();
+            where.OR = [
+                { businessName: { contains: q, mode: 'insensitive' } },
+                { description: { contains: q, mode: 'insensitive' } }
+            ];
+        }
+        const vendors = await prisma.vendor.findMany({
+            where,
+            select: {
+                id: true,
+                businessName: true,
+                description: true,
+                businessType: true,
+                city: true,
+                district: true,
+                latitude: true,
+                longitude: true,
+                logo: true,
+                coverImage: true,
+                phone: true
+            },
+            orderBy: { businessName: 'asc' }
+        });
+        return res.json({ success: true, data: vendors });
     }
     catch (error) {
         next(error);

@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, Filter, Compass } from 'lucide-react';
+import { Search, Filter, Compass, MapPin, Phone } from 'lucide-react';
 import api from '../../api/client';
 import { Destination } from '../../types';
 import { DestinationCard } from '../../components/tourism/DestinationCard';
 
+interface PublicVendor {
+  id: string;
+  businessName: string;
+  description: string;
+  businessType: string;
+  city: string;
+  district: string;
+  latitude?: number;
+  longitude?: number;
+  logo?: string;
+  coverImage?: string;
+  phone?: string;
+}
+
 export const DestinationsListingPage: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const initialCircuit = searchParams.get('circuit') || 'ALL';
   const initialDistrict = searchParams.get('district') || 'ALL';
@@ -14,6 +28,9 @@ export const DestinationsListingPage: React.FC = () => {
 
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [vendors, setVendors] = useState<PublicVendor[]>([]);
+  const [vendorsLoading, setVendorsLoading] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCircuit, setSelectedCircuit] = useState(initialCircuit);
@@ -44,8 +61,31 @@ export const DestinationsListingPage: React.FC = () => {
     loadDestinations();
   }, [searchQuery, selectedCircuit, selectedDistrict, selectedCategory]);
 
+  useEffect(() => {
+    async function loadVendors() {
+      setVendorsLoading(true);
+      try {
+        const params: any = {};
+        if (selectedDistrict !== 'ALL') {
+          params.district = selectedDistrict;
+        }
+        const res = await api.get('/vendors', { params });
+        if (res.data.success) {
+          setVendors(res.data.data);
+        }
+      } catch (err) {
+        console.error('Failed to load public vendors:', err);
+        setVendors([]);
+      } finally {
+        setVendorsLoading(false);
+      }
+    }
+
+    loadVendors();
+  }, [selectedDistrict]);
+
   return (
-    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-8">
+    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-12">
       {/* Page Header */}
       <div className="border-b border-brand-brown/15 pb-6 space-y-2">
         <span className="sub-nav-label text-brand-maroon">HERITAGE SANCTUARIES & LANDMARKS</span>
@@ -134,6 +174,68 @@ export const DestinationsListingPage: React.FC = () => {
           {destinations.map((dest) => (
             <DestinationCard key={dest.id} destination={dest} />
           ))}
+        </div>
+      )}
+
+      {/* Nearby Stays & Local Vendors Section */}
+      {!vendorsLoading && vendors.length > 0 && (
+        <div className="pt-10 border-t border-brand-brown/15 space-y-6">
+          <div className="space-y-1">
+            <span className="sub-nav-label text-brand-maroon">LOCAL ECOSYSTEM & AMENITIES</span>
+            <h2 className="text-2xl md:text-3xl font-serif text-brand-black">
+              STAYS, EATS & LOCAL VENDORS NEARBY
+              {selectedDistrict !== 'ALL' && (
+                <span className="text-lg font-sans font-normal text-brand-brown/70 ml-2 capitalize">
+                  ({selectedDistrict})
+                </span>
+              )}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {vendors.map((vendor) => {
+              const image = vendor.coverImage || vendor.logo || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80';
+              return (
+                <div
+                  key={vendor.id}
+                  className="bg-white rounded border border-brand-brown/15 overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="relative h-44 overflow-hidden bg-brand-brown/5">
+                      <img
+                        src={image}
+                        alt={vendor.businessName}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-3 left-3 bg-brand-black/80 backdrop-blur-md text-brand-gold text-[10px] sub-nav-label px-2.5 py-1 rounded border border-brand-gold/30">
+                        {vendor.businessType}
+                      </div>
+                    </div>
+                    <div className="p-4 space-y-2">
+                      <div className="flex items-center space-x-1.5 text-xs text-brand-brown/70 font-sans">
+                        <MapPin className="w-3.5 h-3.5 text-brand-gold flex-shrink-0" />
+                        <span>{vendor.city}, {vendor.district}</span>
+                      </div>
+                      <h3 className="font-serif text-lg font-medium text-brand-black group-hover:text-brand-gold transition-colors line-clamp-1">
+                        {vendor.businessName}
+                      </h3>
+                      <p className="text-xs text-brand-black/75 line-clamp-2 leading-relaxed">
+                        {vendor.description}
+                      </p>
+                    </div>
+                  </div>
+                  {vendor.phone && (
+                    <div className="p-4 pt-0">
+                      <div className="flex items-center space-x-1.5 text-xs text-brand-maroon font-semibold border-t border-brand-brown/10 pt-2.5">
+                        <Phone className="w-3.5 h-3.5" />
+                        <span>{vendor.phone}</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
