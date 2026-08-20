@@ -154,6 +154,8 @@ export interface TourismEvent {
   longitude: number;
   heroImage: string;
   gallery: string[];
+  nearbyVendors?: Vendor[];
+  nearbyAttractions?: Destination[];
 }
 
 export interface Favorite {

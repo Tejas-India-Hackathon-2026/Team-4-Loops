@@ -273,9 +273,54 @@ export async function getEventBySlug(req: Request, res: Response, next: NextFunc
       throw new ApiError(404, 'Event not found');
     }
 
+    // Query nearby vendors for interactive spot map
+    let nearbyVendors = await prisma.vendor.findMany({
+      where: {
+        OR: [
+          { district: { contains: event.district } },
+          { city: { contains: event.district } },
+          { address: { contains: event.district } }
+        ]
+      },
+      take: 12
+    });
+
+    if (nearbyVendors.length === 0) {
+      nearbyVendors = await prisma.vendor.findMany({
+        take: 10
+      });
+    }
+
+    // Query nearby attractions in same district or nearby region
+    let nearbyAttractions = await prisma.destination.findMany({
+      where: {
+        OR: [
+          { district: { name: { contains: event.district } } },
+          { overview: { contains: event.district } }
+        ]
+      },
+      take: 4,
+      include: {
+        district: true,
+        circuit: true
+      }
+    });
+
+    if (nearbyAttractions.length === 0) {
+      nearbyAttractions = await prisma.destination.findMany({
+        take: 4,
+        include: {
+          district: true,
+          circuit: true
+        }
+      });
+    }
+
     const formatted = {
       ...event,
-      gallery: parseJsonField(event.gallery, [])
+      gallery: parseJsonField(event.gallery, []),
+      nearbyVendors,
+      nearbyAttractions
     };
 
     return res.json({ success: true, data: formatted });

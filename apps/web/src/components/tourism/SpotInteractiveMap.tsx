@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { MapPin, Navigation, Phone, Store, Hotel, Car, Utensils, Sparkles, AlertCircle } from 'lucide-react';
-import { Destination, Vendor } from '../../types';
+import { Destination, TourismEvent, Vendor } from '../../types';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -48,17 +48,31 @@ const MapBoundsController: React.FC<{
   return null;
 };
 
+export interface GenericSpot {
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  heroImage?: string;
+  districtName?: string;
+}
+
 interface SpotInteractiveMapProps {
-  destination: Destination;
+  destination?: Pick<Destination, 'id' | 'name' | 'latitude' | 'longitude' | 'heroImage'> | Pick<TourismEvent, 'id' | 'title' | 'latitude' | 'longitude' | 'heroImage'> | GenericSpot;
+  spot?: GenericSpot;
   vendors?: Vendor[];
 }
 
-export const SpotInteractiveMap: React.FC<SpotInteractiveMapProps> = ({ destination, vendors = [] }) => {
+export const SpotInteractiveMap: React.FC<SpotInteractiveMapProps> = ({ destination, spot, vendors = [] }) => {
   const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
 
+  const targetObj = spot || destination;
+  const spotName = spot?.name || (destination ? ('name' in destination ? destination.name : (destination as any).title) : 'Location');
+  const districtName = spot?.districtName || (destination && 'district' in destination ? (typeof (destination as any).district === 'string' ? (destination as any).district : (destination as any).district?.name) : 'Bihar');
+
   // Validate coordinates
-  const spotLat = Number(destination.latitude);
-  const spotLng = Number(destination.longitude);
+  const spotLat = targetObj ? Number(targetObj.latitude) : NaN;
+  const spotLng = targetObj ? Number(targetObj.longitude) : NaN;
   const hasValidSpotCoords = !isNaN(spotLat) && !isNaN(spotLng) && spotLat !== 0 && spotLng !== 0;
 
   if (!hasValidSpotCoords) {
@@ -67,7 +81,7 @@ export const SpotInteractiveMap: React.FC<SpotInteractiveMapProps> = ({ destinat
         <AlertCircle className="w-10 h-10 text-amber-600 mx-auto" />
         <h3 className="font-serif text-xl font-bold text-brand-black">Interactive Map Unavailable</h3>
         <p className="text-sm font-serif text-brand-brown">
-          Coordinates for {destination.name} are currently pending official verification.
+          Coordinates for {spotName} are currently pending official verification.
         </p>
       </div>
     );
@@ -157,14 +171,14 @@ export const SpotInteractiveMap: React.FC<SpotInteractiveMapProps> = ({ destinat
 
             <MapBoundsController center={spotCenter} targetPoint={targetCoords} />
 
-            {/* Destination Marker */}
+            {/* Destination / Event Spot Marker */}
             <Marker position={spotCenter} icon={spotIcon}>
               <Popup className="font-serif">
                 <div className="p-1 space-y-1">
-                  <h4 className="font-bold text-brand-maroon text-sm">{destination.name}</h4>
-                  <p className="text-xs text-slate-600">{destination.district?.name || 'Bihar'}</p>
-                  <span className="text-[10px] bg-brand-gold text-brand-black px-2 py-0.5 rounded font-bold">
-                    TOURIST SPOT
+                  <h4 className="font-bold text-brand-maroon text-sm">{spotName}</h4>
+                  <p className="text-xs text-slate-600">{districtName}</p>
+                  <span className="text-[9px] bg-brand-gold text-brand-black px-2 py-0.5 rounded font-bold">
+                    EVENT / SPOT
                   </span>
                 </div>
               </Popup>
@@ -241,7 +255,7 @@ export const SpotInteractiveMap: React.FC<SpotInteractiveMapProps> = ({ destinat
             {validVendors.length === 0 ? (
               <div className="py-8 text-center text-xs text-brand-brown font-serif space-y-1">
                 <Store className="w-6 h-6 mx-auto text-brand-gold" />
-                <p>Searching for nearby certified vendors in {destination.district?.name || 'this district'}...</p>
+                <p>Searching for nearby certified vendors in {districtName || 'this district'}...</p>
               </div>
             ) : (
               <div className="space-y-2.5">
