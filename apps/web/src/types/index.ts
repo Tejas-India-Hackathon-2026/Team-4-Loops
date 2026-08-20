@@ -10,10 +10,10 @@ export interface User {
   role: Role;
   avatar?: string;
   phone?: string;
+  isPremium?: boolean;
   vendor?: {
     id: string;
     businessName: string;
-    businessType?: string;
     status: VendorStatus;
   } | null;
 }
@@ -68,6 +68,8 @@ export interface Order {
   quantity: number;
   bookingDate: string;
   amount: number;
+  commissionAmount?: number;
+  vendorEarnings?: number;
   currency: string;
   paymentStatus: OrderPaymentStatus;
   orderStatus: OrderStatus;
@@ -112,15 +114,9 @@ export interface Destination {
     howToReach?: string;
     suggestedDuration?: string;
     entryFee?: string;
-    timings?: string;
-    funFacts?: string[];
-    didYouKnow?: string;
-    contentStatus?: 'VERIFIED' | 'NEEDS_REVIEW';
   };
   stays: Array<{ name: string; rating: number; price: string }>;
   recommendations: string[];
-  nearbyVendors?: Vendor[];
-  nearbyDestinations?: Destination[];
 }
 
 export interface District {
@@ -135,19 +131,14 @@ export interface District {
   destinations?: Destination[];
 }
 
-export type EventCategory = 'Religious' | 'Cultural' | 'Fair/Mela' | 'Heritage' | 'Music/Arts' | 'Local/Regional';
-
 export interface TourismEvent {
   id: string;
   title: string;
   slug: string;
-  category: EventCategory | string;
+  category: 'Festival' | 'Fair' | 'Cultural' | 'Seasonal' | 'Religious' | 'Arts';
   description: string;
   startDate: string;
   endDate: string;
-  year?: number;
-  lastVerified?: string;
-  isLunar?: boolean;
   location: string;
   district: string;
   latitude: number;

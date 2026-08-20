@@ -95,9 +95,10 @@ export const VendorDashboardPage: React.FC = () => {
     );
   }
 
-  const totalRevenue = orders
-    .filter(o => o.paymentStatus === 'PAID')
-    .reduce((sum, o) => sum + o.amount, 0);
+  const paidOrders = orders.filter(o => o.paymentStatus === 'PAID');
+  const grossSales = paidOrders.reduce((sum, o) => sum + o.amount, 0);
+  const setuCommission = paidOrders.reduce((sum, o) => sum + (o.commissionAmount || 0), 0);
+  const netEarnings = paidOrders.reduce((sum, o) => sum + (o.vendorEarnings || 0), 0);
 
   return (
     <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-8">
@@ -143,10 +144,20 @@ export const VendorDashboardPage: React.FC = () => {
       )}
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded border border-brand-brown/15 shadow-sm space-y-2">
-          <span className="text-[10px] sub-nav-label text-brand-brown/70">TOTAL REVENUE</span>
-          <p className="font-serif text-3xl font-bold text-brand-black">₹{totalRevenue.toLocaleString('en-IN')}</p>
+          <span className="text-[10px] sub-nav-label text-brand-brown/70">GROSS SALES</span>
+          <p className="font-serif text-3xl font-bold text-brand-black">₹{grossSales.toLocaleString('en-IN')}</p>
+        </div>
+
+        <div className="bg-white p-6 rounded border border-brand-brown/15 shadow-sm space-y-2">
+          <span className="text-[10px] sub-nav-label text-brand-brown/70">SETU COMMISSION (7%)</span>
+          <p className="font-serif text-3xl font-bold text-brand-maroon">₹{setuCommission.toLocaleString('en-IN')}</p>
+        </div>
+
+        <div className="bg-white p-6 rounded border border-brand-brown/15 shadow-sm space-y-2">
+          <span className="text-[10px] sub-nav-label text-brand-brown/70">NET EARNINGS</span>
+          <p className="font-serif text-3xl font-bold text-emerald-700">₹{netEarnings.toLocaleString('en-IN')}</p>
         </div>
 
         <div className="bg-white p-6 rounded border border-brand-brown/15 shadow-sm space-y-2">
