@@ -24,40 +24,49 @@ async function main() {
   await prisma.user.deleteMany();
 
   // 3. Create Users
-  const adminUser = await prisma.user.create({
-    data: {
-      name: 'Setu Administrator',
-      email: 'admin@setu.local',
-      passwordHash: adminPasswordHash,
-      role: 'ADMIN',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-      phone: '+919876543210',
-      emailVerified: true
-    }
+  const adminUserData = {
+    name: 'Setu Administrator',
+    email: 'admin@setu.local',
+    passwordHash: adminPasswordHash,
+    role: 'ADMIN',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    phone: '+919876543210',
+    emailVerified: true
+  };
+  const adminUser = await prisma.user.upsert({
+    where: { email: 'admin@setu.local' },
+    update: adminUserData,
+    create: adminUserData
   });
 
-  const vendorUser = await prisma.user.create({
-    data: {
-      name: 'Vikramaditya Heritage Tours',
-      email: 'vendor@setu.local',
-      passwordHash: vendorPasswordHash,
-      role: 'VENDOR',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-      phone: '+919123456789',
-      emailVerified: true
-    }
+  const vendorUserData = {
+    name: 'Vikramaditya Heritage Tours',
+    email: 'vendor@setu.local',
+    passwordHash: vendorPasswordHash,
+    role: 'VENDOR',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    phone: '+919123456789',
+    emailVerified: true
+  };
+  const vendorUser = await prisma.user.upsert({
+    where: { email: 'vendor@setu.local' },
+    update: vendorUserData,
+    create: vendorUserData
   });
 
-  const touristUser = await prisma.user.create({
-    data: {
-      name: 'Ananya Sharma',
-      email: 'tourist@setu.local',
-      passwordHash: touristPasswordHash,
-      role: 'TOURIST',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-      phone: '+919988776655',
-      emailVerified: true
-    }
+  const touristUserData = {
+    name: 'Ananya Sharma',
+    email: 'tourist@setu.local',
+    passwordHash: touristPasswordHash,
+    role: 'TOURIST',
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
+    phone: '+919988776655',
+    emailVerified: true
+  };
+  const touristUser = await prisma.user.upsert({
+    where: { email: 'tourist@setu.local' },
+    update: touristUserData,
+    create: touristUserData
   });
 
   // 4. Create Demo Vendor Profile
@@ -902,16 +911,19 @@ async function main() {
 
   for (let idx = 0; idx < tData.length; idx++) {
     const item = tData[idx];
-    const tUser = await prisma.user.create({
-      data: {
-        name: item.name,
-        email: item.email,
-        passwordHash: touristPasswordHash,
-        role: 'TOURIST',
-        avatar: item.avatar,
-        phone: item.phone,
-        emailVerified: true
-      }
+    const tUserData = {
+      name: item.name,
+      email: item.email,
+      passwordHash: touristPasswordHash,
+      role: 'TOURIST',
+      avatar: item.avatar,
+      phone: item.phone,
+      emailVerified: true
+    };
+    const tUser = await prisma.user.upsert({
+      where: { email: item.email },
+      update: tUserData,
+      create: tUserData
     });
 
     if (item.fav) {
