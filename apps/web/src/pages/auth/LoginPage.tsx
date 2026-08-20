@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useTranslation } from '../../context/LanguageContext';
 import { LoadingScreen } from '../../components/common/LoadingScreen';
 
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
   const { showToast } = useToast();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -64,7 +66,7 @@ export const LoginPage: React.FC = () => {
           <span className="sub-nav-label text-brand-maroon text-[10px] block">
             BIHAR TOURISM MARKETPLACE
           </span>
-          <h2 className="text-2xl font-serif text-brand-black pt-2">Sign In to Your Account</h2>
+          <h2 className="text-2xl font-serif text-brand-black pt-2">{t('auth.signInTitle', 'Sign In to Your Account')}</h2>
         </div>
 
         {/* Preset Credentials Hint */}
@@ -83,7 +85,7 @@ export const LoginPage: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6 font-sans">
           <div>
-            <label className="block text-xs sub-nav-label text-brand-black/70 mb-2">EMAIL ADDRESS</label>
+            <label className="block text-xs sub-nav-label text-brand-black/70 mb-2">{t('auth.emailLabel', 'EMAIL ADDRESS').toUpperCase()}</label>
             <input
               type="email"
               required
@@ -96,8 +98,7 @@ export const LoginPage: React.FC = () => {
 
           <div>
             <div className="flex justify-between items-center mb-2">
-              <label className="text-xs sub-nav-label text-brand-black/70">PASSWORD</label>
-              <a href="#" className="text-xs text-brand-maroon hover:underline">Forgot password?</a>
+              <label className="text-xs sub-nav-label text-brand-black/70">{t('auth.passwordLabel', 'PASSWORD').toUpperCase()}</label>
             </div>
             <input
               type="password"
@@ -112,16 +113,16 @@ export const LoginPage: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 bg-brand-black text-brand-gold sub-nav-label text-xs tracking-widest rounded hover:bg-brand-maroon hover:text-white transition-all shadow-md disabled:opacity-50"
+            className="w-full bg-brand-gold hover:bg-amber-400 text-brand-black font-bold p-3.5 rounded text-xs sub-nav-label tracking-widest transition-all shadow-md"
           >
-            {loading ? 'SIGNING IN...' : 'SIGN IN'}
+            {loading ? 'AUTHENTICATING...' : t('auth.signInBtn', 'SIGN IN TO SETU')}
           </button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-brand-brown/15 text-center text-xs font-sans text-brand-black/70">
-          Don’t have an account?{' '}
+        <div className="mt-8 text-center text-xs font-sans text-brand-brown/80">
+          {t('auth.dontHaveAccount', "Don't have an account?")}{' '}
           <Link to="/register" className="text-brand-maroon font-semibold hover:underline">
-            Create Account
+            {t('nav.register', 'Create an account')}
           </Link>
         </div>
       </div>

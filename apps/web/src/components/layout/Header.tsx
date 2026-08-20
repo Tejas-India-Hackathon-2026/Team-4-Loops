@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sparkles, Menu, ChevronDown, User, Store, Shield } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useTranslation } from '../../context/LanguageContext';
 import { getHomeRouteForRole } from '../../utils/navigation';
+import { LanguageSwitcher } from '../common/LanguageSwitcher';
 import { MegaMenuExplore } from './MegaMenuExplore';
 import { MegaMenuExperience } from './MegaMenuExperience';
 import { MobileDrawer } from './MobileDrawer';
@@ -13,6 +15,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const location = useLocation();
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -58,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
           >
             <span>SETU</span>
             <span className="text-[10px] sub-nav-label tracking-widest border border-brand-gold/40 px-1.5 py-0.5 rounded text-brand-gold hidden sm:inline-block">
-              BIHAR
+              {t('nav.logoTag', 'BIHAR TOURISM')}
             </span>
           </Link>
 
@@ -70,17 +73,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
                 onClick={() => setActiveMenu(activeMenu === 'explore' ? null : 'explore')}
                 className="flex items-center space-x-1 hover:text-brand-gold transition-colors py-2 focus:outline-none"
               >
-                <span>EXPLORE</span>
+                <span>{t('nav.explore', 'EXPLORE').toUpperCase()}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeMenu === 'explore' ? 'rotate-180 text-brand-gold' : ''}`} />
               </button>
             </div>
 
             <Link to="/maps" className="hover:text-brand-gold transition-colors">
-              MAPS
+              {t('nav.maps', 'MAPS').toUpperCase()}
             </Link>
 
             <Link to="/calendar" className="hover:text-brand-gold transition-colors">
-              CALENDAR
+              {t('nav.calendar', 'CALENDAR').toUpperCase()}
             </Link>
 
             {/* EXPERIENCE Mega-menu Button */}
@@ -89,14 +92,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
                 onClick={() => setActiveMenu(activeMenu === 'experience' ? null : 'experience')}
                 className="flex items-center space-x-1 hover:text-brand-gold transition-colors py-2 focus:outline-none"
               >
-                <span>EXPERIENCE</span>
+                <span>{t('nav.experience', 'EXPERIENCE').toUpperCase()}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeMenu === 'experience' ? 'rotate-180 text-brand-gold' : ''}`} />
               </button>
             </div>
           </nav>
 
           {/* Actions Right */}
-          <div className="flex items-center space-x-4 md:space-x-6">
+          <div className="flex items-center space-x-3 md:space-x-4">
+            {/* Language Switcher Dropdown */}
+            <LanguageSwitcher compact={isHome && !isScrolled && activeMenu === null} />
+
             {/* AI Companion Button */}
             <button
               onClick={onOpenAi}
@@ -104,21 +110,21 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
               title="Open SETU AI Travel Companion"
             >
               <Sparkles className="w-3.5 h-3.5 animate-pulse text-brand-gold" />
-              <span className="hidden sm:inline">AI CONCIERGE</span>
+              <span className="hidden sm:inline">{t('nav.aiGuide', 'AI CONCIERGE').toUpperCase()}</span>
             </button>
 
             {/* Role quick links */}
             {user?.role === 'VENDOR' && (
               <Link to={homeRoute} className="hidden sm:flex items-center space-x-1 text-xs sub-nav-label text-amber-700 hover:text-amber-900 bg-amber-50 px-2.5 py-1 rounded border border-amber-200">
                 <Store className="w-3.5 h-3.5" />
-                <span>VENDOR</span>
+                <span>{t('nav.vendorDashboard', 'VENDOR').toUpperCase()}</span>
               </Link>
             )}
 
             {user?.role === 'ADMIN' && (
               <Link to="/admin" className="hidden sm:flex items-center space-x-1 text-xs sub-nav-label text-emerald-700 hover:text-emerald-900 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
                 <Shield className="w-3.5 h-3.5" />
-                <span>ADMIN</span>
+                <span>{t('nav.adminDashboard', 'ADMIN').toUpperCase()}</span>
               </Link>
             )}
 
@@ -136,10 +142,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
             ) : (
               <Link
                 to="/login"
-                className="flex items-center space-x-1 text-xs sub-nav-label px-4 py-2 border border-brand-gold/60 text-brand-gold hover:bg-brand-gold hover:text-brand-black transition-all rounded-sm"
+                className="flex items-center space-x-1 text-xs sub-nav-label px-3.5 py-1.5 border border-brand-gold/60 text-brand-gold hover:bg-brand-gold hover:text-brand-black transition-all rounded-sm font-semibold"
               >
                 <User className="w-3.5 h-3.5" />
-                <span>SIGN IN</span>
+                <span>{t('nav.signIn', 'SIGN IN').toUpperCase()}</span>
               </Link>
             )}
 

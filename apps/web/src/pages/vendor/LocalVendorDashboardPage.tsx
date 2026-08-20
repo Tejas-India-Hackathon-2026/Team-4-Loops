@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useTranslation } from '../../context/LanguageContext';
 import api from '../../api/client';
 import { Offering, Order, Vendor } from '../../types';
 import { ShoppingBag, PlusCircle, Edit3, PhoneCall, CheckCircle, Clock, AlertTriangle, Package, DollarSign, Store, Tag } from 'lucide-react';
@@ -8,6 +9,7 @@ import { ShoppingBag, PlusCircle, Edit3, PhoneCall, CheckCircle, Clock, AlertTri
 export const LocalVendorDashboardPage: React.FC = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
+  const { t } = useTranslation();
 
   const [vendor, setVendor] = useState<Vendor | null>(null);
   const [offerings, setOfferings] = useState<Offering[]>([]);
@@ -136,7 +138,9 @@ export const LocalVendorDashboardPage: React.FC = () => {
                   ? 'bg-emerald-500 text-white'
                   : 'bg-amber-400 text-amber-950'
               }`}>
-                {vendor?.status === 'APPROVED' ? '✓ APPROVED VENDOR' : '⌛ PENDING APPROVAL'}
+                {vendor?.status === 'APPROVED'
+                  ? t('localVendor.approvedStatus', '✓ APPROVED VENDOR')
+                  : t('localVendor.pendingStatus', '⌛ PENDING APPROVAL')}
               </span>
             </div>
             <p className="text-sm font-sans text-brand-gold/90 font-medium">
@@ -150,7 +154,7 @@ export const LocalVendorDashboardPage: React.FC = () => {
           className="w-full md:w-auto px-5 py-3 bg-brand-gold text-brand-black hover:bg-yellow-400 font-bold rounded-lg text-sm flex items-center justify-center space-x-2 transition-all shadow"
         >
           <Edit3 className="w-5 h-5" />
-          <span>EDIT BUSINESS INFO</span>
+          <span>{t('localVendor.editProfile', 'EDIT BUSINESS PROFILE').toUpperCase()}</span>
         </button>
       </div>
 
@@ -174,21 +178,21 @@ export const LocalVendorDashboardPage: React.FC = () => {
             <PlusCircle className="w-10 h-10 text-white" />
           </div>
           <div>
-            <span className="block text-xl font-bold font-serif">ADD NEW PRODUCT / CRAFT</span>
+            <span className="block text-xl font-bold font-serif">{t('localVendor.addProduct', 'ADD NEW PRODUCT').toUpperCase()}</span>
             <span className="text-xs opacity-90 font-sans">List Madhubani art, Makhana, Silk, or local items</span>
           </div>
         </button>
 
         <a
-          href="tel:+919876543210"
-          className="p-6 bg-blue-800 hover:bg-blue-900 text-white rounded-xl shadow-md flex items-center space-x-5 transition-all text-left group border-2 border-blue-600"
+          href="tel:18003456789"
+          className="p-6 bg-brand-maroon hover:bg-red-950 text-white rounded-xl shadow-md flex items-center space-x-5 transition-all text-left group border-2 border-red-700"
         >
           <div className="p-4 bg-white/20 rounded-full group-hover:scale-110 transition-transform">
-            <PhoneCall className="w-10 h-10 text-white" />
+            <PhoneCall className="w-10 h-10 text-brand-gold" />
           </div>
           <div>
-            <span className="block text-xl font-bold font-serif">SETU VENDOR HELPLINE</span>
-            <span className="text-xs opacity-90 font-sans">Click to call toll-free support for help</span>
+            <span className="block text-xl font-bold font-serif">{t('localVendor.callHelpline', 'CALL SETU HELPLINE').toUpperCase()}</span>
+            <span className="text-xs text-brand-gold font-sans">{t('localVendor.helplineDesc', 'Toll-Free Assistance: 1800-345-6789')}</span>
           </div>
         </a>
       </div>

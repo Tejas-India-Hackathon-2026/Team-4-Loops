@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import api from '../../api/client';
+import { useTranslation } from '../../context/LanguageContext';
 import { Circuit, Destination, TourismEvent } from '../../types';
 import { CircuitCard } from '../../components/tourism/CircuitCard';
 import { DestinationCard } from '../../components/tourism/DestinationCard';
@@ -20,6 +21,7 @@ const HERO_IMAGES = [
 ];
 
 export const HomePage: React.FC = () => {
+  const { t } = useTranslation();
   const [currentHeroIdx, setCurrentHeroIdx] = useState(0);
   const [circuits, setCircuits] = useState<Circuit[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);
@@ -93,18 +95,18 @@ export const HomePage: React.FC = () => {
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-center pt-24 pb-12 flex flex-col items-center">
           <span className="sub-nav-label text-brand-gold tracking-[0.3em] mb-4">
-            PREMIUM DIGITAL TOURISM PLATFORM
+            {t('home.heroTagline', 'SACRED LAND OF ENLIGHTENMENT & LEGENDS')}
           </span>
 
           <h1
             ref={heroHeadingRef}
             className="hero-heading text-cream font-serif tracking-tight max-w-5xl"
           >
-            Discover Bihar
+            {t('home.heroTitle', "Bridges to Bihar's Ancient Soul")}
           </h1>
 
           <p className="mt-6 text-lg md:text-xl font-serif text-cream/80 max-w-2xl leading-relaxed font-light">
-            Journey through ancient monastic ruins, sacred Ganges ghats, serene eco sanctuaries, and centuries of vibrant Mithila craftsmanship.
+            {t('home.heroSubtitle', 'Journey through ancient monastic ruins, sacred Ganges ghats, serene eco sanctuaries, and centuries of vibrant Mithila craftsmanship.')}
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
@@ -112,16 +114,16 @@ export const HomePage: React.FC = () => {
               to="/explore/circuits"
               className="px-8 py-4 bg-brand-gold text-brand-black sub-nav-label text-xs tracking-widest font-semibold rounded hover:bg-amber-400 transition-all flex items-center space-x-2 shadow-xl"
             >
-              <span>EXPLORE SACRED CIRCUITS</span>
+              <span>{t('home.exploreCircuits', 'EXPLORE SACRED CIRCUITS')}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 
             <Link
-              to="/maps"
+              to="/calendar"
               className="px-8 py-4 border border-cream/40 text-cream sub-nav-label text-xs tracking-widest font-semibold rounded hover:bg-white/10 transition-all flex items-center space-x-2 backdrop-blur-sm"
             >
-              <Compass className="w-4 h-4 text-brand-gold" />
-              <span>INTERACTIVE MAP</span>
+              <Calendar className="w-4 h-4 text-brand-gold" />
+              <span>{t('home.viewCalendar', 'CULTURAL CALENDAR 2026')}</span>
             </Link>
           </div>
         </div>
@@ -136,7 +138,7 @@ export const HomePage: React.FC = () => {
       {/* 2. EDITORIAL INTRO SECTION */}
       <section className="py-24 px-6 md:px-12 bg-cream text-brand-black border-b border-brand-brown/15">
         <div className="max-w-5xl mx-auto text-center space-y-6">
-          <span className="sub-nav-label text-brand-maroon">LAND OF ENLIGHTENMENT</span>
+          <span className="sub-nav-label text-brand-maroon">{t('home.homeTitle', 'LAND OF ENLIGHTENMENT')}</span>
           <h2 className="text-3xl md:text-5xl font-serif leading-tight">
             Where Empires Were Born and Philosophy Illuminated the World
           </h2>

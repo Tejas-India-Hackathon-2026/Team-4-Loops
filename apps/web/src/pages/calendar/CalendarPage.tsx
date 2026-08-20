@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Filter, Layers } from 'lucide-react';
 import { addMonths, subMonths, format } from 'date-fns';
 import api from '../../api/client';
+import { useTranslation } from '../../context/LanguageContext';
 import { TourismEvent } from '../../types';
 import { EventCard } from '../../components/tourism/EventCard';
 
 export const CalendarPage: React.FC = () => {
+  const { t } = useTranslation();
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2026, 0, 1)); // Default to Jan 2026
   const [events, setEvents] = useState<TourismEvent[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,21 +44,29 @@ export const CalendarPage: React.FC = () => {
   const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
   const nextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
 
-  const categories = ['ALL', 'Religious', 'Cultural', 'Fair/Mela', 'Heritage', 'Music/Arts', 'Local/Regional'];
+  const categories = [
+    { code: 'ALL', label: t('calendar.catAll', 'ALL CATEGORIES') },
+    { code: 'Religious', label: t('calendar.catReligious', 'RELIGIOUS') },
+    { code: 'Cultural', label: t('calendar.catCultural', 'CULTURAL') },
+    { code: 'Fair/Mela', label: t('calendar.catFairMela', 'FAIR / MELA') },
+    { code: 'Heritage', label: t('calendar.catHeritage', 'HERITAGE') },
+    { code: 'Music/Arts', label: t('calendar.catMusicArts', 'MUSIC & ARTS') },
+    { code: 'Local/Regional', label: t('calendar.catLocalRegional', 'LOCAL & REGIONAL') }
+  ];
 
   return (
     <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-8">
       {/* Header */}
       <div className="border-b border-brand-brown/15 pb-6 space-y-2">
         <div className="flex items-center justify-between flex-wrap gap-4">
-          <span className="sub-nav-label text-brand-maroon">BIHAR TOURISM CALENDAR 2026</span>
+          <span className="sub-nav-label text-brand-maroon">{t('calendar.badge', 'BIHAR TOURISM CALENDAR 2026')}</span>
           <span className="text-xs font-sans text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full font-bold">
-            ✓ Official 2026 Calendar Verified
+            {t('calendar.verifiedBadge', '✓ Official 2026 Calendar Verified')}
           </span>
         </div>
-        <h1 className="text-4xl md:text-6xl font-serif text-brand-black">Festivals & Events 2026</h1>
+        <h1 className="text-4xl md:text-6xl font-serif text-brand-black">{t('calendar.title', 'Festivals & Events 2026')}</h1>
         <p className="text-base font-serif text-brand-black/75 max-w-2xl leading-relaxed">
-          Discover year-round cultural fairs, sacred pilgrimage melas, music festivals, and heritage celebrations across all 38 districts of Bihar.
+          {t('calendar.subtitle', 'Discover year-round cultural fairs, sacred pilgrimage melas, music festivals, and heritage celebrations across all 38 districts of Bihar.')}
         </p>
       </div>
 
@@ -71,7 +81,7 @@ export const CalendarPage: React.FC = () => {
                 viewMode === 'MONTH' ? 'bg-brand-black text-brand-gold font-bold' : 'text-brand-black/70 hover:text-brand-black'
               }`}
             >
-              MONTHLY VIEW
+              {t('calendar.monthlyView', 'MONTHLY VIEW')}
             </button>
             <button
               onClick={() => setViewMode('ALL')}
@@ -79,7 +89,7 @@ export const CalendarPage: React.FC = () => {
                 viewMode === 'ALL' ? 'bg-brand-black text-brand-gold font-bold' : 'text-brand-black/70 hover:text-brand-black'
               }`}
             >
-              FULL YEAR 2026 (ALL EVENTS)
+              {t('calendar.fullYearView', 'FULL YEAR 2026 (ALL EVENTS)')}
             </button>
           </div>
 
@@ -111,18 +121,18 @@ export const CalendarPage: React.FC = () => {
 
         {/* Category Pills */}
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-bold sub-nav-label text-brand-brown mr-2">CATEGORY:</span>
+          <span className="text-xs font-bold sub-nav-label text-brand-brown mr-2">{t('calendar.categoryLabel', 'CATEGORY:')}</span>
           {categories.map((cat) => (
             <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
+              key={cat.code}
+              onClick={() => setSelectedCategory(cat.code)}
               className={`text-xs sub-nav-label px-3.5 py-2 rounded transition-all ${
-                selectedCategory === cat
+                selectedCategory === cat.code
                   ? 'bg-brand-maroon text-white font-bold shadow-sm'
                   : 'bg-white text-brand-black border border-brand-brown/15 hover:border-brand-maroon'
               }`}
             >
-              {cat === 'ALL' ? 'ALL CATEGORIES' : cat.toUpperCase()}
+              {cat.label.toUpperCase()}
             </button>
           ))}
         </div>

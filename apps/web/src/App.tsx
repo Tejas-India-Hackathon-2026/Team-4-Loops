@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { AiTravelCompanionDrawer } from './components/ai/AiTravelCompanionDrawer';
@@ -11,23 +12,25 @@ export const App: React.FC = () => {
   const [aiDrawerOpen, setAiDrawerOpen] = useState(false);
 
   return (
-    <AuthProvider>
-      <ToastProvider>
-        <Router>
-          <div className="min-h-screen flex flex-col justify-between bg-cream-light font-serif">
-            <Header onOpenAi={() => setAiDrawerOpen(true)} />
-            <main className="flex-grow">
-              <AppRoutes />
-            </main>
-            <Footer />
-            <AiTravelCompanionDrawer
-              isOpen={aiDrawerOpen}
-              onClose={() => setAiDrawerOpen(false)}
-            />
-          </div>
-        </Router>
-      </ToastProvider>
-    </AuthProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <Router>
+            <div className="min-h-screen flex flex-col justify-between bg-cream-light font-serif">
+              <Header onOpenAi={() => setAiDrawerOpen(true)} />
+              <main className="flex-grow">
+                <AppRoutes />
+              </main>
+              <Footer />
+              <AiTravelCompanionDrawer
+                isOpen={aiDrawerOpen}
+                onClose={() => setAiDrawerOpen(false)}
+              />
+            </div>
+          </Router>
+        </ToastProvider>
+      </AuthProvider>
+    </LanguageProvider>
   );
 };
 
