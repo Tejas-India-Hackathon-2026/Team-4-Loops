@@ -345,8 +345,49 @@ export async function getEventBySlug(req: Request, res: Response, next: NextFunc
     const formatted = {
       ...event,
       gallery: parseJsonField(event.gallery, []),
+      nearbyRestaurants: parseJsonField(event.nearbyRestaurants, []),
       nearbyVendors,
       nearbyAttractions
+    };
+
+    return res.json({ success: true, data: formatted });
+  } catch (error) {
+    next(error);
+  }
+}
+
+// 5. Cuisine / Taste Items
+export async function getCuisineItems(req: Request, res: Response, next: NextFunction) {
+  try {
+    const items = await prisma.cuisineItem.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+
+    const formatted = items.map(item => ({
+      ...item,
+      restaurants: parseJsonField(item.restaurants, [])
+    }));
+
+    return res.json({ success: true, count: formatted.length, data: formatted });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getCuisineItemBySlug(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { slug } = req.params;
+    const item = await prisma.cuisineItem.findUnique({
+      where: { slug }
+    });
+
+    if (!item) {
+      throw new ApiError(404, 'Cuisine item not found');
+    }
+
+    const formatted = {
+      ...item,
+      restaurants: parseJsonField(item.restaurants, [])
     };
 
     return res.json({ success: true, data: formatted });

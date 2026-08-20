@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { useTranslation } from '../../context/LanguageContext';
 import { LoadingScreen } from '../../components/common/LoadingScreen';
+import { getHomeRouteForRole } from '../../utils/navigation';
 
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
@@ -31,6 +32,7 @@ export const LoginPage: React.FC = () => {
     try {
       const user = await login({ email, password });
       setLoggedInUser(user);
+      localStorage.setItem('setu_entry_completed', 'true');
       showToast(`Welcome back, ${user.name}!`, 'success');
       setShowSuccessAnim(true);
     } catch (err: any) {
@@ -45,13 +47,9 @@ export const LoginPage: React.FC = () => {
       <LoadingScreen
         brandText="AUTHENTICATING SESSION & PREPARING DASHBOARD..."
         onComplete={() => {
-          if (loggedInUser?.role === 'ADMIN') {
-            navigate('/admin/dashboard');
-          } else if (loggedInUser?.role === 'VENDOR') {
-            navigate('/vendor/dashboard');
-          } else {
-            navigate(redirectUrl !== '/' ? redirectUrl : '/');
-          }
+          localStorage.setItem('setu_entry_completed', 'true');
+          const target = redirectUrl && redirectUrl !== '/' ? redirectUrl : getHomeRouteForRole(loggedInUser);
+          navigate(target);
         }}
       />
     );

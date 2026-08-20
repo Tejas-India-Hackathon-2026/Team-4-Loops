@@ -4,6 +4,8 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { LoadingScreen } from '../../components/common/LoadingScreen';
+import { getHomeRouteForRole } from '../../utils/navigation';
+import { User } from '../../types';
 
 export const RegisterPage: React.FC = () => {
   const { register } = useAuth();
@@ -23,6 +25,7 @@ export const RegisterPage: React.FC = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [businessName, setBusinessName] = useState('');
   const [businessType, setBusinessType] = useState('Tour Operator');
+  const [registeredUser, setRegisteredUser] = useState<User | null>(null);
 
   const [loading, setLoading] = useState(false);
   const [showSuccessAnim, setShowSuccessAnim] = useState(false);
@@ -40,7 +43,7 @@ export const RegisterPage: React.FC = () => {
     setLoading(true);
 
     try {
-      await register({
+      const newUser = await register({
         name,
         email,
         phone,
@@ -50,6 +53,8 @@ export const RegisterPage: React.FC = () => {
         businessType: role === 'VENDOR' ? businessType : undefined
       });
 
+      setRegisteredUser(newUser);
+      localStorage.setItem('setu_entry_completed', 'true');
       showToast(`Account created successfully as ${role}!`, 'success');
       setShowSuccessAnim(true);
     } catch (err: any) {
@@ -64,7 +69,8 @@ export const RegisterPage: React.FC = () => {
       <LoadingScreen
         brandText={role === 'VENDOR' ? 'ACCOUNT CREATED. AWAITING ADMIN APPROVAL...' : 'ACCOUNT CREATED. WELCOME TO SETU!'}
         onComplete={() => {
-          navigate(role === 'VENDOR' ? '/vendor/dashboard' : '/account');
+          localStorage.setItem('setu_entry_completed', 'true');
+          navigate(getHomeRouteForRole(registeredUser));
         }}
       />
     );

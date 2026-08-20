@@ -143,7 +143,7 @@ export interface TourismEvent {
   id: string;
   title: string;
   slug: string;
-  category: 'Festival' | 'Fair' | 'Cultural' | 'Seasonal' | 'Religious' | 'Arts';
+  category: 'Festival' | 'Fair' | 'Cultural' | 'Seasonal' | 'Religious' | 'Arts' | string;
   description: string;
   startDate: string;
   endDate: string;
@@ -155,8 +155,22 @@ export interface TourismEvent {
   gallery: string[];
   isLunar?: boolean;
   lastVerified?: string;
+  nearestPolice?: string;
+  nearestHospital?: string;
+  nearbyRestaurants?: any[];
   nearbyVendors?: Vendor[];
   nearbyAttractions?: Destination[];
+}
+
+export interface CuisineItem {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  heroImage: string;
+  location: string;
+  district: string;
+  restaurants: Array<{ name: string; address: string; type?: string }>;
 }
 
 export interface Favorite {

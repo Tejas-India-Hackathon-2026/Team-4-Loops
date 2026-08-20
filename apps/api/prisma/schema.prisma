@@ -110,26 +110,42 @@ model Destination {
 }
 
 model Event {
-  id           String   @id @default(uuid())
-  title        String
-  slug         String   @unique
-  category     String // Festival, Fair, Cultural, Seasonal, Religious, Arts
-  description  String
-  startDate    DateTime
-  endDate      DateTime
-  year         Int      @default(2026)
-  lastVerified String   @default("2026-08-20")
-  isLunar      Boolean  @default(false)
-  location     String
-  district     String
-  latitude     Float
-  longitude    Float
-  heroImage    String
-  gallery      String   @default("[]")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                String   @id @default(uuid())
+  title             String
+  slug              String   @unique
+  category          String // Festival, Fair, Cultural, Seasonal, Religious, Arts
+  description       String
+  startDate         DateTime
+  endDate           DateTime
+  year              Int      @default(2026)
+  lastVerified      String   @default("2026-08-20")
+  isLunar           Boolean  @default(false)
+  location          String
+  district          String
+  latitude          Float
+  longitude         Float
+  heroImage         String
+  gallery           String   @default("[]")
+  nearestPolice     String?
+  nearestHospital   String?
+  nearbyRestaurants String?  @default("[]")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   favorites Favorite[]
+}
+
+model CuisineItem {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String
+  heroImage   String
+  location    String
+  district    String
+  restaurants String   @default("[]") // JSON stringified array of {name, address, type}
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Offering {

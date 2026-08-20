@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { AiTravelCompanionDrawer } from './components/ai/AiTravelCompanionDrawer';
 import { AppRoutes } from './routes/AppRoutes';
+import { EntryWelcomePage } from './pages/auth/EntryWelcomePage';
 
 const AppContent: React.FC = () => {
+  const { user } = useAuth();
+  const [entryDone, setEntryDone] = useState<boolean>(
+    () => localStorage.getItem('setu_entry_completed') === 'true'
+  );
   const [aiDrawerOpen, setAiDrawerOpen] = useState(false);
   const location = useLocation();
+
+  const isEntered = entryDone || !!user;
+
+  if (!isEntered) {
+    return <EntryWelcomePage onCompleteEntry={() => setEntryDone(true)} />;
+  }
 
   const pathname = location.pathname;
   let bgImage = '/tourist.jpeg';
