@@ -16,8 +16,6 @@ async function getWeather(city) {
     console.log("Temperature:", data.main.temp + "°C");
     console.log("Feels Like:", data.main.feels_like + "°C");
     console.log("Humidity:", data.main.humidity + "%");
-    console.log("Weather:", data.weather[0].description);
-    console.log("Wind:", data.wind.speed + " m/s");
 
     return data;
   } catch (error) {
