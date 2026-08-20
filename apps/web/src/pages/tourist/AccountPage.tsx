@@ -3,16 +3,34 @@ import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import api from '../../api/client';
 import { Order, Favorite } from '../../types';
-import { User, Calendar, CreditCard, Heart, LogOut, Ticket, CheckCircle2 } from 'lucide-react';
+import { User, Calendar, CreditCard, Heart, LogOut, Ticket, CheckCircle2, Sparkles } from 'lucide-react';
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
+function loadRazorpayScript(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (window.Razorpay) return resolve(true);
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
 
 export const AccountPage: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, refreshMe } = useAuth();
   const { showToast } = useToast();
 
-  const [activeTab, setActiveTab] = useState<'bookings' | 'profile' | 'favorites'>('bookings');
+  const [activeTab, setActiveTab] = useState<'bookings' | 'profile' | 'favorites' | 'premium'>('bookings');
   const [orders, setOrders] = useState<Order[]>([]);
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [loading, setLoading] = useState(true);
+  const [subscribing, setSubscribing] = useState(false);
 
   useEffect(() => {
     async function loadUserData() {
@@ -31,6 +49,62 @@ export const AccountPage: React.FC = () => {
     }
     if (user) loadUserData();
   }, [user]);
+
+  const handleSubscribe = async () => {
+    if (!user) return;
+    setSubscribing(true);
+    try {
+      const subRes = await api.post('/payments/premium/subscribe');
+      if (!subRes.data.success) {
+        showToast('Could not start SETU Plus checkout.', 'error');
+        setSubscribing(false);
+        return;
+      }
+      const { subscriptionId, key } = subRes.data.razorpay;
+
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        showToast('Failed to load payment gateway. Check your connection.', 'error');
+        setSubscribing(false);
+        return;
+      }
+
+      const options = {
+        key,
+        subscription_id: subscriptionId,
+        name: 'SETU Plus',
+        description: 'Premium Membership — ₹99/month',
+        prefill: { name: user.name, email: user.email },
+        theme: { color: '#7a1f2b' },
+        handler: async (response: any) => {
+          try {
+            const verifyRes = await api.post('/payments/premium/verify', {
+              razorpaySubscriptionId: response.razorpay_subscription_id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpaySignature: response.razorpay_signature
+            });
+            if (verifyRes.data.success) {
+              showToast('Welcome to SETU Plus!', 'success');
+              await refreshMe();
+            } else {
+              showToast('Subscription verification failed.', 'error');
+            }
+          } catch (err: any) {
+            showToast(err.response?.data?.error || 'Subscription verification failed.', 'error');
+          } finally {
+            setSubscribing(false);
+          }
+        },
+        modal: { ondismiss: () => setSubscribing(false) }
+      };
+
+      const rzpInstance = new window.Razorpay(options);
+      rzpInstance.open();
+    } catch (err: any) {
+      showToast(err.response?.data?.error || 'Failed to start SETU Plus checkout', 'error');
+      setSubscribing(false);
+    }
+  };
 
   if (!user) {
     return (
@@ -89,6 +163,15 @@ export const AccountPage: React.FC = () => {
           }`}
         >
           PROFILE SETTINGS
+        </button>
+        <button
+          onClick={() => setActiveTab('premium')}
+          className={`py-3 sub-nav-label text-xs tracking-widest border-b-2 transition-all flex items-center space-x-1.5 ${
+            activeTab === 'premium' ? 'border-brand-maroon text-brand-black font-bold' : 'border-transparent text-brand-black/60'
+          }`}
+        >
+          <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
+          <span>SETU PLUS</span>
         </button>
       </div>
 
@@ -149,6 +232,43 @@ export const AccountPage: React.FC = () => {
                   <p className="text-xs font-sans text-brand-brown">{fav.destination?.category}</p>
                 </div>
               ))
+            )}
+          </div>
+        )}
+
+        {activeTab === 'premium' && (
+          <div className="bg-white p-8 rounded border border-brand-brown/15 max-w-xl space-y-5">
+            {user.isPremium ? (
+              <>
+                <div className="flex items-center space-x-2 text-brand-maroon">
+                  <Sparkles className="w-5 h-5 text-brand-gold" />
+                  <h3 className="sub-nav-label">SETU PLUS — ACTIVE</h3>
+                </div>
+                <p className="text-sm font-serif text-brand-black/80">
+                  You have full access to the SETU AI Companion, including multi-day itineraries, local insider tips, and premium experience recommendations.
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center space-x-2 text-brand-black">
+                  <Sparkles className="w-5 h-5 text-brand-gold" />
+                  <h3 className="sub-nav-label">UPGRADE TO SETU PLUS</h3>
+                </div>
+                <p className="text-sm font-serif text-brand-black/80">
+                  Unlock the full SETU AI Companion — multi-day personalized itineraries, local insider tips, food recommendations, and smart circuit planning.
+                </p>
+                <div className="flex items-baseline space-x-2">
+                  <span className="font-serif text-3xl font-bold text-brand-black">₹99</span>
+                  <span className="text-xs font-sans text-brand-brown">/ month</span>
+                </div>
+                <button
+                  onClick={handleSubscribe}
+                  disabled={subscribing}
+                  className="px-6 py-3 bg-brand-black text-brand-gold sub-nav-label text-xs tracking-widest rounded hover:bg-brand-maroon hover:text-white transition-all disabled:opacity-50"
+                >
+                  {subscribing ? 'PROCESSING...' : 'SUBSCRIBE WITH RAZORPAY'}
+                </button>
+              </>
             )}
           </div>
         )}
