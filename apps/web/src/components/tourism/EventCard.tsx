@@ -11,11 +11,22 @@ interface EventCardProps {
 export const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const start = new Date(event.startDate);
   const end = new Date(event.endDate);
+  const today = new Date();
+
+  const startClean = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  const endClean = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  const todayClean = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  const isPassed = todayClean > endClean;
+  const isHappening = todayClean >= startClean && todayClean <= endClean;
+  const daysUntilStart = differenceInCalendarDays(startClean, todayClean);
 
   const startDateStr = format(start, 'MMM dd, yyyy');
   const endDateStr = format(end, 'MMM dd, yyyy');
   const isSingleDay = startDateStr === endDateStr;
   const dayCount = Math.max(1, differenceInCalendarDays(end, start) + 1);
+
+  const catSlug = event.category ? event.category.toLowerCase().replace(/[^a-z0-9]+/g, '-') : 'cultural';
 
   const getCategoryBg = (cat: string) => {
     switch (cat) {
@@ -56,9 +67,19 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
             )}
           </div>
 
-          {!isSingleDay && (
-            <div className="absolute bottom-3 right-3 bg-brand-black/85 text-brand-gold text-[10px] font-bold sub-nav-label px-2.5 py-1 rounded shadow">
-              {dayCount} DAYS EVENT
+          {/* Real-time Status / Countdown Badge */}
+          {isPassed ? (
+            <div className="absolute bottom-3 right-3 bg-slate-800/90 text-slate-200 text-[10px] font-bold sub-nav-label px-2.5 py-1 rounded shadow border border-slate-600">
+              EVENT PASSED
+            </div>
+          ) : isHappening ? (
+            <div className="absolute bottom-3 right-3 bg-emerald-700 text-white text-[10px] font-bold sub-nav-label px-2.5 py-1 rounded shadow flex items-center space-x-1.5 border border-emerald-400/40">
+              <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+              <span>HAPPENING NOW</span>
+            </div>
+          ) : (
+            <div className="absolute bottom-3 right-3 bg-brand-black/90 text-brand-gold text-[10px] font-bold sub-nav-label px-2.5 py-1 rounded shadow border border-brand-gold/30">
+              {daysUntilStart} {daysUntilStart === 1 ? 'DAY' : 'DAYS'} LEFT {!isSingleDay && `(${dayCount}D EVENT)`}
             </div>
           )}
         </div>
@@ -96,7 +117,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
 
       <div className="px-6 pb-6 pt-2">
         <Link
-          to={`/experience/events/${event.slug}`}
+          to={`/experience/${catSlug}/${event.slug}`}
           className="inline-flex items-center justify-between w-full text-xs sub-nav-label text-brand-maroon font-semibold border-t border-brand-brown/10 pt-3 group-hover:text-brand-black transition-colors"
         >
           <span>VIEW EVENT DETAILS</span>

@@ -8,7 +8,7 @@ import { EventCard } from '../../components/tourism/EventCard';
 
 export const CalendarPage: React.FC = () => {
   const { t } = useTranslation();
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2026, 0, 1)); // Default to Jan 2026
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [events, setEvents] = useState<TourismEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
