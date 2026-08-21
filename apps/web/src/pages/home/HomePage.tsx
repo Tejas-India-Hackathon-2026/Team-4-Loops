@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Compass, MapPin, Calendar, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
@@ -34,6 +34,18 @@ export const HomePage: React.FC = () => {
 
   const heroHeadingRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Filter events to only those that haven't ended yet (endDate >= today)
+  const upcomingEvents = useMemo(() => {
+    const today = new Date();
+    const todayClean = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+    return events.filter((ev) => {
+      const end = new Date(ev.endDate);
+      const endClean = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+      return todayClean <= endClean;
+    });
+  }, [events]);
 
   // Rotate Hero Imagery every 5 seconds
   useEffect(() => {
@@ -258,11 +270,30 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {events.slice(0, 3).map((ev) => (
-              <EventCard key={ev.id} event={ev} />
-            ))}
-          </div>
+          {upcomingEvents.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {upcomingEvents.slice(0, 3).map((ev) => (
+                <EventCard key={ev.id} event={ev} />
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white/80 backdrop-blur-sm p-10 rounded-xl border border-brand-brown/15 text-center space-y-3 shadow-sm">
+              <Calendar className="w-10 h-10 text-brand-maroon mx-auto opacity-75" />
+              <h3 className="font-serif text-xl font-medium text-brand-black">No Upcoming Events Right Now</h3>
+              <p className="font-serif text-brand-black/75 text-sm max-w-md mx-auto">
+                There are currently no scheduled upcoming festival dates remaining for this period. Check back soon or view the full 2026 calendar archive.
+              </p>
+              <div className="pt-2">
+                <Link
+                  to="/calendar"
+                  className="inline-flex items-center space-x-1.5 sub-nav-label text-xs text-brand-maroon hover:text-brand-black font-semibold"
+                >
+                  <span>BROWSE FULL 2026 CALENDAR</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
