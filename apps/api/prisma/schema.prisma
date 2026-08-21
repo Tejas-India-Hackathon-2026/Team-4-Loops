@@ -27,9 +27,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  vendor    Vendor?
-  orders    Order[]
-  favorites Favorite[]
+  vendor        Vendor?
+  orders        Order[]
+  favorites     Favorite[]
+  conversations Conversation[]
 }
 
 model Vendor {
@@ -52,8 +53,10 @@ model Vendor {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  offerings Offering[]
-  orders    Order[]
+  offerings     Offering[]
+  orders        Order[]
+  notifications Notification[]
+  conversations Conversation[]
 }
 
 model Circuit {
@@ -232,5 +235,41 @@ model CityHub {
   verdict               String
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
+}
+
+model Notification {
+  id             String   @id @default(uuid())
+  vendorId       String
+  vendor         Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  type           String   // booking_new, booking_cancelled, review_new, payment_credited, offering_approved, offering_rejected
+  title          String
+  message        String
+  relatedOrderId String?
+  isRead         Boolean  @default(false)
+  createdAt      DateTime @default(now())
+}
+
+model Conversation {
+  id            String   @id @default(uuid())
+  vendorId      String
+  vendor        Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  touristUserId String
+  touristUser   User     @relation(fields: [touristUserId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  messages Message[]
+
+  @@unique([vendorId, touristUserId])
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderId       String
+  content        String
+  isRead         Boolean      @default(false)
+  createdAt      DateTime     @default(now())
 }
 

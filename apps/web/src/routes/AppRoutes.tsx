@@ -21,6 +21,10 @@ import { VendorDashboardPage } from '../pages/vendor/VendorDashboardPage';
 import { AdminDashboardPage } from '../pages/admin/AdminDashboardPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
+import { VendorNotificationsPage } from '../pages/vendor/VendorNotificationsPage';
+import { VendorMessagesPage } from '../pages/vendor/VendorMessagesPage';
+import { VendorStorefrontPage } from '../pages/vendor/VendorStorefrontPage';
+
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
@@ -53,10 +57,16 @@ export const AppRoutes: React.FC = () => {
       <Route path="/offerings" element={<OfferingsListingPage />} />
       <Route path="/offerings/:slug" element={<OfferingDetailPage />} />
 
+      {/* Public Vendor Storefront */}
+      <Route path="/vendors/:slug" element={<VendorStorefrontPage />} />
+
       {/* Tourist Account */}
       <Route path="/account/*" element={<AccountPage />} />
 
-      {/* Vendor Dashboard */}
+      {/* Vendor Specific Pages */}
+      <Route path="/vendor/notifications" element={<VendorNotificationsPage />} />
+      <Route path="/vendor/messages" element={<VendorMessagesPage />} />
+      <Route path="/vendor/storefront-preview" element={<VendorStorefrontPage isPreview={true} />} />
       <Route path="/vendor/*" element={<VendorDashboardPage />} />
 
       {/* Admin Management */}

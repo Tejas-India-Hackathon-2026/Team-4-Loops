@@ -66,6 +66,17 @@ export async function verifyPayment(req: Request, res: Response, next: NextFunct
       }
     });
 
+    // Auto-create Notification for vendor on payment credit
+    await prisma.notification.create({
+      data: {
+        vendorId: order.vendorId,
+        type: 'payment_credited',
+        title: 'Payment Credited',
+        message: `Payment of ₹${vendorEarnings.toLocaleString('en-IN')} confirmed for order #${order.orderNumber}.`,
+        relatedOrderId: order.id
+      }
+    }).catch(() => {});
+
     return res.json({
       success: true,
       message: 'Payment verified successfully. Booking confirmed!',

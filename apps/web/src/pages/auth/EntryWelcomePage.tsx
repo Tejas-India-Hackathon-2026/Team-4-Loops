@@ -5,6 +5,8 @@ import { useTranslation, SupportedLanguage } from '../../context/LanguageContext
 import { useAuth } from '../../context/AuthContext';
 import { getHomeRouteForRole } from '../../utils/navigation';
 
+import { SetuLogoMark } from '../../components/common/SetuLogoMark';
+
 export type UserTypeRole = 'TOURIST' | 'VENDOR';
 
 export const EntryWelcomePage: React.FC<{ onCompleteEntry?: () => void }> = ({ onCompleteEntry }) => {
@@ -54,6 +56,7 @@ export const EntryWelcomePage: React.FC<{ onCompleteEntry?: () => void }> = ({ o
 
       {/* Header / Brand */}
       <div className="relative z-10 text-center space-y-3 pt-6 max-w-2xl mx-auto">
+        <SetuLogoMark className="w-12 h-12 text-brand-gold mx-auto drop-shadow-[0_0_12px_rgba(198,155,69,0.5)] mb-1" />
         <span className="sub-nav-label text-brand-gold tracking-[0.3em] block text-xs">
           WELCOME TO BIHAR TOURISM & LOCAL MARKETPLACE
         </span>
