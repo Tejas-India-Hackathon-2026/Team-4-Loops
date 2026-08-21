@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { Header } from './components/layout/Header';
+import { MinimalAuthHeader } from './components/layout/MinimalAuthHeader';
 import { Footer } from './components/layout/Footer';
 import { AiTravelCompanionDrawer } from './components/ai/AiTravelCompanionDrawer';
 import { AppRoutes } from './routes/AppRoutes';
@@ -24,10 +25,12 @@ const AppContent: React.FC = () => {
   }
 
   const pathname = location.pathname;
+  const isAuthRoute = pathname === '/login' || pathname === '/register';
+
   let bgImage = '/tourist.jpeg';
   if (pathname.startsWith('/vendor')) {
     bgImage = '/vendor.jpeg';
-  } else if (pathname === '/login' || pathname === '/register') {
+  } else if (isAuthRoute) {
     bgImage = '/login.jpeg';
   }
 
@@ -36,7 +39,11 @@ const AppContent: React.FC = () => {
       className="min-h-screen flex flex-col justify-between font-serif bg-cover bg-center bg-fixed transition-all duration-700"
       style={{ backgroundImage: `url('${bgImage}')` }}
     >
-      <Header onOpenAi={() => setAiDrawerOpen(true)} />
+      {isAuthRoute ? (
+        <MinimalAuthHeader />
+      ) : (
+        <Header onOpenAi={() => setAiDrawerOpen(true)} />
+      )}
       <main className="flex-grow">
         <AppRoutes />
       </main>
