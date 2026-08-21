@@ -98,6 +98,27 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
     }
   }, [user]);
 
+  const [touristUnreadMsgCount, setTouristUnreadMsgCount] = useState<number>(0);
+
+  // Poll Tourist Unread Messages
+  useEffect(() => {
+    if (user?.role === 'TOURIST') {
+      const fetchTouristHeaderMsgs = async () => {
+        try {
+          const res = await api.get('/conversations/me').catch(() => null);
+          if (res?.data?.success) {
+            setTouristUnreadMsgCount(res.data.unreadCount || 0);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchTouristHeaderMsgs();
+      const interval = setInterval(fetchTouristHeaderMsgs, 15000);
+      return () => clearInterval(interval);
+    }
+  }, [user]);
+
   const handleMarkNotifRead = async (id: string) => {
     try {
       await api.patch(`/vendors/me/notifications/${id}/read`);
@@ -398,14 +419,44 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAi }) => {
                       <p className="text-[10px] text-brand-brown truncate">{user.email}</p>
                     </div>
                     <div className="py-1">
-                      <Link
-                        to="/account"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-center space-x-2 px-4 py-2.5 hover:bg-cream transition-colors text-brand-black"
-                      >
-                        <UserCheck className="w-4 h-4 text-brand-gold" />
-                        <span>Business Profile</span>
-                      </Link>
+                      {user.role === 'TOURIST' ? (
+                        <>
+                          <Link
+                            to="/account"
+                            onClick={() => setActiveDropdown(null)}
+                            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-cream transition-colors text-brand-black"
+                          >
+                            <UserCheck className="w-4 h-4 text-brand-gold" />
+                            <span>My Profile & Bookings</span>
+                          </Link>
+                          <Link
+                            to="/account/messages"
+                            onClick={() => setActiveDropdown(null)}
+                            className="flex items-center justify-between px-4 py-2.5 hover:bg-cream transition-colors text-brand-black"
+                          >
+                            <span className="flex items-center space-x-2">
+                              <MessageSquare className="w-4 h-4 text-brand-gold" />
+                              <span>My Vendor Messages</span>
+                            </span>
+                            {touristUnreadMsgCount > 0 && (
+                              <span className="bg-red-600 text-white font-bold text-[9px] px-1.5 py-0.5 rounded-full">
+                                {touristUnreadMsgCount}
+                              </span>
+                            )}
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <Link
+                            to="/account"
+                            onClick={() => setActiveDropdown(null)}
+                            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-cream transition-colors text-brand-black"
+                          >
+                            <UserCheck className="w-4 h-4 text-brand-gold" />
+                            <span>Business Profile</span>
+                          </Link>
+                        </>
+                      )}
                       <Link
                         to="/account"
                         onClick={() => setActiveDropdown(null)}

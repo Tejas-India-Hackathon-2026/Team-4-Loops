@@ -15,6 +15,7 @@ import aiRoutes from './routes/aiRoutes.js';
 import favoriteRoutes from './routes/favoriteRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import cityHubRoutes from './routes/cityHubRoutes.js';
+import messageRoutes from './routes/messageRoutes.js';
 
 const app = express();
 
@@ -49,6 +50,7 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/favorites', favoriteRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/conversations', messageRoutes);
 
 // Global Error Handler
 app.use(errorHandler);

@@ -4,7 +4,8 @@ import api from '../../api/client';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { Offering } from '../../types';
-import { MapPin, Clock, Users, CalendarDays } from 'lucide-react';
+import { MapPin, Clock, Users, CalendarDays, MessageSquare } from 'lucide-react';
+import { TouristChatDrawer } from '../../components/common/TouristChatDrawer';
 
 declare global {
   interface Window {
@@ -34,6 +35,7 @@ export const OfferingDetailPage: React.FC = () => {
   const [bookingDate, setBookingDate] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     async function loadOffering() {
@@ -229,8 +231,37 @@ export const OfferingDetailPage: React.FC = () => {
           >
             {submitting ? 'PROCESSING...' : 'BOOK & PAY WITH RAZORPAY'}
           </button>
+
+          {/* Message Vendor Inquiry Button */}
+          {offering.vendor && (
+            <button
+              onClick={() => {
+                if (!user) {
+                  navigate(`/login?redirect=${encodeURIComponent(`/offerings/${offering.slug}`)}`);
+                  return;
+                }
+                setChatOpen(true);
+              }}
+              className="w-full py-3 border border-brand-brown/30 text-brand-black hover:border-brand-maroon hover:text-brand-maroon font-sans text-xs sub-nav-label tracking-widest rounded transition-all flex items-center justify-center space-x-2 bg-cream/50"
+            >
+              <MessageSquare className="w-4 h-4 text-brand-gold" />
+              <span>MESSAGE VENDOR INQUIRY</span>
+            </button>
+          )}
         </div>
       </div>
+
+      {/* Tourist Chat Drawer Modal */}
+      {offering.vendor && (
+        <TouristChatDrawer
+          isOpen={chatOpen}
+          onClose={() => setChatOpen(false)}
+          vendorId={offering.vendorId}
+          vendorName={offering.vendor.businessName || 'Vendor Host'}
+          vendorLogo={offering.vendor.logo || ''}
+          initialOfferingTitle={offering.title}
+        />
+      )}
     </div>
   );
 };

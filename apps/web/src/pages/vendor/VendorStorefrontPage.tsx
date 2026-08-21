@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../../api/client';
-import { Offering, Vendor } from '../../types';
-import { MapPin, Phone, Mail, Store, Clock, Award, ShieldCheck, ExternalLink } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+import { Offering } from '../../types';
+import { MapPin, Phone, Mail, Store, Clock, Award, ShieldCheck, ExternalLink, MessageSquare } from 'lucide-react';
+import { TouristChatDrawer } from '../../components/common/TouristChatDrawer';
 
 interface VendorStorefrontData {
   id: string;
@@ -21,9 +23,12 @@ interface VendorStorefrontData {
 
 export const VendorStorefrontPage: React.FC<{ isPreview?: boolean }> = ({ isPreview = false }) => {
   const { slug } = useParams<{ slug?: string }>();
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const [storefront, setStorefront] = useState<VendorStorefrontData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     async function loadStorefront() {
@@ -122,7 +127,7 @@ export const VendorStorefrontPage: React.FC<{ isPreview?: boolean }> = ({ isPrev
             </div>
           </div>
 
-          <div className="flex items-center space-x-3 w-full md:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
             {isPreview ? (
               <Link
                 to="/account"
@@ -131,16 +136,44 @@ export const VendorStorefrontPage: React.FC<{ isPreview?: boolean }> = ({ isPrev
                 EDIT VENDOR PROFILE
               </Link>
             ) : (
-              <a
-                href={`tel:${storefront.phone || ''}`}
-                className="w-full md:w-auto text-center px-5 py-3 bg-brand-maroon text-white sub-nav-label text-xs tracking-widest rounded-lg hover:bg-brand-black transition-all shadow-md flex items-center justify-center space-x-2"
-              >
-                <Phone className="w-4 h-4" />
-                <span>CONTACT VENDOR</span>
-              </a>
+              <>
+                <button
+                  onClick={() => {
+                    if (!user) {
+                      navigate(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+                      return;
+                    }
+                    setChatOpen(true);
+                  }}
+                  className="w-full sm:w-auto text-center px-5 py-3 bg-brand-black text-brand-gold sub-nav-label text-xs tracking-widest rounded-lg hover:bg-brand-maroon hover:text-white transition-all shadow-md flex items-center justify-center space-x-2"
+                >
+                  <MessageSquare className="w-4 h-4 text-brand-gold" />
+                  <span>MESSAGE VENDOR</span>
+                </button>
+                {storefront.phone && (
+                  <a
+                    href={`tel:${storefront.phone}`}
+                    className="w-full sm:w-auto text-center px-5 py-3 bg-cream border border-brand-brown/30 text-brand-black sub-nav-label text-xs tracking-widest rounded-lg hover:bg-brand-brown hover:text-white transition-all shadow-sm flex items-center justify-center space-x-2"
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span>CALL HOST</span>
+                  </a>
+                )}
+              </>
             )}
           </div>
         </div>
+
+        {/* Tourist Chat Drawer Modal */}
+        {storefront && (
+          <TouristChatDrawer
+            isOpen={chatOpen}
+            onClose={() => setChatOpen(false)}
+            vendorId={storefront.id}
+            vendorName={storefront.businessName}
+            vendorLogo={storefront.logo}
+          />
+        )}
 
         {/* Overview & Active Offerings Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

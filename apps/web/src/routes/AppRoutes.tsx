@@ -25,6 +25,8 @@ import { VendorNotificationsPage } from '../pages/vendor/VendorNotificationsPage
 import { VendorMessagesPage } from '../pages/vendor/VendorMessagesPage';
 import { VendorStorefrontPage } from '../pages/vendor/VendorStorefrontPage';
 
+import { MessagesPage } from '../pages/account/MessagesPage';
+
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
@@ -60,7 +62,8 @@ export const AppRoutes: React.FC = () => {
       {/* Public Vendor Storefront */}
       <Route path="/vendors/:slug" element={<VendorStorefrontPage />} />
 
-      {/* Tourist Account */}
+      {/* Tourist Account & Messages */}
+      <Route path="/account/messages" element={<MessagesPage />} />
       <Route path="/account/*" element={<AccountPage />} />
 
       {/* Vendor Specific Pages */}

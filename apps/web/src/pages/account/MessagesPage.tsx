@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api/client';
 import { useAuth } from '../../context/AuthContext';
-import { MessageSquare, Send, User, Clock, ArrowLeft } from 'lucide-react';
+import { MessageSquare, Send, Store, ArrowLeft } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
 interface ConversationItem {
   id: string;
-  touristUser: {
+  vendor: {
     id: string;
-    name: string;
-    email: string;
-    avatar?: string;
+    businessName: string;
+    logo?: string;
+    city: string;
+    phone?: string;
   };
   messages: Array<{
     id: string;
@@ -29,7 +30,7 @@ interface MessageItem {
   createdAt: string;
 }
 
-export const VendorMessagesPage: React.FC = () => {
+export const MessagesPage: React.FC = () => {
   const { user } = useAuth();
   const [conversations, setConversations] = useState<ConversationItem[]>([]);
   const [selectedConvId, setSelectedConvId] = useState<string | null>(null);
@@ -42,7 +43,7 @@ export const VendorMessagesPage: React.FC = () => {
 
   const loadConversations = async () => {
     try {
-      const res = await api.get('/vendors/me/conversations');
+      const res = await api.get('/conversations/me');
       if (res.data.success) {
         setConversations(res.data.data);
         if (res.data.data.length > 0 && !selectedConvId) {
@@ -50,7 +51,7 @@ export const VendorMessagesPage: React.FC = () => {
         }
       }
     } catch (err) {
-      console.error('Error loading conversations:', err);
+      console.error('Error loading tourist conversations:', err);
     } finally {
       setLoading(false);
     }
@@ -63,7 +64,7 @@ export const VendorMessagesPage: React.FC = () => {
   const loadThread = async (convId: string) => {
     setLoadingThread(true);
     try {
-      const res = await api.get(`/vendors/me/conversations/${convId}/messages`);
+      const res = await api.get(`/conversations/${convId}/messages`);
       if (res.data.success) {
         setActiveConvDetails(res.data.data.conversation);
         setMessages(res.data.data.messages);
@@ -87,7 +88,7 @@ export const VendorMessagesPage: React.FC = () => {
 
     setSending(true);
     try {
-      const res = await api.post(`/vendors/me/conversations/${selectedConvId}/messages`, {
+      const res = await api.post(`/conversations/${selectedConvId}/messages`, {
         content: newMsg.trim()
       });
 
@@ -106,18 +107,18 @@ export const VendorMessagesPage: React.FC = () => {
   return (
     <div className="pt-28 pb-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto space-y-6 font-sans">
       <div className="border-b border-brand-brown/15 pb-4">
-        <span className="sub-nav-label text-brand-maroon">VENDOR PORTAL</span>
-        <h1 className="text-3xl font-serif text-brand-black font-bold">Tourist Messages & Inbox</h1>
+        <span className="sub-nav-label text-brand-maroon">MY ACCOUNT</span>
+        <h1 className="text-3xl font-serif text-brand-black font-bold">My Vendor Messages & Inquiries</h1>
       </div>
 
       {loading ? (
-        <div className="py-20 text-center text-brand-brown font-serif">Loading conversations...</div>
+        <div className="py-20 text-center text-brand-brown font-serif">Loading your messages...</div>
       ) : conversations.length === 0 ? (
         <div className="bg-cream/80 p-12 rounded-xl border border-brand-brown/15 text-center space-y-3">
-          <MessageSquare className="w-8 h-8 text-brand-brown/40 mx-auto" />
+          <MessageSquare className="w-8 h-8 text-brand-gold mx-auto" />
           <h3 className="font-serif text-xl text-brand-black">No Messages Yet</h3>
           <p className="text-sm font-serif text-brand-brown/80">
-            Inquiries from tourists booking your experiences will appear here.
+            When you contact local hosts or message vendors about tour offerings, your conversations will appear here.
           </p>
         </div>
       ) : (
@@ -127,7 +128,7 @@ export const VendorMessagesPage: React.FC = () => {
             selectedConvId ? 'hidden lg:flex' : 'flex'
           }`}>
             <div className="p-4 border-b border-brand-brown/10 font-serif font-bold text-brand-black text-sm sub-nav-label">
-              CONVERSATIONS ({conversations.length})
+              VENDOR CONVERSATIONS ({conversations.length})
             </div>
             <div className="flex-grow overflow-y-auto divide-y divide-brand-brown/10">
               {conversations.map((conv) => {
@@ -141,12 +142,16 @@ export const VendorMessagesPage: React.FC = () => {
                       isSelected ? 'bg-white font-semibold border-l-4 border-brand-maroon' : 'hover:bg-cream-light'
                     }`}
                   >
-                    <div className="w-10 h-10 rounded-full bg-brand-brown/20 text-brand-black flex items-center justify-center font-bold text-sm shrink-0">
-                      {conv.touristUser?.name?.charAt(0) || 'T'}
+                    <div className="w-10 h-10 rounded-full bg-brand-black text-brand-gold flex items-center justify-center font-bold text-sm shrink-0 overflow-hidden border border-brand-gold/30">
+                      {conv.vendor?.logo ? (
+                        <img src={conv.vendor.logo} alt={conv.vendor.businessName} className="w-full h-full object-cover" />
+                      ) : (
+                        <Store className="w-5 h-5 text-brand-gold" />
+                      )}
                     </div>
                     <div className="flex-grow overflow-hidden">
                       <div className="flex items-center justify-between">
-                        <span className="font-serif text-sm text-brand-black truncate">{conv.touristUser?.name}</span>
+                        <span className="font-serif text-sm text-brand-black truncate">{conv.vendor?.businessName}</span>
                         {lastMsg && (
                           <span className="text-[10px] text-brand-brown/60 shrink-0">
                             {formatDistanceToNow(new Date(lastMsg.createdAt), { addSuffix: false })}
@@ -178,12 +183,16 @@ export const VendorMessagesPage: React.FC = () => {
                     >
                       <ArrowLeft className="w-5 h-5" />
                     </button>
-                    <div className="w-9 h-9 rounded-full bg-brand-maroon text-white flex items-center justify-center font-bold text-xs">
-                      {activeConvDetails.touristUser?.name?.charAt(0) || 'T'}
+                    <div className="w-9 h-9 rounded-full bg-brand-black text-brand-gold flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden border border-brand-gold/30">
+                      {activeConvDetails.vendor?.logo ? (
+                        <img src={activeConvDetails.vendor.logo} alt={activeConvDetails.vendor.businessName} className="w-full h-full object-cover" />
+                      ) : (
+                        <Store className="w-4 h-4 text-brand-gold" />
+                      )}
                     </div>
                     <div>
-                      <h4 className="font-serif font-bold text-brand-black text-sm">{activeConvDetails.touristUser?.name}</h4>
-                      <p className="text-[10px] text-brand-brown">{activeConvDetails.touristUser?.email}</p>
+                      <h4 className="font-serif font-bold text-brand-black text-sm">{activeConvDetails.vendor?.businessName}</h4>
+                      <p className="text-[10px] sub-nav-label text-brand-maroon">{activeConvDetails.vendor?.city}</p>
                     </div>
                   </div>
                 </div>
@@ -224,7 +233,7 @@ export const VendorMessagesPage: React.FC = () => {
                     type="text"
                     value={newMsg}
                     onChange={(e) => setNewMsg(e.target.value)}
-                    placeholder="Type your response to the tourist..."
+                    placeholder="Type your message to vendor..."
                     className="flex-grow bg-white border border-brand-brown/20 rounded-xl p-3 text-xs focus:outline-none focus:border-brand-gold text-brand-black"
                   />
                   <button
@@ -239,7 +248,7 @@ export const VendorMessagesPage: React.FC = () => {
               </>
             ) : (
               <div className="flex-grow flex items-center justify-center text-center p-8 text-brand-brown font-serif text-sm">
-                Select a conversation from the left pane to view messages.
+                Select a vendor conversation from the left pane to view messages.
               </div>
             )}
           </div>
