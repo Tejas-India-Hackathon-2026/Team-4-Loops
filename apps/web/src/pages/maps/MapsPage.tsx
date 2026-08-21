@@ -20,7 +20,7 @@ import {
 import api from '../../api/client';
 import { CityHub, HubPlace } from '../../types';
 
-// Custom SVG map marker generator with count badge
+// Custom SVG map marker generator for Hub-level pin with count badge
 function createHubIcon(hub: CityHub, selectedCategory: string, isSelected: boolean) {
   let count = hub.touristPlaces.length;
   if (selectedCategory !== 'ALL') {
@@ -50,6 +50,37 @@ function createHubIcon(hub: CityHub, selectedCategory: string, isSelected: boole
   });
 }
 
+// Custom SVG marker generator for individual Place/Amenity level pins
+function createPlaceIcon(type: 'Tourist Place' | 'Hospital' | 'Hotel' | 'Temple') {
+  let bgColor = '#991B1B'; // Maroon for Tourist Place
+  let symbol = '🗺️';
+
+  if (type === 'Hospital') {
+    bgColor = '#1D4ED8'; // Blue for Hospital
+    symbol = '🏥';
+  } else if (type === 'Hotel') {
+    bgColor = '#047857'; // Emerald for Hotel
+    symbol = '🏨';
+  } else if (type === 'Temple') {
+    bgColor = '#D97706'; // Amber for Temple
+    symbol = '🏛️';
+  }
+
+  const svgHtml = `
+    <div style="position: relative; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background-color: ${bgColor}; border: 2.5px solid #FFFFFF; border-radius: 9999px; box-shadow: 0 4px 12px rgba(0,0,0,0.45); transform: scale(1.15);">
+      <span style="font-size: 17px; line-height: 1;">${symbol}</span>
+    </div>
+  `;
+
+  return L.divIcon({
+    html: svgHtml,
+    className: 'city-place-custom-icon',
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
+    popupAnchor: [0, -20]
+  });
+}
+
 // Leaflet map recenter helper
 function MapController({ center, zoom }: { center: [number, number]; zoom: number }) {
   const map = useMap();
@@ -75,6 +106,9 @@ export const MapsPage: React.FC = () => {
   // Active Hub for detail side panel
   const [activeHub, setActiveHub] = useState<CityHub | null>(null);
 
+  // Selected Place for individual place marker & flyTo map view
+  const [selectedPlace, setSelectedPlace] = useState<HubPlace | null>(null);
+
   // Map center and zoom state
   const [mapCenter, setMapCenter] = useState<[number, number]>([25.4, 85.8]);
   const [mapZoom, setMapZoom] = useState<number>(7);
@@ -99,6 +133,8 @@ export const MapsPage: React.FC = () => {
   // Sync Location selection with map position & active hub panel
   const handleLocationChange = (slug: string) => {
     setSelectedHubSlug(slug);
+    setSelectedPlace(null);
+
     if (slug === 'ALL') {
       setActiveHub(null);
       setMapCenter([25.4, 85.8]);
@@ -135,6 +171,7 @@ export const MapsPage: React.FC = () => {
   const handleHubSelect = (hub: CityHub) => {
     setActiveHub(hub);
     setSelectedHubSlug(hub.slug);
+    setSelectedPlace(null);
     setMapCenter([hub.latitude, hub.longitude]);
     setMapZoom(11);
   };
@@ -143,13 +180,13 @@ export const MapsPage: React.FC = () => {
   const getCategoryIcon = (type: string) => {
     switch (type) {
       case 'Hospital':
-        return <Stethoscope className="w-3.5 h-3.5 text-blue-600" />;
+        return <Stethoscope className="w-3.5 h-3.5 text-blue-600 shrink-0" />;
       case 'Hotel':
-        return <HotelIcon className="w-3.5 h-3.5 text-emerald-600" />;
+        return <HotelIcon className="w-3.5 h-3.5 text-emerald-600 shrink-0" />;
       case 'Temple':
-        return <Landmark className="w-3.5 h-3.5 text-amber-600" />;
+        return <Landmark className="w-3.5 h-3.5 text-amber-600 shrink-0" />;
       default:
-        return <Compass className="w-3.5 h-3.5 text-brand-maroon" />;
+        return <Compass className="w-3.5 h-3.5 text-brand-maroon shrink-0" />;
     }
   };
 
@@ -165,7 +202,7 @@ export const MapsPage: React.FC = () => {
           <div>
             <h1 className="text-3xl md:text-5xl font-serif text-brand-black">Bihar City Hub Explorer</h1>
             <p className="text-sm font-serif text-brand-black/75 mt-1 max-w-3xl leading-relaxed">
-              Comprehensive 8-location urban matrix featuring tourism scores, healthcare rating, hospitality infrastructure, business connectivity, and verified local places.
+              Comprehensive 8-location urban matrix featuring tourism scores, healthcare rating, hospitality infrastructure, business connectivity, and individual place-level map navigation.
             </p>
           </div>
 
@@ -173,7 +210,7 @@ export const MapsPage: React.FC = () => {
             <Award className="w-5 h-5 text-brand-gold shrink-0" />
             <div>
               <div className="font-bold">8 Dedicated City Hubs</div>
-              <div className="text-brand-brown text-[11px]">Two-Stage Filter & Rating Matrix</div>
+              <div className="text-brand-brown text-[11px]">Individual Amenity Map Markers</div>
             </div>
           </div>
         </div>
@@ -251,13 +288,14 @@ export const MapsPage: React.FC = () => {
               {selectedCategory === 'ALL' ? 'Showing All Places' : `Filtered: ${selectedCategory}`}
             </div>
           </div>
-          {(selectedHubSlug !== 'ALL' || selectedCategory !== 'ALL' || searchQuery !== '') && (
+          {(selectedHubSlug !== 'ALL' || selectedCategory !== 'ALL' || searchQuery !== '' || selectedPlace !== null) && (
             <button
               onClick={() => {
                 setSelectedHubSlug('ALL');
                 setSelectedCategory('ALL');
                 setSearchQuery('');
                 setActiveHub(null);
+                setSelectedPlace(null);
                 setMapCenter([25.4, 85.8]);
                 setMapZoom(7);
               }}
@@ -292,11 +330,11 @@ export const MapsPage: React.FC = () => {
 
               <MapController center={mapCenter} zoom={mapZoom} />
 
+              {/* Render City Hub Level Markers */}
               {filteredHubs.map(hub => {
                 const isSelected = activeHub?.id === hub.id;
                 const icon = createHubIcon(hub, selectedCategory, isSelected);
 
-                // Filter places inside popup
                 let placesToShow = hub.touristPlaces;
                 if (selectedCategory !== 'ALL') {
                   placesToShow = placesToShow.filter(p => p.type === selectedCategory);
@@ -342,6 +380,47 @@ export const MapsPage: React.FC = () => {
                   </Marker>
                 );
               })}
+
+              {/* Render Individual Place Level Marker when a place is selected */}
+              {selectedPlace && (
+                <Marker
+                  key={`place-${selectedPlace.name}`}
+                  position={[selectedPlace.latitude, selectedPlace.longitude]}
+                  icon={createPlaceIcon(selectedPlace.type)}
+                  ref={(ref) => {
+                    if (ref) {
+                      ref.openPopup();
+                    }
+                  }}
+                >
+                  <Popup className="city-place-popup" autoPan={true}>
+                    <div className="p-1.5 space-y-2 max-w-xs font-sans">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className={`text-[10px] font-sans px-2 py-0.5 rounded font-bold uppercase tracking-wider ${
+                          selectedPlace.type === 'Hospital' ? 'bg-blue-100 text-blue-800 border border-blue-200' :
+                          selectedPlace.type === 'Hotel' ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' :
+                          selectedPlace.type === 'Temple' ? 'bg-amber-100 text-amber-800 border border-amber-200' :
+                          'bg-red-100 text-red-800 border border-red-200'
+                        }`}>
+                          {selectedPlace.type}
+                        </span>
+                        <span className="text-[10px] text-brand-brown font-mono font-bold">
+                          {activeHub?.name} HUB
+                        </span>
+                      </div>
+
+                      <h4 className="font-serif font-bold text-base text-brand-black leading-tight">
+                        {selectedPlace.name}
+                      </h4>
+
+                      <div className="text-[11px] text-brand-brown/80 flex items-center space-x-1.5 pt-1.5 border-t border-slate-100">
+                        <MapPin className="w-3.5 h-3.5 text-brand-maroon shrink-0" />
+                        <span>Coordinates: ({selectedPlace.latitude.toFixed(4)}, {selectedPlace.longitude.toFixed(4)})</span>
+                      </div>
+                    </div>
+                  </Popup>
+                </Marker>
+              )}
             </MapContainer>
 
             {/* Quick Hub Selector Ribbon on Map */}
@@ -366,7 +445,10 @@ export const MapsPage: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-black/30 to-transparent" />
 
                 <button
-                  onClick={() => setActiveHub(null)}
+                  onClick={() => {
+                    setActiveHub(null);
+                    setSelectedPlace(null);
+                  }}
                   className="absolute top-3 right-3 p-1.5 bg-black/60 hover:bg-black/80 text-white rounded-full transition-colors z-10"
                   aria-label="Close details"
                 >
@@ -512,29 +594,44 @@ export const MapsPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Render Places List */}
+                  {/* Render Interactive Clickable Places List */}
                   <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
                     {activeHub.touristPlaces
                       .filter(p => selectedCategory === 'ALL' || p.type === selectedCategory)
-                      .map((place, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center justify-between p-2.5 bg-cream/70 hover:bg-cream rounded border border-brand-brown/10 transition-colors text-xs"
-                        >
-                          <div className="flex items-center space-x-2.5">
-                            {getCategoryIcon(place.type)}
-                            <span className="font-serif font-medium text-brand-black">{place.name}</span>
+                      .map((place, idx) => {
+                        const isPlaceSelected = selectedPlace?.name === place.name;
+                        return (
+                          <div
+                            key={idx}
+                            onClick={() => {
+                              setSelectedPlace(place);
+                              setMapCenter([place.latitude, place.longitude]);
+                              setMapZoom(15);
+                            }}
+                            className={`flex items-center justify-between p-2.5 rounded border transition-all cursor-pointer text-xs ${
+                              isPlaceSelected
+                                ? 'border-brand-gold bg-amber-50/90 shadow-md font-semibold ring-2 ring-brand-gold/40'
+                                : 'bg-cream/70 hover:bg-cream border-brand-brown/10'
+                            }`}
+                          >
+                            <div className="flex items-center space-x-2.5">
+                              {getCategoryIcon(place.type)}
+                              <span className="font-serif text-brand-black">{place.name}</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <span className={`text-[10px] font-sans px-2 py-0.5 rounded font-medium ${
+                                place.type === 'Hospital' ? 'bg-blue-100 text-blue-800' :
+                                place.type === 'Hotel' ? 'bg-emerald-100 text-emerald-800' :
+                                place.type === 'Temple' ? 'bg-amber-100 text-amber-800' :
+                                'bg-red-100 text-red-800'
+                              }`}>
+                                {place.type}
+                              </span>
+                              <ChevronRight className={`w-3.5 h-3.5 transition-transform ${isPlaceSelected ? 'text-brand-gold translate-x-0.5' : 'text-brand-brown/40'}`} />
+                            </div>
                           </div>
-                          <span className={`text-[10px] font-sans px-2 py-0.5 rounded font-medium ${
-                            place.type === 'Hospital' ? 'bg-blue-100 text-blue-800' :
-                            place.type === 'Hotel' ? 'bg-emerald-100 text-emerald-800' :
-                            place.type === 'Temple' ? 'bg-amber-100 text-amber-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {place.type}
-                          </span>
-                        </div>
-                      ))}
+                        );
+                      })}
                   </div>
                 </div>
               </div>

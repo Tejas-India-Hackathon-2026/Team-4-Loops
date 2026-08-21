@@ -203,6 +203,8 @@ export interface AiItineraryResponse {
 export interface HubPlace {
   name: string;
   type: 'Tourist Place' | 'Hospital' | 'Hotel' | 'Temple';
+  latitude: number;
+  longitude: number;
 }
 
 export interface CityHub {
