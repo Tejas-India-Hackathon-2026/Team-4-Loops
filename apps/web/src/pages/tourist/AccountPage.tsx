@@ -119,15 +119,15 @@ export const AccountPage: React.FC = () => {
   }
 
   return (
-    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto my-6 bg-cream/85 backdrop-blur-sm rounded-2xl border border-brand-brown/15 p-6 md:p-10 shadow-lg space-y-8">
+    <div className="pt-28 pb-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto my-6 bg-cream/85 backdrop-blur-sm rounded-2xl border border-brand-brown/15 p-4 sm:p-6 md:p-10 shadow-lg space-y-8">
       {/* Account Profile Header */}
-      <div className="bg-cream p-8 rounded border border-brand-brown/15 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+      <div className="bg-cream p-5 sm:p-8 rounded border border-brand-brown/15 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
         <div className="flex items-center space-x-5">
-          <div className="w-16 h-16 rounded-full bg-brand-brown text-cream flex items-center justify-center font-serif text-2xl font-bold border-2 border-brand-gold">
+          <div className="w-16 h-16 rounded-full bg-brand-brown text-cream flex items-center justify-center font-serif text-2xl font-bold border-2 border-brand-gold shrink-0">
             {user.name.charAt(0)}
           </div>
           <div>
-            <h1 className="text-3xl font-serif text-brand-black">{user.name}</h1>
+            <h1 className="text-2xl sm:text-3xl font-serif text-brand-black">{user.name}</h1>
             <p className="text-xs font-sans text-brand-brown/80">{user.email} &bull; Role: <span className="font-semibold text-brand-maroon">{user.role}</span></p>
           </div>
         </div>
@@ -142,7 +142,7 @@ export const AccountPage: React.FC = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex border-b border-brand-brown/15 space-x-8">
+      <div className="flex flex-wrap border-b border-brand-brown/15 gap-4 sm:space-x-8">
         <button
           onClick={() => setActiveTab('bookings')}
           className={`py-3 sub-nav-label text-xs tracking-widest border-b-2 transition-all ${

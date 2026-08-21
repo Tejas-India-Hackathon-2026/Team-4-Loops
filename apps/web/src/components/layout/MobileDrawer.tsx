@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { X, Sparkles, MapPin, Calendar, Compass, User, Store, Shield } from 'lucide-react';
+import { X, Sparkles, MapPin, Calendar, Compass, User, Store, Shield, ShoppingBag, UtensilsCrossed, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTranslation } from '../../context/LanguageContext';
 import { getHomeRouteForRole } from '../../utils/navigation';
@@ -16,14 +16,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, onO
   const { user, logout } = useAuth();
   const { t } = useTranslation();
   const homeRoute = getHomeRouteForRole(user);
+  const [experienceOpen, setExperienceOpen] = useState(false);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-brand-black/95 text-cream flex flex-col justify-between p-6 transition-all duration-300">
+    <div className="fixed inset-0 z-50 bg-brand-black/95 text-cream flex flex-col justify-between p-6 transition-all duration-300 overflow-y-auto">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-cream/15 pb-4">
-        <Link to={homeRoute} onClick={onClose} className="font-serif text-3xl font-light text-brand-gold tracking-widest flex items-center space-x-2">
+      <div className="flex items-center justify-between border-b border-cream/15 pb-4 shrink-0">
+        <Link to={homeRoute} onClick={onClose} className="font-serif text-2xl sm:text-3xl font-light text-brand-gold tracking-widest flex items-center space-x-2">
           <span>SETU</span>
           <span className="text-[10px] sub-nav-label tracking-widest border border-brand-gold/40 px-1.5 py-0.5 rounded text-brand-gold">
             {t('nav.logoTag', 'BIHAR TOURISM')}
@@ -38,23 +39,55 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, onO
       </div>
 
       {/* Main Links */}
-      <nav className="flex flex-col space-y-6 my-auto text-xl font-serif">
-        <Link to="/explore/circuits" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold">
-          <Compass className="w-6 h-6 text-brand-gold" />
+      <nav className="flex flex-col space-y-5 my-6 text-lg sm:text-xl font-serif">
+        <Link to="/explore/circuits" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold py-1">
+          <Compass className="w-5 h-5 text-brand-gold shrink-0" />
           <span>{t('nav.circuits', 'EXPLORE CIRCUITS').toUpperCase()}</span>
         </Link>
-        <Link to="/explore/destinations" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold">
-          <MapPin className="w-6 h-6 text-brand-gold" />
+        <Link to="/explore/destinations" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold py-1">
+          <MapPin className="w-5 h-5 text-brand-gold shrink-0" />
           <span>{t('nav.destinations', 'DESTINATIONS').toUpperCase()}</span>
         </Link>
-        <Link to="/maps" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold">
-          <MapPin className="w-6 h-6 text-brand-gold" />
+        <Link to="/offerings" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold py-1">
+          <ShoppingBag className="w-5 h-5 text-brand-gold shrink-0" />
+          <span>{t('nav.book', 'BOOK TOURISM OFFERINGS').toUpperCase()}</span>
+        </Link>
+        <Link to="/maps" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold py-1">
+          <MapPin className="w-5 h-5 text-brand-gold shrink-0" />
           <span>{t('nav.maps', 'INTERACTIVE MAPS').toUpperCase()}</span>
         </Link>
-        <Link to="/calendar" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold">
-          <Calendar className="w-6 h-6 text-brand-gold" />
+        <Link to="/calendar" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold py-1">
+          <Calendar className="w-5 h-5 text-brand-gold shrink-0" />
           <span>{t('nav.calendar', 'CULTURAL CALENDAR').toUpperCase()}</span>
         </Link>
+
+        {/* EXPERIENCE Expandable Section */}
+        <div className="flex flex-col space-y-2">
+          <div className="flex items-center justify-between">
+            <Link to="/experience" onClick={onClose} className="flex items-center space-x-4 hover:text-brand-gold py-1">
+              <UtensilsCrossed className="w-5 h-5 text-brand-gold shrink-0" />
+              <span>EXPERIENCE & CUISINE</span>
+            </Link>
+            <button
+              onClick={() => setExperienceOpen(!experienceOpen)}
+              className="p-2 text-brand-gold hover:text-white"
+              aria-label="Toggle Experience Submenu"
+            >
+              <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${experienceOpen ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+
+          {experienceOpen && (
+            <div className="pl-9 flex flex-col space-y-2 text-base text-cream/80 border-l border-brand-gold/30 ml-2 py-1">
+              <Link to="/experience" onClick={onClose} className="hover:text-brand-gold">
+                Festivals & Cultural Fairs
+              </Link>
+              <Link to="/experience/cuisine" onClick={onClose} className="hover:text-brand-gold">
+                Traditional Bihari Cuisine & Taste
+              </Link>
+            </div>
+          )}
+        </div>
 
         {(!user || user.role === 'TOURIST') && (
           <button
@@ -62,23 +95,23 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, onO
               onClose();
               onOpenAi();
             }}
-            className="flex items-center space-x-4 text-brand-gold hover:text-white text-left font-serif"
+            className="flex items-center space-x-4 text-brand-gold hover:text-white text-left font-serif py-1"
           >
-            <Sparkles className="w-6 h-6 animate-pulse" />
+            <Sparkles className="w-5 h-5 animate-pulse shrink-0" />
             <span>{t('nav.aiGuide', 'SETU AI COMPANION').toUpperCase()}</span>
           </button>
         )}
 
         {user?.role === 'VENDOR' && (
-          <Link to={homeRoute} onClick={onClose} className="flex items-center space-x-4 text-amber-300 hover:text-amber-200">
-            <Store className="w-6 h-6" />
+          <Link to={homeRoute} onClick={onClose} className="flex items-center space-x-4 text-amber-300 hover:text-amber-200 py-1">
+            <Store className="w-5 h-5 shrink-0" />
             <span>{t('nav.vendorDashboard', 'VENDOR DASHBOARD').toUpperCase()}</span>
           </Link>
         )}
 
         {user?.role === 'ADMIN' && (
-          <Link to="/admin" onClick={onClose} className="flex items-center space-x-4 text-emerald-300 hover:text-emerald-200">
-            <Shield className="w-6 h-6" />
+          <Link to="/admin" onClick={onClose} className="flex items-center space-x-4 text-emerald-300 hover:text-emerald-200 py-1">
+            <Shield className="w-5 h-5 shrink-0" />
             <span>{t('nav.adminDashboard', 'ADMIN CONSOLE').toUpperCase()}</span>
           </Link>
         )}

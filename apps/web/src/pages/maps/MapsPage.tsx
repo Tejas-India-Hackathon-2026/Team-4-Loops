@@ -316,7 +316,7 @@ export const MapsPage: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* MAP CANVAS (8 or 7 cols when panel open) */}
-          <div className={`${activeHub ? 'lg:col-span-7' : 'lg:col-span-12'} transition-all duration-300 relative rounded-xl overflow-hidden border border-brand-brown/20 shadow-md h-[680px]`}>
+          <div className={`${activeHub ? 'lg:col-span-7' : 'lg:col-span-12'} transition-all duration-300 relative rounded-xl overflow-hidden border border-brand-brown/20 shadow-md h-[400px] sm:h-[500px] lg:h-[680px]`}>
             <MapContainer
               center={mapCenter}
               zoom={mapZoom}
@@ -434,7 +434,7 @@ export const MapsPage: React.FC = () => {
 
           {/* SIDE DETAIL PANEL (5 cols when open) */}
           {activeHub ? (
-            <div className="lg:col-span-5 bg-white/95 backdrop-blur-md rounded-xl border border-brand-brown/20 shadow-xl overflow-hidden flex flex-col h-[680px] animate-fadeIn">
+            <div className="lg:col-span-5 bg-white/95 backdrop-blur-md rounded-xl border border-brand-brown/20 shadow-xl overflow-hidden flex flex-col h-[480px] sm:h-[560px] lg:h-[680px] animate-fadeIn">
               {/* Hub Banner */}
               <div className="relative h-48 w-full bg-brand-black text-white shrink-0">
                 <img

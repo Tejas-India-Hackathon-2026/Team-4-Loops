@@ -6,11 +6,11 @@ export const ExperienceListingPage: React.FC = () => {
   const { category } = useParams<{ category?: string }>();
 
   return (
-    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-12 font-sans">
+    <div className="pt-28 pb-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto space-y-12 font-sans">
       <div className="border-b border-brand-brown/15 pb-6 space-y-2">
         <span className="sub-nav-label text-brand-maroon">CULTURAL IMMERSION</span>
-        <h1 className="text-4xl md:text-6xl font-serif text-brand-black">Experience Bihar Culture</h1>
-        <p className="text-base font-serif text-brand-black/75 max-w-2xl leading-relaxed">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-serif text-brand-black">Experience Bihar Culture</h1>
+        <p className="text-sm sm:text-base font-serif text-brand-black/75 max-w-2xl leading-relaxed">
           Touch sacred rituals, see ancient folk melas, and taste legendary Mithila culinary heritage.
         </p>
       </div>

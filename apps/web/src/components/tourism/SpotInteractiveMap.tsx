@@ -188,9 +188,9 @@ export const SpotInteractiveMap: React.FC<SpotInteractiveMapProps> = ({ destinat
       </div>
 
       {/* Main Map + Sidebar Split View */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[350px] sm:min-h-[420px] lg:min-h-[460px]">
         {/* Leaflet Map Canvas */}
-        <div className="lg:col-span-8 relative h-[380px] lg:h-[480px]">
+        <div className="lg:col-span-8 relative h-[320px] sm:h-[400px] lg:h-[480px]">
           <MapContainer
             center={spotCenter}
             zoom={12}
@@ -302,7 +302,7 @@ export const SpotInteractiveMap: React.FC<SpotInteractiveMapProps> = ({ destinat
         </div>
 
         {/* Sidebar List of Nearby Amenities */}
-        <div className="lg:col-span-4 bg-white p-4 sm:p-5 border-t lg:border-t-0 lg:border-l border-brand-brown/15 flex flex-col justify-between overflow-y-auto max-h-[480px]">
+        <div className="lg:col-span-4 bg-white p-4 sm:p-5 border-t lg:border-t-0 lg:border-l border-brand-brown/15 flex flex-col justify-between overflow-y-auto max-h-[360px] sm:max-h-[420px] lg:max-h-[480px]">
           <div className="space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-brand-brown/10">
               <span className="sub-nav-label text-brand-maroon text-xs">NEARBY STAYS & AMENITIES</span>

@@ -186,7 +186,7 @@ export const OfferingDetailPage: React.FC = () => {
       </div>
 
       <div className="lg:col-span-4">
-        <div className="bg-white p-6 rounded border border-brand-brown/15 shadow-sm space-y-5 sticky top-28">
+        <div className="bg-white p-6 rounded border border-brand-brown/15 shadow-sm space-y-5 lg:sticky lg:top-28">
           <div className="flex items-baseline justify-between">
             <span className="font-serif text-3xl font-bold text-brand-black">₹{offering.price.toLocaleString('en-IN')}</span>
             <span className="text-xs font-sans text-brand-brown">per guest</span>

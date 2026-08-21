@@ -43,15 +43,15 @@ export const OfferingsListingPage: React.FC = () => {
       });
 
   return (
-    <div className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-8 font-sans">
+    <div className="pt-28 pb-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto space-y-8 font-sans">
       <div className="space-y-2">
         <span className="text-xs sub-nav-label text-brand-maroon">GUIDED TOURS & EXPERIENCES</span>
-        <h1 className="text-4xl font-serif text-brand-black">Book Bihar Tourism Offerings</h1>
+        <h1 className="text-3xl sm:text-4xl font-serif text-brand-black">Book Bihar Tourism Offerings</h1>
         <p className="text-sm font-serif text-brand-brown/80">Curated experiences from verified local vendors.</p>
       </div>
 
       {/* Category Filter Bar */}
-      <div className="flex flex-wrap items-center gap-2 md:gap-3 pt-2 pb-2">
+      <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-2 pb-2">
         {CATEGORIES.map((cat) => {
           const isActive = selectedCategory === cat;
           return (
