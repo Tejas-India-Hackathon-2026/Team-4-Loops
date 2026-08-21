@@ -96,12 +96,10 @@ async function main() {
       name: 'Buddhist Circuit',
       slug: 'buddhist-circuit',
       description: 'Trace the sacred steps of Lord Buddha from enlightenment under the Bodhi Tree in Bodh Gaya to Mahaparinirvana.',
-      heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1600&q=80',
+      heroImage: '/images/Buddhist Circuit(2).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80'
+        '/images/Buddhist Circuit(2).jpg',
+        '/images/Buddhist Circuit(3).jpg'
       ]),
       overview: 'The Buddhist Circuit in Bihar is one of the world\'s most profound pilgrimage trails. Spanning Bodh Gaya, Nalanda, Rajgir, and Vaishali, this circuit highlights ancient stupas, monastic universities, and peaceful meditation centers where Siddhartha Gautama attained Enlightenment and spent decades teaching Dhamma.',
       locations: JSON.stringify(['Bodh Gaya', 'Nalanda', 'Rajgir', 'Vaishali', 'Kesariya'])
@@ -113,12 +111,10 @@ async function main() {
       name: 'Eco & Wilderness Circuit',
       slug: 'eco-circuit',
       description: 'Discover pristine tiger reserves, lush Himalayan foothills, serene lakes, and natural hot springs across Bihar.',
-      heroImage: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1600&q=80',
+      heroImage: '/images/Eco & Wilderness Circuit(2).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80'
+        '/images/Eco & Wilderness Circuit(2).jpg',
+        '/images/Eco & Wilderness Circuit(3).jpg'
       ]),
       overview: 'Experience Bihar’s untamed biodiversity from the dense sal forests of Valmiki Tiger Reserve in Champaran to the tranquil waters of Kanwar Lake bird sanctuary and the picturesque waterfalls of Rohtas district.',
       locations: JSON.stringify(['Valmiki Nagar', 'Kanwar Lake', 'Karkat Waterfall', 'Bhimbandh Wildlife Sanctuary'])
@@ -130,12 +126,10 @@ async function main() {
       name: 'Ramayan Circuit',
       slug: 'ramayan-circuit',
       description: 'Explore ancient sites associated with Goddess Sita, Sage Valmiki, and the legendary epic of Ramayana.',
-      heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1600&q=80',
+      heroImage: '/images/Ramayan Circuit(2).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
+        '/images/Ramayan Circuit(2).jpg',
+        '/images/Ramayan Circuit(3).jpg'
       ]),
       overview: 'Journey through Janakpur borderlands, Sitamarhi (the birth place of Ma Sita), Ahilya Asthan in Darbhanga, and Buxar where Maharshi Vishwamitra guided Lord Rama.',
       locations: JSON.stringify(['Sitamarhi', 'Darbhanga', 'Buxar', 'Valmiki Nagar'])
@@ -147,12 +141,11 @@ async function main() {
       name: 'Sikh Heritage Circuit',
       slug: 'sikh-circuit',
       description: 'Pay homage at Takht Sri Harmandir Sahib, the birthplace of the tenth Sikh Guru, Guru Gobind Singh Ji.',
-      heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1600&q=80',
+      heroImage: '/images/Sikh Heritage Circuit(2).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80'
+        '/images/Sikh Heritage Circuit(2).jpg',
+        '/images/Sikh Heritage Circuit(3).jpg',
+        '/images/Sikh Heritage Circuit(4).jpg'
       ]),
       overview: 'The Sikh Circuit centers on Patna Sahib, one of the five Takhts of Sikhism, alongside sacred Gurdwaras visited by Guru Nanak Dev Ji and Guru Tegh Bahadur Ji across Bihar.',
       locations: JSON.stringify(['Takht Sri Patna Sahib', 'Gurdwara Guru ka Bagh', 'Gurdwara Handi Sahib', 'Rajgir Sheetal Kund'])
@@ -312,11 +305,11 @@ async function main() {
       districtId: gayaDistrict.id,
       circuitId: buddhistCircuit.id,
       category: 'Spiritual & World Heritage',
-      heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1600&q=80',
+      heroImage: '/images/Mahabodhi Temple Complex(2).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80'
+        '/images/Mahabodhi Temple Complex(2).jpg',
+        '/images/Mahabodhi Temple Complex(3).jpg',
+        '/images/Mahabodhi Temple Complex(4).jpg'
       ]),
       latitude: 24.6961,
       longitude: 84.9914,
@@ -395,9 +388,12 @@ async function main() {
       districtId: nalandaDistrict.id,
       circuitId: buddhistCircuit.id,
       category: 'Hill Station & Pilgrimage',
-      heroImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1600&q=80',
+      heroImage: '/images/Rajgir Griddhakuta & Vishwa Shanti Stupa (2).jpeg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80'
+        '/images/Rajgir Griddhakuta & Vishwa Shanti Stupa (1).jpeg',
+        '/images/Rajgir Griddhakuta & Vishwa Shanti Stupa (2).jpeg',
+        '/images/Rajgir Griddhakuta & Vishwa Shanti Stupa(3).jpg',
+        '/images/Rajgir Griddhakuta & Vishwa Shanti Stupa(4).jpg'
       ]),
       latitude: 25.0300,
       longitude: 85.4200,
@@ -434,9 +430,11 @@ async function main() {
       districtId: patnaDistrict.id,
       circuitId: sikhCircuit.id,
       category: 'Religious & Cultural',
-      heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1600&q=80',
+      heroImage: '/images/Takht Sri Patna Sahib(2).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80'
+        '/images/Takht Sri Patna Sahib(2).jpg',
+        '/images/Takht Sri Patna Sahib(3).jpg',
+        '/images/Takht Sri Patna Sahib(4).jpg'
       ]),
       latitude: 25.6022,
       longitude: 85.2281,
@@ -473,9 +471,11 @@ async function main() {
       districtId: vaishaliDistrict.id,
       circuitId: buddhistCircuit.id,
       category: 'Archaeological Heritage',
-      heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1600&q=80',
+      heroImage: '/images/Vaishali Ashoka Pillar & Relic Stupa(2).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80'
+        '/images/Vaishali Ashoka Pillar & Relic Stupa(2).jpg',
+        '/images/Vaishali Ashoka Pillar & Relic Stupa(3).jpg',
+        '/images/Vaishali Ashoka Pillar & Relic Stupa(4).jpg'
       ]),
       latitude: 25.9923,
       longitude: 85.1264,
@@ -504,9 +504,11 @@ async function main() {
       districtId: westChamparanDistrict.id,
       circuitId: ecoCircuit.id,
       category: 'Eco & Wildlife',
-      heroImage: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1600&q=80',
+      heroImage: '/images/Valmiki National Park(3).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1200&q=80'
+        '/images/Valmiki National Park(3).jpg',
+        '/images/Valmiki National Park(4).jpg',
+        '/images/Valmiki National Park(5).jpg'
       ]),
       latitude: 27.1500,
       longitude: 84.5000,
@@ -1014,7 +1016,27 @@ async function main() {
     data: { userId: vUser18.id, businessName: 'Darbhanga Raj Culinary & Mithila Thali', description: 'Authentic Maithil royal recipes featuring Rohu fish curry, Makhana Kheer, and traditional sweets.', businessType: 'Restaurants & Culinary', phone: '+919102189012', email: 'thali@darbhangaraj.in', address: 'Tower Chowk', city: 'Darbhanga', district: 'Darbhanga', latitude: 26.1542, longitude: 85.8918, status: 'APPROVED' }
   });
   const v18Offering = await prisma.offering.create({
-    data: { vendorId: v18.id, title: 'Grand Mithila Fish Curry & Makhana Kheer Thali', slug: 'darbhanga-mithila-royal-thali', description: 'Royal thali platter with traditional spices, mustard fish, lotus seed kheer, and sattu drink.', category: 'Culinary Experience', price: 650, duration: '2 Hours', maxGuests: 4, location: 'Darbhanga, Bihar', latitude: 26.1542, longitude: 85.8918, coverImage: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80', gallery: JSON.stringify(['https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80']), isActive: true }
+    data: {
+      vendorId: v18.id,
+      title: 'Grand Mithila Fish Curry & Makhana Kheer Thali',
+      slug: 'darbhanga-mithila-royal-thali',
+      description: 'Royal thali platter with traditional spices, mustard fish, lotus seed kheer, and sattu drink.',
+      category: 'Culinary Experience',
+      price: 650,
+      duration: '2 Hours',
+      maxGuests: 4,
+      location: 'Darbhanga, Bihar',
+      latitude: 26.1542,
+      longitude: 85.8918,
+      coverImage: '/images/Grand Mithila Fish Curry & Makhana Kheer Thali (2).jpeg',
+      gallery: JSON.stringify([
+        '/images/Grand Mithila Fish Curry & Makhana Kheer Thali (1).jpeg',
+        '/images/Grand Mithila Fish Curry & Makhana Kheer Thali (2).jpeg',
+        '/images/Grand Mithila Fish Curry & Makhana Kheer Thali (3).jpeg',
+        '/images/Grand Mithila Fish Curry & Makhana Kheer Thali (4).jpeg'
+      ]),
+      isActive: true
+    }
   });
 
   // 12. Additional Customer/Tourist Entries with Favorites & Booking History
@@ -1089,6 +1111,323 @@ async function main() {
     }
   }
 
+  // 13. Seed City Hubs (8 Locations)
+  console.log('🌱 Seeding 8 City Hub locations...');
+  await prisma.cityHub.deleteMany();
+
+  const cityHubsData = [
+    {
+      name: 'PATNA',
+      slug: 'patna',
+      region: 'Capital',
+      latitude: 25.5941,
+      longitude: 85.1376,
+      heroImage: '/images/patna (2).jpg',
+      summary: 'Tourism + hospitals + hotels + education + business + transport',
+      verdict: 'Best overall location of the eight',
+      overallScore: 9.5,
+      tourismRating: 4.0,
+      hospitalRating: 5.0,
+      hotelRating: 5.0,
+      businessRating: 5.0,
+      educationRating: 5.0,
+      infrastructureRating: 5.0,
+      touristPlaces: JSON.stringify([
+        { name: 'Takhat Shri Harimandir Ji Patna Sahib', type: 'Temple' },
+        { name: 'Golghar', type: 'Tourist Place' },
+        { name: 'Buddha Smriti Park', type: 'Tourist Place' },
+        { name: 'Sanjay Gandhi Biological Park', type: 'Tourist Place' },
+        { name: 'Patna Museum', type: 'Tourist Place' },
+        { name: 'Bihar Museum', type: 'Tourist Place' },
+        { name: 'Shrikrishna Science Centre', type: 'Tourist Place' },
+        { name: 'Gandhi Maidan', type: 'Tourist Place' },
+        { name: 'Gandhi Ghat', type: 'Tourist Place' },
+        { name: 'ISKCON Temple Patna', type: 'Temple' },
+        { name: 'Kumhrar', type: 'Tourist Place' },
+        { name: 'Agam Kuan', type: 'Tourist Place' },
+        { name: 'Mahavir Mandir', type: 'Temple' },
+        { name: 'Patna Planetarium', type: 'Tourist Place' },
+        { name: 'Padri Ki Haveli', type: 'Tourist Place' },
+        { name: 'Khuda Bakhsh Oriental Library', type: 'Tourist Place' },
+        { name: 'Sabhyata Dwar', type: 'Tourist Place' },
+        { name: 'JP Ganga Path', type: 'Tourist Place' },
+        { name: 'Maner Sharif', type: 'Temple' },
+        { name: 'AIIMS Patna', type: 'Hospital' },
+        { name: 'IGIMS', type: 'Hospital' },
+        { name: 'Jay Prabha Medanta Super Specialty Hospital', type: 'Hospital' },
+        { name: 'PMCH', type: 'Hospital' },
+        { name: 'NMCH', type: 'Hospital' },
+        { name: 'Paras HMRI Hospital', type: 'Hospital' },
+        { name: 'Ruban Memorial Hospital', type: 'Hospital' },
+        { name: 'Lemon Tree Premier Patna', type: 'Hotel' },
+        { name: 'Hotel The Panache', type: 'Hotel' },
+        { name: 'Hotel Chanakya', type: 'Hotel' },
+        { name: 'Hotel Maurya', type: 'Hotel' },
+        { name: 'Taj City Centre Patna', type: 'Hotel' },
+        { name: 'Hotel Patliputra Continental', type: 'Hotel' },
+        { name: 'Hotel Gargee Grand', type: 'Hotel' },
+        { name: 'Ginger Patna', type: 'Hotel' },
+        { name: 'Patliputra Exotica', type: 'Hotel' },
+        { name: 'VijayaTej Clarks Inn', type: 'Hotel' }
+      ])
+    },
+    {
+      name: 'BHAGALPUR',
+      slug: 'bhagalpur',
+      region: 'Eastern Bihar',
+      latitude: 25.2425,
+      longitude: 87.0124,
+      heroImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+      summary: 'Heritage + silk industry + Ganga + education + relatively less congested living',
+      verdict: 'Excellent if you want heritage + a developing city without Patna-level congestion',
+      overallScore: 8.0,
+      tourismRating: 4.0,
+      hospitalRating: 4.0,
+      hotelRating: 3.0,
+      businessRating: 4.0,
+      educationRating: 4.0,
+      infrastructureRating: 4.0,
+      touristPlaces: JSON.stringify([
+        { name: 'Vikramshila Ruins', type: 'Tourist Place' },
+        { name: 'Mandar Hill', type: 'Tourist Place' },
+        { name: 'Vikramshila Dolphin Sanctuary', type: 'Tourist Place' },
+        { name: 'Vikramshila University', type: 'Tourist Place' },
+        { name: 'Ajgaibinath Temple', type: 'Temple' },
+        { name: 'Sultanganj', type: 'Tourist Place' },
+        { name: 'Colganj Rock Cut Temples', type: 'Temple' },
+        { name: 'Kuppa Ghat', type: 'Tourist Place' },
+        { name: 'JLNMCH (Jawaharlal Nehru Medical College)', type: 'Hospital' },
+        { name: 'Mayaganj Hospital', type: 'Hospital' },
+        { name: 'District/Sadar Hospital Bhagalpur', type: 'Hospital' },
+        { name: 'Hotel Rajhans International', type: 'Hotel' },
+        { name: 'Hotel Nihar', type: 'Hotel' },
+        { name: 'Hotel Sriyash Regency', type: 'Hotel' },
+        { name: 'Hotel Atithi', type: 'Hotel' }
+      ])
+    },
+    {
+      name: 'MUZAFFARPUR',
+      slug: 'muzaffarpur',
+      region: 'North Bihar',
+      latitude: 26.1209,
+      longitude: 85.3647,
+      heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80',
+      summary: 'Business + trade + food/agriculture + education + North Bihar connectivity',
+      verdict: 'One of the better choices if your priority is business and North Bihar connectivity',
+      overallScore: 8.0,
+      tourismRating: 3.0,
+      hospitalRating: 4.0,
+      hotelRating: 4.0,
+      businessRating: 5.0,
+      educationRating: 4.0,
+      infrastructureRating: 4.0,
+      touristPlaces: JSON.stringify([
+        { name: 'Garib Sthan Mandir', type: 'Temple' },
+        { name: 'Jubba Sahni Park', type: 'Tourist Place' },
+        { name: 'Ramna Devi Temple', type: 'Temple' },
+        { name: 'Baba Garib Nath Temple', type: 'Temple' },
+        { name: 'Company Bagh', type: 'Tourist Place' },
+        { name: 'Litchi gardens', type: 'Tourist Place' },
+        { name: 'Chandwara', type: 'Tourist Place' },
+        { name: 'Kali Bari', type: 'Temple' },
+        { name: 'Sikandarpur sports/recreation area', type: 'Tourist Place' },
+        { name: 'SKMCH (Sri Krishna Medical College & Hospital)', type: 'Hospital' },
+        { name: 'District/Sadar Hospital', type: 'Hospital' },
+        { name: 'Prabhat Tara Hospital', type: 'Hospital' },
+        { name: 'The Royal Phular', type: 'Hotel' },
+        { name: 'Hotel RK Residency', type: 'Hotel' },
+        { name: 'Hotel Embassy International', type: 'Hotel' },
+        { name: 'JJK Rukmini Vilas Hotel & Banquet', type: 'Hotel' },
+        { name: 'The Mantis', type: 'Hotel' },
+        { name: 'Hotel Shivam Inn', type: 'Hotel' },
+        { name: 'Hotel Five Star Inn', type: 'Hotel' },
+        { name: 'Hotel Atithi', type: 'Hotel' },
+        { name: 'The Jamun Tree', type: 'Hotel' },
+        { name: 'Green Mapple', type: 'Hotel' }
+      ])
+    },
+    {
+      name: 'DARBHANGA',
+      slug: 'darbhanga',
+      region: 'Mithila',
+      latitude: 26.1542,
+      longitude: 85.8918,
+      heroImage: '/images/madhubani (2).jpg',
+      summary: 'Education + healthcare + Mithila culture + North Bihar',
+      verdict: 'Very good for education + healthcare + cultural importance',
+      overallScore: 8.0,
+      tourismRating: 4.0,
+      hospitalRating: 4.0,
+      hotelRating: 3.0,
+      businessRating: 4.0,
+      educationRating: 5.0,
+      infrastructureRating: 4.0,
+      touristPlaces: JSON.stringify([
+        { name: 'Darbhanga Fort', type: 'Tourist Place' },
+        { name: 'Shyama Mai Temple', type: 'Temple' },
+        { name: 'Maharaja Lakshmishwar Singh Museum', type: 'Tourist Place' },
+        { name: 'Chandradhari Museum', type: 'Tourist Place' },
+        { name: 'Bela Palace', type: 'Tourist Place' },
+        { name: 'Kankali Temple', type: 'Temple' },
+        { name: 'Ahilya Asthan', type: 'Temple' },
+        { name: 'Lalit Narayan Mithila University', type: 'Tourist Place' },
+        { name: 'DMCH (Darbhanga Medical College & Hospital)', type: 'Hospital' },
+        { name: 'District/Sadar Hospital', type: 'Hospital' },
+        { name: 'Hotel Naveen Residency', type: 'Hotel' },
+        { name: 'Hotel Ganga Regency', type: 'Hotel' },
+        { name: 'Hotel Grand SM Regency', type: 'Hotel' },
+        { name: 'Hotel Shivam International', type: 'Hotel' }
+      ])
+    },
+    {
+      name: 'GAYA / BODH GAYA',
+      slug: 'gaya-bodhgaya',
+      region: 'Buddhist Circuit',
+      latitude: 24.7914,
+      longitude: 85.0002,
+      heroImage: '/images/gaya district (2).jpeg',
+      summary: 'Religious tourism + international tourism + hotels + pilgrimage + healthcare',
+      verdict: 'Best tourism location in the eight',
+      overallScore: 9.0,
+      tourismRating: 5.0,
+      hospitalRating: 4.0,
+      hotelRating: 5.0,
+      businessRating: 4.0,
+      educationRating: 4.0,
+      infrastructureRating: 4.0,
+      touristPlaces: JSON.stringify([
+        { name: 'Mahabodhi Temple', type: 'Temple' },
+        { name: 'Shri Vishnupad Temple', type: 'Temple' },
+        { name: 'Bodhi Tree', type: 'Temple' },
+        { name: 'Great Buddha Statue', type: 'Tourist Place' },
+        { name: 'Thai Monastery', type: 'Temple' },
+        { name: 'Japanese Temple', type: 'Temple' },
+        { name: 'Chinese Temple', type: 'Temple' },
+        { name: 'Tibetan Monastery', type: 'Temple' },
+        { name: 'Royal Bhutan Monastery', type: 'Temple' },
+        { name: 'Mangala Gauri Temple', type: 'Temple' },
+        { name: 'Pretshila Hill', type: 'Tourist Place' },
+        { name: 'Barabar Caves', type: 'Tourist Place' },
+        { name: 'Muchalinda Lake', type: 'Tourist Place' },
+        { name: 'Dungeshwari Caves', type: 'Tourist Place' },
+        { name: 'Anugrah Narayan Magadh Medical College & Hospital', type: 'Hospital' },
+        { name: 'Infectious Disease Hospital', type: 'Hospital' },
+        { name: 'Jai Prakash Narayan Hospital', type: 'Hospital' },
+        { name: 'Prabhavati Hospital', type: 'Hospital' },
+        { name: 'Apollo Hospital', type: 'Hospital' },
+        { name: 'The Royal Residency', type: 'Hotel' },
+        { name: 'Bodh Gaya Regency', type: 'Hotel' },
+        { name: 'Hotel Sujata', type: 'Hotel' },
+        { name: 'Hotel Maya Heritage', type: 'Hotel' },
+        { name: 'Hotel Sakura House', type: 'Hotel' }
+      ])
+    },
+    {
+      name: 'HAJIPUR / VAISHALI',
+      slug: 'hajipur-vaishali',
+      region: 'Vaishali',
+      latitude: 25.6858,
+      longitude: 85.2154,
+      heroImage: '/images/Vaishali Ashoka Pillar & Relic Stupa(2).jpg',
+      summary: 'Heritage + pilgrimage + proximity to Patna',
+      verdict: 'Very good if you want to combine tourism with access to Patna',
+      overallScore: 7.5,
+      tourismRating: 4.0,
+      hospitalRating: 3.0,
+      hotelRating: 3.0,
+      businessRating: 4.0,
+      educationRating: 3.0,
+      infrastructureRating: 4.0,
+      touristPlaces: JSON.stringify([
+        { name: 'Ashokan Pillar', type: 'Tourist Place' },
+        { name: 'Vishwa Shanti Stupa', type: 'Temple' },
+        { name: "Buddha's Relic Stupa", type: 'Temple' },
+        { name: 'Kundalpur', type: 'Tourist Place' },
+        { name: 'Bawan Pokhar Temple', type: 'Temple' },
+        { name: 'Abhishek Pushkarini', type: 'Tourist Place' },
+        { name: 'Chaumukhi Mahadev Temple', type: 'Temple' },
+        { name: 'Vaishali Archaeological Museum', type: 'Tourist Place' },
+        { name: 'Raja Vishal ka Garh', type: 'Tourist Place' },
+        { name: 'Baraila Lake', type: 'Tourist Place' },
+        { name: 'Konhara Ghat', type: 'Tourist Place' },
+        { name: 'Sadar Hospital Hajipur', type: 'Hospital' },
+        { name: 'Sub-Divisional Hospital Mahua', type: 'Hospital' },
+        { name: 'Raj Palace', type: 'Hotel' },
+        { name: 'Hotel Vaishali Residency', type: 'Hotel' }
+      ])
+    },
+    {
+      name: 'RAJGIR',
+      slug: 'rajgir',
+      region: 'Nalanda',
+      latitude: 25.0300,
+      longitude: 85.4200,
+      heroImage: '/images/Rajgir Griddhakuta & Vishwa Shanti Stupa (2).jpeg',
+      summary: 'Buddhist, Jain, Hindu, archaeological and adventure tourism',
+      verdict: 'One of the strongest tourism-growth locations',
+      overallScore: 8.0,
+      tourismRating: 5.0,
+      hospitalRating: 3.0,
+      hotelRating: 4.0,
+      businessRating: 3.0,
+      educationRating: 3.0,
+      infrastructureRating: 4.0,
+      touristPlaces: JSON.stringify([
+        { name: 'Vishwa Shanti Stupa', type: 'Temple' },
+        { name: 'Glass Bridge', type: 'Tourist Place' },
+        { name: 'Nature Safari', type: 'Tourist Place' },
+        { name: 'Gridhakut Hill', type: 'Temple' },
+        { name: 'Son Bhandar Caves', type: 'Temple' },
+        { name: 'Bimbisar Jail', type: 'Tourist Place' },
+        { name: 'Hot Springs/Kund', type: 'Tourist Place' },
+        { name: 'Rajgir Ropeway', type: 'Tourist Place' },
+        { name: 'Ashok Stupa', type: 'Temple' },
+        { name: 'Japanese Stupa', type: 'Temple' },
+        { name: 'Venu Vana', type: 'Tourist Place' },
+        { name: 'Ajatshatru Fort', type: 'Tourist Place' },
+        { name: 'Nalanda ruins', type: 'Tourist Place' },
+        { name: 'Pawapuri', type: 'Temple' },
+        { name: 'Government Hospital Rajgir', type: 'Hospital' },
+        { name: 'The Rajgir Residency Hotel', type: 'Hotel' },
+        { name: 'Hotel Indo Hokke', type: 'Hotel' },
+        { name: 'Hotel Saket Palace', type: 'Hotel' },
+        { name: 'Hotel Abhilasha', type: 'Hotel' }
+      ])
+    },
+    {
+      name: 'JAMUI',
+      slug: 'jamui',
+      region: 'South Bihar',
+      latitude: 24.9250,
+      longitude: 86.2230,
+      heroImage: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=1200&q=80',
+      summary: 'Religious tourism + nature + lower-cost development potential',
+      verdict: 'Good for low-cost development, but currently weaker for tourism infrastructure',
+      overallScore: 6.5,
+      tourismRating: 3.0,
+      hospitalRating: 2.5,
+      hotelRating: 2.0,
+      businessRating: 3.0,
+      educationRating: 2.5,
+      infrastructureRating: 3.0,
+      touristPlaces: JSON.stringify([
+        { name: 'Giddheshwar Temple', type: 'Temple' },
+        { name: 'Maa Netula Temple', type: 'Temple' },
+        { name: 'Simultalla', type: 'Tourist Place' },
+        { name: 'Jhajha hills/forest areas', type: 'Tourist Place' },
+        { name: 'Patneswar Temple', type: 'Temple' },
+        { name: 'Kshatriya Kund', type: 'Tourist Place' },
+        { name: 'Sadar Hospital Jamui', type: 'Hospital' },
+        { name: 'local hotels around Jamui town', type: 'Hotel' },
+        { name: 'guesthouses near Simultalla/Jhajha', type: 'Hotel' }
+      ])
+    }
+  ];
+
+  for (const hub of cityHubsData) {
+    await prisma.cityHub.create({ data: hub });
+  }
+
   console.log('✅ SETU Database Seeding Complete!');
 }
 
@@ -1100,3 +1439,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+

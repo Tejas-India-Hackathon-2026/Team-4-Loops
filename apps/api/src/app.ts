@@ -14,6 +14,7 @@ import paymentRoutes from './routes/paymentRoutes.js';
 import aiRoutes from './routes/aiRoutes.js';
 import favoriteRoutes from './routes/favoriteRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import cityHubRoutes from './routes/cityHubRoutes.js';
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.get('/api/health', (req, res) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', tourismRoutes); // /api/circuits, /api/destinations, /api/districts, /api/events
+app.use('/api', cityHubRoutes); // /api/city-hubs, /api/city-hubs/:slug
 app.use('/api/vendors', vendorRoutes);
 app.use('/api/offerings', offeringRoutes);
 app.use('/api/orders', orderRoutes);

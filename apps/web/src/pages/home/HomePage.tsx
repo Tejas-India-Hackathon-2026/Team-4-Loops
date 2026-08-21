@@ -15,9 +15,13 @@ import { InteractiveMap } from '../../components/maps/InteractiveMap';
 gsap.registerPlugin(ScrollTrigger);
 
 const HERO_IMAGES = [
-  'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=2000&q=80',
-  'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2000&q=80',
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80'
+  '/images/hero section 2.jpg',
+  '/images/hero section 3.jpg',
+  '/images/hero section 4.jpg',
+  '/images/hero section 5.jpg',
+  '/images/hero section 6.jpg',
+  '/images/hero section 7.jpg',
+  '/images/hero section 8.jpg'
 ];
 
 export const HomePage: React.FC = () => {
@@ -31,11 +35,11 @@ export const HomePage: React.FC = () => {
   const heroHeadingRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Rotate Hero Imagery every 6 seconds
+  // Rotate Hero Imagery every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentHeroIdx((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 6000);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
@@ -79,21 +83,30 @@ export const HomePage: React.FC = () => {
     <div className="w-full">
       {/* 1. HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-black text-white">
-        {/* Background Image Carousel */}
-        {HERO_IMAGES.map((imgUrl, index) => (
-          <div
-            key={imgUrl}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentHeroIdx ? 'opacity-50 scale-105' : 'opacity-0 scale-100'
-            }`}
-            style={{ transition: 'opacity 1.2s ease-in-out, transform 8s ease-out' }}
-          >
-            <img src={imgUrl} alt="Bihar Tourism" className="w-full h-full object-cover" />
-          </div>
-        ))}
+        {/* Background Image Carousel with Ken Burns Zoom Animation */}
+        {HERO_IMAGES.map((imgUrl, index) => {
+          const isActive = index === currentHeroIdx;
+          return (
+            <div
+              key={imgUrl}
+              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                isActive ? 'opacity-60 scale-105 z-0' : 'opacity-0 scale-100 -z-10'
+              }`}
+              style={{
+                transition: 'opacity 1.5s ease-in-out, transform 6s ease-out'
+              }}
+            >
+              <img
+                src={imgUrl}
+                alt={`Bihar Tourism Hero ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          );
+        })}
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-black/40 to-transparent z-0" />
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-center pt-24 pb-12 flex flex-col items-center">
@@ -131,10 +144,26 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Hero Bottom Banner */}
-        <div className="absolute bottom-6 left-0 right-0 z-10 px-6 md:px-12 flex items-center justify-between text-xs text-cream/60 sub-nav-label max-w-7xl mx-auto">
-          <span>01 / BUDDHIST • ECO • RAMAYAN • SIKH</span>
-          <span className="hidden md:inline">UNESCO WORLD HERITAGE & MARKETPLACE</span>
+        {/* Hero Bottom Banner with Indicators & Counter */}
+        <div className="absolute bottom-6 left-0 right-0 z-10 px-6 md:px-12 flex items-center justify-between text-xs text-cream/80 sub-nav-label max-w-7xl mx-auto">
+          <div className="flex items-center space-x-3">
+            <span className="text-brand-gold font-mono font-bold text-sm">
+              0{currentHeroIdx + 1} <span className="text-white/40">/ 0{HERO_IMAGES.length}</span>
+            </span>
+            <div className="flex items-center space-x-1.5 ml-2">
+              {HERO_IMAGES.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentHeroIdx(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    idx === currentHeroIdx ? 'w-8 bg-brand-gold' : 'w-2 bg-white/30 hover:bg-white/60'
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+          <span className="hidden md:inline text-white/60">UNESCO WORLD HERITAGE & MARKETPLACE</span>
         </div>
       </section>
 

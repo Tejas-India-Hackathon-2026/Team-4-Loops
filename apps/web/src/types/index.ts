@@ -199,3 +199,31 @@ export interface AiItineraryResponse {
   }>;
   insiderTips: string[];
 }
+
+export interface HubPlace {
+  name: string;
+  type: 'Tourist Place' | 'Hospital' | 'Hotel' | 'Temple';
+}
+
+export interface CityHub {
+  id: string;
+  name: string;
+  slug: string;
+  region: string;
+  latitude: number;
+  longitude: number;
+  heroImage: string;
+  summary: string;
+  overallScore: number;
+  tourismRating: number;
+  hospitalRating: number;
+  hotelRating: number;
+  businessRating: number;
+  educationRating: number;
+  infrastructureRating: number;
+  touristPlaces: HubPlace[];
+  verdict: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
