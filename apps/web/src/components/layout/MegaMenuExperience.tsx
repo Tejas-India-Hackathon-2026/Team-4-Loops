@@ -51,21 +51,22 @@ export const MegaMenuExperience: React.FC<MegaMenuExperienceProps> = ({ onClose 
 
   // Fallbacks if API data is still loading
   const defaultFestivals = [
-    { title: 'Chhath Puja Mahaparv', slug: 'chhath-puja', heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80', district: 'Patna' },
-    { title: 'Pitrapaksha Mela Gaya', slug: 'pitru-paksha-mela', heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=400&q=80', district: 'Gaya' },
-    { title: 'Prakash Parv', slug: 'prakash-parv-jan-2026', heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=400&q=80', district: 'Patna' },
-    { title: 'Rajgir Mahotsav', slug: 'rajgir-mahotsav', heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=400&q=80', district: 'Nalanda' }
+    { title: 'Tapovan Festival', slug: 'tapovan-festival-2026', heroImage: '/images/tapovan (1).jpeg', district: 'Gaya' },
+    { title: 'Makar Sankranti', slug: 'makar-sankranti-2026', heroImage: '/images/makar shakranti (1).jpg', district: 'Patna' },
+    { title: 'Mandar Mahotsav', slug: 'mandar-mahotsav-2026', heroImage: '/images/mandar mahostsav (1).jpg', district: 'Banka' },
+    { title: 'Vishnudham Mahotsav', slug: 'vishnudham-mahotsav-2026', heroImage: '/images/vishnudham mahotsav (1).jpeg', district: 'Aurangabad' }
   ];
 
   const defaultFairs = [
-    { title: 'Harihar Kshetra Sonpur Mela', slug: 'sonepur-mela', heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=400&q=80', district: 'Saran' },
-    { title: 'Shravani Mela', slug: 'shravani-mela-2026', heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=400&q=80', district: 'Bhagalpur' },
-    { title: 'Makar Mela Rajgir', slug: 'makar-mela-rajgir-2026', heroImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=80', district: 'Nalanda' }
+    { title: 'Parshuram Utsav Mela', slug: 'parshuram-utsav-mela-2026', heroImage: '/images/porshuram utsav mela(1).jpeg', district: 'Patna' },
+    { title: 'Shravani Mela', slug: 'shravani-mela-2026', heroImage: '/images/shrabani mela (1).jpeg', district: 'Bhagalpur' },
+    { title: 'Makar Mela Rajgir', slug: 'makar-mela-rajgir-2026', heroImage: '/images/makar mela rajgir (1).jpeg', district: 'Nalanda' },
+    { title: 'Malmas Mela Rajgir', slug: 'malmas-mela-rajgir-2026', heroImage: '/images/malmas mela rajgir (1).jpeg', district: 'Nalanda' }
   ];
 
   const defaultCuisines = [
-    { name: 'Litti Chokha & Sattu Delicacies', slug: 'litti-chokha', heroImage: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=400&q=80', location: 'Patna' },
-    { name: 'Thekua & Traditional Chhath Prasad', slug: 'thekua-festive-sweets', heroImage: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=400&q=80', location: 'Statewide' },
+    { name: 'Litti Chokha & Sattu Delicacies', slug: 'litti-chokha', heroImage: '/images/litthi chokha (1).jpeg', location: 'Patna' },
+    { name: 'Thekua & Traditional Chhath Prasad', slug: 'thekua-festive-sweets', heroImage: '/images/thekua(1).jpeg', location: 'Statewide' },
     { name: 'Mithila Makhana Heritage', slug: 'makhana-culinary-traditions', heroImage: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80', location: 'Darbhanga' },
     { name: 'Silao Khaja — GI Tag Sweet', slug: 'silao-khaja', heroImage: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80', location: 'Silao, Rajgir' }
   ];

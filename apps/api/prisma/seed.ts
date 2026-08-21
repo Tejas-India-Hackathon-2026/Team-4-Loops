@@ -166,12 +166,13 @@ async function main() {
       slug: 'gaya',
       region: 'South Bihar',
       description: 'Spiritual epicenter famous worldwide for Bodh Gaya and sacred Pind Daan rituals along the Phalgu River.',
-      heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
+      heroImage: '/images/gaya district (2).jpeg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80'
+        '/images/gaya district (1).jpeg',
+        '/images/gaya district (2).jpeg',
+        '/images/gaya district (3).jpeg',
+        '/images/gaya district (4).jpeg',
+        '/images/gaya district (5).jpeg'
       ]),
       latitude: 24.7914,
       longitude: 85.0002
@@ -184,12 +185,11 @@ async function main() {
       slug: 'nalanda',
       region: 'Central Bihar',
       description: 'Cradle of ancient higher learning housing UNESCO World Heritage Nalanda University ruins and scenic Rajgir hills.',
-      heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
+      heroImage: '/images/nalanda (2).jpeg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80'
+        '/images/nalanda (1).jpeg',
+        '/images/nalanda (2).jpeg',
+        '/images/nalanda (3).jpeg'
       ]),
       latitude: 25.1357,
       longitude: 85.4439
@@ -202,12 +202,12 @@ async function main() {
       slug: 'patna',
       region: 'Capital Region',
       description: 'Historic Pataliputra on the banks of the sacred Ganges, blending ancient imperial history with vibrant capital life.',
-      heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+      heroImage: '/images/patna (2).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80'
+        '/images/patna (1).jpg',
+        '/images/patna (2).jpg',
+        '/images/patna (3).jpg',
+        '/images/patna (4).jpg'
       ]),
       latitude: 25.5941,
       longitude: 85.1376
@@ -238,12 +238,11 @@ async function main() {
       slug: 'madhubani',
       region: 'Mithila Region',
       description: 'Heartland of Mithila culture renowned worldwide for exquisite Madhubani folk art and rich heritage.',
-      heroImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
+      heroImage: '/images/madhubani (2).jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80'
+        '/images/madhubani (1).jpg',
+        '/images/madhubani (2).jpg',
+        '/images/madhubani (3).jpg'
       ]),
       latitude: 26.3533,
       longitude: 86.0719
@@ -593,12 +592,12 @@ async function main() {
 
   const events2026Data = [
     // --- JANUARY 2026 ---
-    { title: 'Tapovan Festival', slug: 'tapovan-festival-2026', category: 'Religious', description: 'Sacred hot water springs gathering and spiritual rituals at Tapovan near Gaya.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-14T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Tapovan, Gaya', district: 'Gaya', latitude: 24.7914, longitude: 85.0002, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80' },
-    { title: 'Vishnudham Mahotsav', slug: 'vishnudham-mahotsav-2026', category: 'Religious', description: 'Annual temple festival celebrating Lord Vishnu heritage at Vishnudham.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Bhawanipur, Aurangabad', district: 'Aurangabad', latitude: 24.7500, longitude: 84.3700, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
-    { title: 'Mandar Mahotsav', slug: 'mandar-mahotsav-2026', category: 'Heritage', description: 'Cultural festival around historic Mandar Hill associated with Samudra Manthan.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-18T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Mandar Hill, Banka', district: 'Banka', latitude: 24.8800, longitude: 86.9200, heroImage: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80' },
-    { title: 'Makar Mela Rajgir', slug: 'makar-mela-rajgir-2026', category: 'Fair/Mela', description: 'Famous winter fair at Rajgir hot sulfur springs with devotional baths and local crafts.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-21T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Hot Springs, Rajgir', district: 'Nalanda', latitude: 25.0300, longitude: 85.4200, heroImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80', nearestPolice: 'Rajgir Police Station, Kund Area (08112-255220)', nearestHospital: 'Sub-Divisional Hospital, Bus Stand Road, Rajgir', nearbyRestaurants: JSON.stringify([{ name: 'Green Hotel & Dhaba', address: 'Kund Market, Rajgir', type: 'Vegetarian Dhaba' }, { name: 'Lotus Restaurant', address: 'Near Japanese Temple', type: 'North Indian' }]) },
+    { title: 'Tapovan Festival', slug: 'tapovan-festival-2026', category: 'Religious', description: 'Sacred hot water springs gathering and spiritual rituals at Tapovan near Gaya.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-14T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Tapovan, Gaya', district: 'Gaya', latitude: 24.7914, longitude: 85.0002, heroImage: '/images/tapovan (2).jpeg' },
+    { title: 'Vishnudham Mahotsav', slug: 'vishnudham-mahotsav-2026', category: 'Religious', description: 'Annual temple festival celebrating Lord Vishnu heritage at Vishnudham.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Bhawanipur, Aurangabad', district: 'Aurangabad', latitude: 24.7500, longitude: 84.3700, heroImage: '/images/vishnudham mahotsav (2).jpeg' },
+    { title: 'Mandar Mahotsav', slug: 'mandar-mahotsav-2026', category: 'Heritage', description: 'Cultural festival around historic Mandar Hill associated with Samudra Manthan.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-18T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Mandar Hill, Banka', district: 'Banka', latitude: 24.8800, longitude: 86.9200, heroImage: '/images/mandar mahostsav (2).jpg' },
+    { title: 'Makar Mela Rajgir', slug: 'makar-mela-rajgir-2026', category: 'Fair/Mela', description: 'Famous winter fair at Rajgir hot sulfur springs with devotional baths and local crafts.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-21T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Hot Springs, Rajgir', district: 'Nalanda', latitude: 25.0300, longitude: 85.4200, heroImage: '/images/makar mela rajgir (2).jpeg', nearestPolice: 'Rajgir Police Station, Kund Area (08112-255220)', nearestHospital: 'Sub-Divisional Hospital, Bus Stand Road, Rajgir', nearbyRestaurants: JSON.stringify([{ name: 'Green Hotel & Dhaba', address: 'Kund Market, Rajgir', type: 'Vegetarian Dhaba' }, { name: 'Lotus Restaurant', address: 'Near Japanese Temple', type: 'North Indian' }]) },
     { title: 'Buddha Mahotsav', slug: 'buddha-mahotsav-2026', category: 'Music/Arts', description: 'Grand International Buddhist cultural festival featuring chanting and international troupes.', startDate: new Date('2026-01-31T00:00:00.000Z'), endDate: new Date('2026-02-02T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kalachakra Ground, Bodh Gaya', district: 'Gaya', latitude: 24.6961, longitude: 84.9914, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80' },
-    { title: 'Makar Sankranti', slug: 'makar-sankranti-2026', category: 'Religious', description: 'Traditional kite festival and holy river baths with Til-Gur and Dahi-Chura feasts across Bihar.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-14T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'State-wide (Patna Ghats, Rajgir, Gaya)', district: 'Patna', latitude: 25.6100, longitude: 85.1410, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+    { title: 'Makar Sankranti', slug: 'makar-sankranti-2026', category: 'Religious', description: 'Traditional kite festival and holy river baths with Til-Gur and Dahi-Chura feasts across Bihar.', startDate: new Date('2026-01-14T00:00:00.000Z'), endDate: new Date('2026-01-14T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'State-wide (Patna Ghats, Rajgir, Gaya)', district: 'Patna', latitude: 25.6100, longitude: 85.1410, heroImage: '/images/makar shakranti (2).jpg' },
     { title: 'Prakash Parv (Guru Gobind Singh Jayanti)', slug: 'prakash-parv-jan-2026', category: 'Religious', description: 'Sacred birth anniversary of tenth Sikh Guru at Takht Sri Patna Sahib with Nagar Kirtan and Langar.', startDate: new Date('2026-01-15T00:00:00.000Z'), endDate: new Date('2026-01-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'Takht Sri Patna Sahib, Patna', district: 'Patna', latitude: 25.6022, longitude: 85.2281, heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80' },
 
     // --- FEBRUARY 2026 ---
@@ -626,12 +625,12 @@ async function main() {
     // --- APRIL 2026 ---
     { title: 'Thave Mahotsav', slug: 'thave-mahotsav-2026', category: 'Religious', description: 'Grand music festival and pilgrimage at Thave Durga Temple in Gopalganj.', startDate: new Date('2026-04-07T00:00:00.000Z'), endDate: new Date('2026-04-08T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Thave Temple, Gopalganj', district: 'Gopalganj', latitude: 26.4600, longitude: 84.4400, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
     { title: 'Patna Sahib Mahotsav', slug: 'patna-sahib-mahotsav-2026', category: 'Religious', description: 'Heritage and devotional festival around Takht Sri Harmandir Sahib.', startDate: new Date('2026-04-14T00:00:00.000Z'), endDate: new Date('2026-04-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Patna Sahib', district: 'Patna', latitude: 25.6022, longitude: 85.2281, heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80' },
-    { title: 'Parshuram Utsav Mela', slug: 'parshuram-utsav-mela-2026', category: 'Fair/Mela', description: 'Annual religious mela and cultural assembly in Patna.', startDate: new Date('2026-04-20T00:00:00.000Z'), endDate: new Date('2026-04-20T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Patna City', district: 'Patna', latitude: 25.6000, longitude: 85.1500, heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80', nearestPolice: 'Patna City Police Station', nearestHospital: 'PMCH Emergency Hospital, Patna', nearbyRestaurants: JSON.stringify([{ name: 'Patna City Bhojanalaya', address: 'Patna Sahib Main Road', type: 'Authentic Bihari' }]) },
+    { title: 'Parshuram Utsav Mela', slug: 'parshuram-utsav-mela-2026', category: 'Fair/Mela', description: 'Annual religious mela and cultural assembly in Patna.', startDate: new Date('2026-04-20T00:00:00.000Z'), endDate: new Date('2026-04-20T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Patna City', district: 'Patna', latitude: 25.6000, longitude: 85.1500, heroImage: '/images/porshuram utsav mela(2).jpeg', nearestPolice: 'Patna City Police Station', nearestHospital: 'PMCH Emergency Hospital, Patna', nearbyRestaurants: JSON.stringify([{ name: 'Patna City Bhojanalaya', address: 'Patna Sahib Main Road', type: 'Authentic Bihari' }]) },
     { title: 'Sitamarhi Mahotsav', slug: 'sitamarhi-mahotsav-2026', category: 'Heritage', description: 'Celebration of Janaki (Ma Sita) birthplace at Punaura Dham in Sitamarhi.', startDate: new Date('2026-04-25T00:00:00.000Z'), endDate: new Date('2026-04-27T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Punaura Dham, Sitamarhi', district: 'Sitamarhi', latitude: 26.6000, longitude: 85.4800, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
     { title: 'Mundeshwari Mahotsav', slug: 'mundeshwari-mahotsav-2026', category: 'Heritage', description: 'Music and heritage festival at India’s oldest functional octagonal stone temple in Kaimur hills.', startDate: new Date('2026-04-26T00:00:00.000Z'), endDate: new Date('2026-04-27T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Mundeshwari Hill, Kaimur', district: 'Kaimur', latitude: 25.0200, longitude: 83.6000, heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80' },
 
     // --- MAY 2026 ---
-    { title: 'Malmas Mela Rajgir', slug: 'malmas-mela-rajgir-2026', category: 'Fair/Mela', description: 'Month-long sacred leap-year pilgrimage mela where millions bathe in Rajgir sulfur springs.', startDate: new Date('2026-05-17T00:00:00.000Z'), endDate: new Date('2026-06-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kund Area, Rajgir', district: 'Nalanda', latitude: 25.0300, longitude: 85.4200, heroImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80', nearestPolice: 'Mela Central Police Camp Rajgir', nearestHospital: 'Rajgir Government General Hospital', nearbyRestaurants: JSON.stringify([{ name: 'Swagat Restaurant', address: 'Vishwa Shanti Stupa Road', type: 'Pure Veg Thali' }]) },
+    { title: 'Malmas Mela Rajgir', slug: 'malmas-mela-rajgir-2026', category: 'Fair/Mela', description: 'Month-long sacred leap-year pilgrimage mela where millions bathe in Rajgir sulfur springs.', startDate: new Date('2026-05-17T00:00:00.000Z'), endDate: new Date('2026-06-15T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kund Area, Rajgir', district: 'Nalanda', latitude: 25.0300, longitude: 85.4200, heroImage: '/images/malmas mela rajgir (2).jpeg', nearestPolice: 'Mela Central Police Camp Rajgir', nearestHospital: 'Rajgir Government General Hospital', nearbyRestaurants: JSON.stringify([{ name: 'Swagat Restaurant', address: 'Vishwa Shanti Stupa Road', type: 'Pure Veg Thali' }]) },
     { title: 'Sher Shah Suri Mahotsav', slug: 'sher-shah-mahotsav-2026', category: 'Heritage', description: 'Heritage celebration honoring Emperor Sher Shah Suri architecture and Grand Trunk Road legacy in Sasaram.', startDate: new Date('2026-05-21T00:00:00.000Z'), endDate: new Date('2026-05-22T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Tomb of Sher Shah Suri, Sasaram', district: 'Rohtas', latitude: 24.9500, longitude: 84.0167, heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80' },
     { title: 'Buddha Purnima Mahotsav', slug: 'buddha-purnima-2026', category: 'Religious', description: 'World-renowned commemoration of Buddha’s Birth, Enlightenment, and Parinirvana under the Bodhi Tree.', startDate: new Date('2026-05-31T00:00:00.000Z'), endDate: new Date('2026-05-31T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: true, location: 'Mahabodhi Temple, Bodh Gaya', district: 'Gaya', latitude: 24.6961, longitude: 84.9914, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80' },
 
@@ -639,7 +638,7 @@ async function main() {
     { title: 'Sufi Mahotsav Maner Sharif', slug: 'sufi-mahotsav-maner-2026', category: 'Music/Arts', description: 'Soulful Sufi Qawwali, devotional music, and Urs festival at historic Maner Sharif Dargah.', startDate: new Date('2026-06-28T00:00:00.000Z'), endDate: new Date('2026-06-28T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Maner Sharif, Patna', district: 'Patna', latitude: 25.6500, longitude: 84.8800, heroImage: 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1200&q=80' },
 
     // --- JULY 2026 ---
-    { title: 'Shravani Mela (Sultanganj to Banka)', slug: 'shravani-mela-2026', category: 'Fair/Mela', description: 'Bihar’s iconic month-long Kanwar Yatra pilgrimage where millions carry holy Ganga water from Sultanganj.', startDate: new Date('2026-07-30T00:00:00.000Z'), endDate: new Date('2026-08-28T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Ajgaibinath Ghat Sultanganj → Munger → Banka', district: 'Bhagalpur', latitude: 25.2425, longitude: 87.0124, heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80', nearestPolice: 'Sultanganj Police Station & Kanwar Path Outposts', nearestHospital: 'Referral Hospital Sultanganj & Mobile Medical Units', nearbyRestaurants: JSON.stringify([{ name: 'Shiv Ganga Bhojanalaya', address: 'Ajgaibinath Ghat Road', type: 'Pilgrims Pure Veg Dhaba' }]) },
+    { title: 'Shravani Mela (Sultanganj to Banka)', slug: 'shravani-mela-2026', category: 'Fair/Mela', description: 'Bihar’s iconic month-long Kanwar Yatra pilgrimage where millions carry holy Ganga water from Sultanganj.', startDate: new Date('2026-07-30T00:00:00.000Z'), endDate: new Date('2026-08-28T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Ajgaibinath Ghat Sultanganj → Munger → Banka', district: 'Bhagalpur', latitude: 25.2425, longitude: 87.0124, heroImage: '/images/shrabani mela(2).jpeg', nearestPolice: 'Sultanganj Police Station & Kanwar Path Outposts', nearestHospital: 'Referral Hospital Sultanganj & Mobile Medical Units', nearbyRestaurants: JSON.stringify([{ name: 'Shiv Ganga Bhojanalaya', address: 'Ajgaibinath Ghat Road', type: 'Pilgrims Pure Veg Dhaba' }]) },
 
     // --- AUGUST 2026 ---
     { title: 'Kucheshwar Mahadev Mahotsav', slug: 'kucheshwar-mahadev-mahotsav-2026', category: 'Religious', description: 'Shravan month devotional festival and cultural recitals in Gaya district.', startDate: new Date('2026-08-04T00:00:00.000Z'), endDate: new Date('2026-08-04T23:59:59.000Z'), year: 2026, lastVerified: '2026-08-20', isLunar: false, location: 'Kucheshwar, Gaya', district: 'Gaya', latitude: 24.7800, longitude: 84.9800, heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' },
@@ -685,7 +684,7 @@ async function main() {
       name: 'Litti Chokha & Sattu Delicacies',
       slug: 'litti-chokha',
       description: 'The quintessential culinary pride of Bihar. Whole wheat dough balls stuffed with spiced roasted gram flour (sattu), baked over cow-dung coal embers, dipped generously in melted desi ghee, and served alongside smoky brinjal and mashed potato chokha with spicy garlic-chilli chutney.',
-      heroImage: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=1200&q=80',
+      heroImage: '/images/litthi chokha (2).jpeg',
       location: 'Patna & Statewide',
       district: 'Patna',
       restaurants: JSON.stringify([
@@ -698,7 +697,7 @@ async function main() {
       name: 'Thekua & Traditional Chhath Prasad',
       slug: 'thekua-festive-sweets',
       description: 'A revered traditional Bihari sweet prepared during Chhath Puja. Crafted from whole wheat flour, jaggery, cardamom, melted ghee, and dry fruits, molded with wooden hand-carved blocks (saancha) and deep-fried to crisp perfection.',
-      heroImage: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=1200&q=80',
+      heroImage: '/images/thekua(2).jpeg',
       location: 'Patna & Mithila Belt',
       district: 'Patna',
       restaurants: JSON.stringify([
