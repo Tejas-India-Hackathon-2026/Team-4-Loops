@@ -2,7 +2,11 @@
 
 **सेतु** (Setu) means "bridge" in Hindi — and that's exactly the role this platform plays: a bridge between travelers and the people, places, and traditions of Bihar.
 
-> *Note: This document is compiled from the repository structure and code reviewed during our deployment/security session. Fill in or correct anything that doesn't match your actual intent — especially the "what it does" sections, since those reflect what the code implies rather than your original spec.*
+**Team: 4 Loops**
+- Arpan Biswas
+- Ayana Kumar Mondal
+- Aritra Pal
+- Aritra Adak
 
 ---
 
@@ -52,11 +56,11 @@ Bihar is home to major heritage and pilgrimage sites (Bodh Gaya, Nalanda, Rajgir
 - **JWT** — authentication
 
 ### Third-Party Services
-- **Google Cloud Platform (GCP) API** — used via a service-account-bound API key (likely Maps/Geocoding, given the multi-entity map feature, or an AI/Vertex service for the travel companion — confirm which)
+- **Google Cloud Platform (GCP) API** — used via a service-account-bound API key (Maps/Geocoding and/or the AI travel companion)
 
 ### Deployment
 - **Render** — hosting for the API (and possibly the frontend), configured via `render.yaml`
-- **GitHub** — source control, with GitHub push protection actively guarding against committed secrets (as seen firsthand during this session)
+- **GitHub** — source control, with GitHub push protection actively guarding against committed secrets
 
 ### Monorepo Structure
 - `apps/web` and `apps/api` as separate packages within a single repository
@@ -145,11 +149,33 @@ SETU-1/
 
 ---
 
-## 6. Open Questions Worth Confirming
+## 6. Setup Instructions
 
-Since some of this is inferred from code structure rather than stated directly:
+### Prerequisites
+- Node.js (v18+) and npm
+- Git
 
-- What does the GCP API key actually power — Maps, an AI/Vertex service, or something else?
-- Is the "AI Travel Companion" using a specific LLM provider/API, and is that key properly separated from the GCP key?
-- Is production meant to run on a hosted Postgres/MySQL instance, or is SQLite intentional for this deployment stage?
-- Are there additional routes/controllers beyond what's listed (the routes folder was only partially visible)?
+### 1. Clone the repository
+```bash
+git clone https://github.com/Tejas-India-Hackathon-2026/Team-4-Loops.git
+cd Team-4-Loops
+```
+
+### 2. Backend setup (`apps/api`)
+```bash
+cd apps/api
+npm install
+cp .env.example .env    # fill in real values: JWT secret, GCP API key, DB URL, etc.
+npx prisma generate
+npx prisma migrate dev  # creates/updates the local SQLite dev.db
+npx prisma db seed      # loads demo accounts and sample listings (if seed.ts is present)
+npm run dev             # starts the Express API (check package.json for exact script name/port)
+```
+
+### 3. Frontend setup (`apps/web`)
+```bash
+cd apps/web
+npm install
+cp .env.example .env    # set the API base URL to point at apps/api (e.g. http://localhost:<port>)
+npm run dev              # starts the Vite dev server
+```
